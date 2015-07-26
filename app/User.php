@@ -54,4 +54,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
         return $roles_ids_arr;
     }
+
+    public function catalogs()
+    {
+        return $this->hasMany('App\Models\Catalog');
+    }
 }

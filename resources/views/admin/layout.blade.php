@@ -30,7 +30,7 @@
                     </ul>
                 </li>
 
-                <li class="active"><a href="#">Home</a></li>
+                <li><a href="/admin/catalog">Катиалоги</a></li>
                 <li><a href="#">Link</a></li>
                 <li><a href="#">Link</a></li>
             </ul>

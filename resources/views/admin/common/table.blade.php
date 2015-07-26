@@ -4,9 +4,17 @@ $model = new $model_name;
 
 $fields_arr = array_diff($model->getFillable(), $model->getHidden());
 
-$model_items = $model_name::paginate(30);
+if (!isset($paginate_count)) {
+    $paginate_count = 30;
+}
+
+if ( ! isset($model_items) ) {
+    $model_items = $model_name::paginate($paginate_count);
+}
 
 ?>
+
+@yield('table_top_header')
 
 <h3>{{ $model_name }}</h3>
 
@@ -20,7 +28,7 @@ $model_items = $model_name::paginate(30);
         @foreach($fields_arr as $field_name)
         <th>{{ trans('models.' . $field_name) }}</th>
         @endforeach
-        <th style="width:140px;"></th>
+        <th style="width:145px;"></th>
     </tr>
     </thead>
     <tbody>

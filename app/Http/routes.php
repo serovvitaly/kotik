@@ -31,4 +31,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::resource('role', '\App\Http\Controllers\Admin\RoleController');
     Route::resource('permission', '\App\Http\Controllers\Admin\PermissionController');
 
+    Route::resource('catalog', '\App\Http\Controllers\Admin\CatalogController');
+    Route::resource('template-purchase', '\App\Http\Controllers\Admin\TemplatePurchaseController');
+    Route::resource('pricing-column', '\App\Http\Controllers\Admin\PricingColumnController');
+    Route::resource('product', '\App\Http\Controllers\Admin\ProductController');
+
 });

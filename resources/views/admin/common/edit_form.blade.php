@@ -29,10 +29,12 @@ if ($model_id) {
     @foreach($model->getFillable() as $fillable_item)
     <div class="form-group">
         <label>{{ trans('models.' . $fillable_item) }}</label>
-        <input type="test" class="form-control" name="{{ $fillable_item }}" value="{{ $model->$fillable_item }}">
+        <input type="test" class="form-control" name="{{ $fillable_item }}" value="{{ $model->$fillable_item or \Input::get($fillable_item) }}">
     </div>
     @endforeach
 
     @yield('form_footer')
 
 </form>
+
+@yield('form_after_footer')
