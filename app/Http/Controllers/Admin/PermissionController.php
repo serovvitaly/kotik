@@ -67,7 +67,11 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.rbac.permission.edit_form', [
+            'route_base_url' => 'permission',
+            'model_name' => '\App\Permission',
+            'model_id' => $id,
+        ]);
     }
 
     /**
@@ -90,6 +94,8 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        \App\Permission::destroy($id);
+
+        return redirect('/admin/permission');
     }
 }

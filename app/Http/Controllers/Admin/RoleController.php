@@ -31,7 +31,7 @@ class RoleController extends Controller
     {
         return view('admin.rbac.role.edit_form', [
             'route_base_url' => 'role',
-            'model_name' => '\App\Role'
+            'model_name' => '\App\Role',
         ]);
     }
 
@@ -43,7 +43,9 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        \App\Role::create($request->all());
+        $role_model = \App\Role::create($request->all());
+
+        $role_model->permissions()->sync($request->get('permissions'));
 
         return redirect('/admin/role');
     }
@@ -67,7 +69,12 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.rbac.role.edit_form', [
+            'route_base_url' => 'role',
+            'model_name' => '\App\Role',
+            'model_id' => $id,
+            'role_permissions_ids_arr' => \App\Role::findOrFail($id)->getPermissionsIdsArr()
+        ]);
     }
 
     /**
@@ -79,7 +86,15 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $role_model = \App\Role::find($id);
+
+        $role_model->update($request->all());
+
+        $permissions_arr = $request->get('permissions', []);
+
+        $role_model->permissions()->sync($permissions_arr);
+
+        return redirect('/admin/role');
     }
 
     /**
@@ -90,6 +105,8 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        \App\Role::destroy($id);
+
+        return redirect('/admin/role');
     }
 }

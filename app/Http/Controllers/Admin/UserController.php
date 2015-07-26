@@ -71,7 +71,11 @@ class UserController extends AdminController
      */
     public function edit($id)
     {
-        //
+        return view('admin.rbac.user.edit_form', [
+            'route_base_url' => 'user',
+            'model_name' => '\App\User',
+            'model_id' => $id,
+        ]);
     }
 
     /**
@@ -94,6 +98,8 @@ class UserController extends AdminController
      */
     public function destroy($id)
     {
-        //
+        \App\User::destroy($id);
+
+        return redirect('/admin/user');
     }
 }
