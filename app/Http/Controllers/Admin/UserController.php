@@ -75,6 +75,7 @@ class UserController extends AdminController
             'route_base_url' => 'user',
             'model_name' => '\App\User',
             'model_id' => $id,
+            'user_roles_ids_arr' => \App\User::findOrFail($id)->getRolesIdsArr()
         ]);
     }
 
@@ -87,7 +88,13 @@ class UserController extends AdminController
      */
     public function update(Request $request, $id)
     {
-        //
+        $user_model = \App\User::findOrFail($id);
+
+        $user_model->update($request->all());
+
+        $user_model->roles()->sync($request->get('roles', []));
+
+        return redirect('/admin/user');
     }
 
     /**

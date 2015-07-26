@@ -33,6 +33,6 @@ if ($model_id) {
     </div>
     @endforeach
 
-    @yield('footer_form')
+    @yield('form_footer')
 
 </form>

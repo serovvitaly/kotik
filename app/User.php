@@ -33,4 +33,25 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role');
+    }
+
+    public function getRolesIdsArr()
+    {
+        $roles_rows = \DB::table( \Config::get('entrust.role_user_table') )->where('user_id', '=', $this->id)->get(['role_id']);
+
+        if (empty($roles_rows)) {
+            return [];
+        }
+
+        $roles_ids_arr = [];
+        foreach ($roles_rows as $role_row) {
+            $roles_ids_arr[] = $role_row->role_id;
+        }
+
+        return $roles_ids_arr;
+    }
 }

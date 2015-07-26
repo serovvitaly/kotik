@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('footer_form')
+@section('form_footer')
 
     {{ $all_permissions_arr = \App\Permission::paginate(10) }}
 

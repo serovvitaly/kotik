@@ -86,13 +86,11 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $role_model = \App\Role::find($id);
+        $role_model = \App\Role::findOrFail($id);
 
         $role_model->update($request->all());
 
-        $permissions_arr = $request->get('permissions', []);
-
-        $role_model->permissions()->sync($permissions_arr);
+        $role_model->permissions()->sync($request->get('permissions', []));
 
         return redirect('/admin/role');
     }
