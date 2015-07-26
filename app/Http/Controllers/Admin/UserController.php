@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 
 class UserController extends AdminController
@@ -16,6 +15,10 @@ class UserController extends AdminController
      */
     public function index()
     {
+        if (!$this->user->can('user-view')) {
+            \App::abort(403, 'Access denied');
+        }
+
         return view('admin.rbac.user.index', [
             'route_base_url' => 'user',
             'model_name' => '\App\User'
@@ -29,6 +32,10 @@ class UserController extends AdminController
      */
     public function create()
     {
+        if (!$this->user->can('user-create')) {
+            \App::abort(403, 'Access denied');
+        }
+
         return view('admin.rbac.user.edit_form', [
             'route_base_url' => 'user',
             'model_name' => '\App\User'
@@ -43,6 +50,10 @@ class UserController extends AdminController
      */
     public function store(Request $request)
     {
+        if (!$this->user->can('user-create')) {
+            \App::abort(403, 'Access denied');
+        }
+
         \App\User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
@@ -71,6 +82,10 @@ class UserController extends AdminController
      */
     public function edit($id)
     {
+        if (!$this->user->can('user-edit')) {
+            \App::abort(403, 'Access denied');
+        }
+
         return view('admin.rbac.user.edit_form', [
             'route_base_url' => 'user',
             'model_name' => '\App\User',
@@ -88,6 +103,10 @@ class UserController extends AdminController
      */
     public function update(Request $request, $id)
     {
+        if (!$this->user->can('user-edit')) {
+            \App::abort(403, 'Access denied');
+        }
+
         $user_model = \App\User::findOrFail($id);
 
         $user_model->update($request->all());
@@ -105,6 +124,10 @@ class UserController extends AdminController
      */
     public function destroy($id)
     {
+        if (!$this->user->can('user-delete')) {
+            \App::abort(403, 'Access denied');
+        }
+
         \App\User::destroy($id);
 
         return redirect('/admin/user');

@@ -9,8 +9,16 @@ abstract class AdminController extends Controller
 
     protected $request;
 
+    protected $user;
+
     public function __construct(Request $request)
     {
+        $this->user = \Auth::user();
+
+        if (!$this->user->can('adminka-access')) {
+            \App::abort(403, 'Access denied');
+        }
+
         $this->request = $request;
     }
 

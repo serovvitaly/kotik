@@ -4,6 +4,12 @@
 
     {{ $all_permissions_arr = \App\Permission::paginate(10) }}
 
+    <?php
+        if (!isset($role_permissions_ids_arr)) {
+            $role_permissions_ids_arr = [];
+        }
+    ?>
+
     <div class="form-group">
         <label>Привилегии</label> - <a href="/admin/permission">перейти к списку привилегий</a>
     @foreach($all_permissions_arr as $permission)

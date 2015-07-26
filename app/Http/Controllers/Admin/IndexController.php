@@ -6,7 +6,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
-class RoleController extends AdminController
+class IndexController extends AdminController
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +15,7 @@ class RoleController extends AdminController
      */
     public function index()
     {
-        return view('admin.rbac.role.index', [
-            'route_base_url' => 'role',
-            'model_name' => '\App\Role'
-        ]);
+        return view('admin.index');
     }
 
     /**
@@ -28,10 +25,7 @@ class RoleController extends AdminController
      */
     public function create()
     {
-        return view('admin.rbac.role.edit_form', [
-            'route_base_url' => 'role',
-            'model_name' => '\App\Role',
-        ]);
+        //
     }
 
     /**
@@ -42,11 +36,7 @@ class RoleController extends AdminController
      */
     public function store(Request $request)
     {
-        $role_model = \App\Role::create($request->all());
-
-        $role_model->permissions()->sync($request->get('permissions'));
-
-        return redirect('/admin/role');
+        //
     }
 
     /**
@@ -68,12 +58,7 @@ class RoleController extends AdminController
      */
     public function edit($id)
     {
-        return view('admin.rbac.role.edit_form', [
-            'route_base_url' => 'role',
-            'model_name' => '\App\Role',
-            'model_id' => $id,
-            'role_permissions_ids_arr' => \App\Role::findOrFail($id)->getPermissionsIdsArr()
-        ]);
+        //
     }
 
     /**
@@ -85,13 +70,7 @@ class RoleController extends AdminController
      */
     public function update(Request $request, $id)
     {
-        $role_model = \App\Role::findOrFail($id);
-
-        $role_model->update($request->all());
-
-        $role_model->permissions()->sync($request->get('permissions', []));
-
-        return redirect('/admin/role');
+        //
     }
 
     /**
@@ -102,8 +81,6 @@ class RoleController extends AdminController
      */
     public function destroy($id)
     {
-        \App\Role::destroy($id);
-
-        return redirect('/admin/role');
+        //
     }
 }

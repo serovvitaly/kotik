@@ -34,6 +34,20 @@
                 <li><a href="#">Link</a></li>
                 <li><a href="#">Link</a></li>
             </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                @if(\Auth::user())
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ \Auth::user()->email }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/auth/logout">Выход</a></li>
+                    </ul>
+                </li>
+                @endif
+
+            </ul>
+
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
