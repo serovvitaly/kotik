@@ -10,8 +10,8 @@ $model_items = $model_name::paginate(30);
 
 <h3>{{ $model_name }}</h3>
 
-<div class="btn-toolbar" role="toolbar">
-    <a class="btn btn-default" href="/admin/{{ $route_base_url }}/create">Добавить</a>
+<div class="btn-toolbar" role="toolbar" style="margin-bottom: 10px">
+    <a class="btn btn-info" href="/admin/{{ $route_base_url }}/create">Добавить</a>
 </div>
 
 <table class="table table-bordered table-striped table-hover table-condensed">
@@ -20,7 +20,7 @@ $model_items = $model_name::paginate(30);
         @foreach($fields_arr as $field_name)
         <th>{{ trans('models.' . $field_name) }}</th>
         @endforeach
-        <th></th>
+        <th style="width:140px;"></th>
     </tr>
     </thead>
     <tbody>
