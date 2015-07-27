@@ -18,9 +18,9 @@ class ProductsTable extends Migration
             $table->string('code');
             $table->string('article');
             $table->string('name');
-            $table->string('description');
+            $table->string('description', 3000);
             $table->integer('purchase_template_id');
-            $table->string('source_url');
+            $table->string('source_url', 255);
 
             $table->timestamps();
         });
