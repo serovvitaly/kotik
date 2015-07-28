@@ -15,6 +15,10 @@ class PermissionController extends AdminController
      */
     public function index()
     {
+        if (!$this->user->can('permission-view')) {
+            \App::abort(403, 'Access denied');
+        }
+
         return view('admin.rbac.permission.index', [
             'route_base_url' => 'permission',
             'model_name' => '\App\Permission'
@@ -28,6 +32,10 @@ class PermissionController extends AdminController
      */
     public function create()
     {
+        if (!$this->user->can('permission-create')) {
+            \App::abort(403, 'Access denied');
+        }
+
         return view('admin.rbac.permission.edit_form', [
             'route_base_url' => 'permission',
             'model_name' => '\App\Permission'
@@ -42,6 +50,10 @@ class PermissionController extends AdminController
      */
     public function store(Request $request)
     {
+        if (!$this->user->can('permission-create')) {
+            \App::abort(403, 'Access denied');
+        }
+
         \App\Permission::create($request->all());
 
         return redirect('/admin/permission');
@@ -66,6 +78,10 @@ class PermissionController extends AdminController
      */
     public function edit($id)
     {
+        if (!$this->user->can('permission-edit')) {
+            \App::abort(403, 'Access denied');
+        }
+
         return view('admin.rbac.permission.edit_form', [
             'route_base_url' => 'permission',
             'model_name' => '\App\Permission',
@@ -82,7 +98,15 @@ class PermissionController extends AdminController
      */
     public function update(Request $request, $id)
     {
-        //
+        if (!$this->user->can('permission-edit')) {
+            \App::abort(403, 'Access denied');
+        }
+
+        $permission_model = \App\Permission::findOrFail($id);
+
+        $permission_model->update($request->all());
+
+        return redirect('/admin/permission');
     }
 
     /**
@@ -93,6 +117,10 @@ class PermissionController extends AdminController
      */
     public function destroy($id)
     {
+        if (!$this->user->can('permission-delete')) {
+            \App::abort(403, 'Access denied');
+        }
+
         \App\Permission::destroy($id);
 
         return redirect('/admin/permission');

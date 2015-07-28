@@ -2,9 +2,9 @@
 
 @section('form_footer')
 
-    {{ $all_permissions_arr = \App\Permission::paginate(10) }}
-
     <?php
+        $all_permissions_arr = \App\Permission::get();
+
         if (!isset($role_permissions_ids_arr)) {
             $role_permissions_ids_arr = [];
         }

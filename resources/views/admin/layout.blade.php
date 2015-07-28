@@ -19,35 +19,29 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
+            @if(\Auth::user())
             <ul class="nav navbar-nav">
-
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Права и пользователи <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/admin/user">Пользователи</a></li>
-                        <li><a href="/admin/role">Роли</a></li>
-                        <li><a href="/admin/permission">Привилегии</a></li>
+                        @if(\Auth::user()->hasRole('users_manager'))<li><a href="/admin/user">Пользователи</a></li>@endif
+                        @if(\Auth::user()->hasRole('roles_manager'))<li><a href="/admin/role">Роли</a></li>@endif
+                        @if(\Auth::user()->hasRole('permissions_manager'))<li><a href="/admin/permission">Привилегии</a></li>@endif
                     </ul>
                 </li>
-
                 <li><a href="/admin/catalog">Катиалоги</a></li>
                 <li><a href="#">Link</a></li>
                 <li><a href="#">Link</a></li>
             </ul>
-
             <ul class="nav navbar-nav navbar-right">
-
-                @if(\Auth::user())
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ \Auth::user()->email }} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="/auth/logout">Выход</a></li>
                     </ul>
                 </li>
-                @endif
-
             </ul>
-
+            @endif
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

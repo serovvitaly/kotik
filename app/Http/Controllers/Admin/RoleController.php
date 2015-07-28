@@ -15,6 +15,10 @@ class RoleController extends AdminController
      */
     public function index()
     {
+        if (!$this->user->can('role-view')) {
+            \App::abort(403, 'Access denied');
+        }
+
         return view('admin.rbac.role.index', [
             'route_base_url' => 'role',
             'model_name' => '\App\Role'
@@ -28,6 +32,10 @@ class RoleController extends AdminController
      */
     public function create()
     {
+        if (!$this->user->can('role-create')) {
+            \App::abort(403, 'Access denied');
+        }
+
         return view('admin.rbac.role.edit_form', [
             'route_base_url' => 'role',
             'model_name' => '\App\Role',
@@ -42,9 +50,13 @@ class RoleController extends AdminController
      */
     public function store(Request $request)
     {
+        if (!$this->user->can('role-create')) {
+            \App::abort(403, 'Access denied');
+        }
+
         $role_model = \App\Role::create($request->all());
 
-        $role_model->permissions()->sync($request->get('permissions'));
+        $role_model->permissions()->sync($request->get('permissions', []));
 
         return redirect('/admin/role');
     }
@@ -68,6 +80,10 @@ class RoleController extends AdminController
      */
     public function edit($id)
     {
+        if (!$this->user->can('role-edit')) {
+            \App::abort(403, 'Access denied');
+        }
+
         return view('admin.rbac.role.edit_form', [
             'route_base_url' => 'role',
             'model_name' => '\App\Role',
@@ -85,6 +101,10 @@ class RoleController extends AdminController
      */
     public function update(Request $request, $id)
     {
+        if (!$this->user->can('role-edit')) {
+            \App::abort(403, 'Access denied');
+        }
+
         $role_model = \App\Role::findOrFail($id);
 
         $role_model->update($request->all());
@@ -102,6 +122,10 @@ class RoleController extends AdminController
      */
     public function destroy($id)
     {
+        if (!$this->user->can('role-delete')) {
+            \App::abort(403, 'Access denied');
+        }
+
         \App\Role::destroy($id);
 
         return redirect('/admin/role');
