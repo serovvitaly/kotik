@@ -36,7 +36,10 @@ class ProductController extends AdminController
      */
     public function create()
     {
-        //
+        return view('admin.catalog.product.edit_form', [
+            'route_base_url' => 'product',
+            'model_name' => '\App\Models\Product',
+        ]);
     }
 
     /**
@@ -47,7 +50,9 @@ class ProductController extends AdminController
      */
     public function store(Request $request)
     {
-        //
+        \App\Models\Product::create($request->all());
+
+        return redirect('/admin/product?catalog_id=' . $request->get('catalog_id'));
     }
 
     /**
