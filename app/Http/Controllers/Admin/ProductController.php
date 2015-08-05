@@ -50,7 +50,22 @@ class ProductController extends AdminController
      */
     public function store(Request $request)
     {
-        \App\Models\Product::create($request->all());
+        $request_all = $request->all();
+
+        $request_all['price_1'] = str_replace(',', '.', $request_all['price_1']);
+        $request_all['price_2'] = str_replace(',', '.', $request_all['price_2']);
+        $request_all['price_3'] = str_replace(',', '.', $request_all['price_3']);
+        $request_all['price_4'] = str_replace(',', '.', $request_all['price_4']);
+
+        $product_model = \App\Models\Product::create($request_all);
+
+        if (array_key_exists('is_apply', $request_all)) {
+            return view('admin.catalog.product.edit_form', [
+                'route_base_url' => 'product',
+                'model_name' => '\App\Models\Product',
+                'model_id' => $product_model->id
+            ]);
+        }
 
         return redirect('/admin/product?catalog_id=' . $request->get('catalog_id'));
     }
@@ -74,7 +89,11 @@ class ProductController extends AdminController
      */
     public function edit($id)
     {
-        //
+        return view('admin.catalog.product.edit_form', [
+            'route_base_url' => 'product',
+            'model_name' => '\App\Models\Product',
+            'model_id' => $id
+        ]);
     }
 
     /**
@@ -86,7 +105,30 @@ class ProductController extends AdminController
      */
     public function update(Request $request, $id)
     {
-        //
+        /*if (!$this->user->can('product-edit')) {
+            \App::abort(403, 'Access denied');
+        }*/
+
+        $product_model = \App\Models\Product::findOrFail($id);
+
+        $request_all = $request->all();
+
+        $request_all['price_1'] = str_replace(',', '.', $request_all['price_1']);
+        $request_all['price_2'] = str_replace(',', '.', $request_all['price_2']);
+        $request_all['price_3'] = str_replace(',', '.', $request_all['price_3']);
+        $request_all['price_4'] = str_replace(',', '.', $request_all['price_4']);
+
+        $product_model->update($request_all);
+
+        if (array_key_exists('is_apply', $request_all)) {
+            return view('admin.catalog.product.edit_form', [
+                'route_base_url' => 'product',
+                'model_name' => '\App\Models\Product',
+                'model_id' => $product_model->id
+            ]);
+        }
+
+        return redirect('/admin/product?catalog_id=' . $request->get('catalog_id'));
     }
 
     /**

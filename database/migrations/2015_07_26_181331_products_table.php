@@ -24,6 +24,7 @@ class ProductsTable extends Migration
             $table->string('source_url', 255);
             
             $table->string('brand', 100);
+            $table->string('country_name', 100);
             $table->integer('weight');
             $table->string('measure_unit', 10);
             $table->integer('in_stock');

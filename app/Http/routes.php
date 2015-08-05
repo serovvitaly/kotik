@@ -27,6 +27,14 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
+Route::group(['prefix' => 'media'], function() {
+
+    Route::post('upload', 'MediaController@postUpload');
+    Route::get('images/{width_height}/{file_name}', 'MediaController@getImage');
+    Route::get('remove/{id}', 'MediaController@getRemove');
+
+});
+
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
     Route::resource('/', '\App\Http\Controllers\Admin\IndexController');
