@@ -38,13 +38,20 @@ if ( ! isset($model_items) ) {
         <td>{{ $model_obj->$field_name }}</td>
         @endforeach
         <td>
-            <form action="/admin/{{ $route_base_url }}/{{ $model_obj->id }}" method="post">
+            <form id="row-form-{{ $model_obj->id }}" action="/admin/{{ $route_base_url }}/{{ $model_obj->id }}" method="post">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <a class="btn btn-primary btn-xs" href="/admin/{{ $route_base_url }}/{{ $model_obj->id }}/edit">Изменить</a>
-                <button class="btn btn-danger btn-xs">Удалить</button>
-            </form>
+                <div class="btn-group btn-group-xs">
+                    <a class="btn btn-primary" href="/admin/{{ $route_base_url }}/{{ $model_obj->id }}/edit">Изменить</a>
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" onclick="$('#row-form-{{ $model_obj->id }}').submit(); return false;">Удалить</a></li>
+                    </ul>
+                </div>
 
+            </form>
         </td>
     </tr>
     @endforeach

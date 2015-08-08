@@ -139,6 +139,12 @@ class ProductController extends AdminController
      */
     public function destroy($id)
     {
-        //
+        $product_model = \App\Models\Product::findOrFail($id);
+
+        $catalog_id = $product_model->catalog_id;
+
+        $product_model->delete();
+
+        return redirect('/admin/product?catalog_id=' . $catalog_id);
     }
 }

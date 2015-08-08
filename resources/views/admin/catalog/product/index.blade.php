@@ -41,7 +41,7 @@
         <tr>
             <th>ID</th>
             <th>Наименование</th>
-            <th style="width:145px;"></th>
+            <th style="width:154px;"></th>
         </tr>
         </thead>
         <tbody>

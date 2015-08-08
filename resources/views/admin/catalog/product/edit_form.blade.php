@@ -102,13 +102,10 @@ function setCatalogId(catalogId){
     <br><br>
 
     <div class="form-group">
-        <label>URL на сайте citynature.ru</label>
-        <input type="test" class="form-control" name="source_url" value="{{ $model->source_url or \Input::get('source_url') }}">
+        <label>Наименование</label>
+        <input type="test" class="form-control" name="name" value="{{ $model->name or \Input::get('name') }}">
     </div>
-
-    <div class="form-group">
-
-    </div>
+        
     <div class="row">
         <div class="col-xs-3">
             <div class="form-group">
@@ -128,13 +125,13 @@ function setCatalogId(catalogId){
     </div>
 
     <div class="form-group">
-        <label>Наименование</label>
-        <input type="test" class="form-control" name="name" value="{{ $model->name or \Input::get('name') }}">
+        <label>Описание</label>
+        <textarea class="form-control" rows="5" name="description">{{ $model->description or \Input::get('description') }}</textarea>
     </div>
 
     <div class="form-group">
-        <label>Описание</label>
-        <textarea class="form-control" rows="5" name="description">{{ $model->description or \Input::get('description') }}</textarea>
+        <label>URL на сайте citynature.ru</label>
+        <input type="test" class="form-control" name="source_url" value="{{ $model->source_url or \Input::get('source_url') }}">
     </div>
 
     <div class="row">

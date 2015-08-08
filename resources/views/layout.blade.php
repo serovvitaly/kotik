@@ -7,6 +7,8 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/css/flat-ui.min.css">
+
 </head>
 <body>
 
@@ -32,16 +34,11 @@
 </header>
 
 <header class="navbar navbar-inverse navbar-static-top bs-docs-nav">
-    <div class="container">
-        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-            <div class="btn-group"><a href="#" class="btn btn-default">Игры</a></div>
-            <div class="btn-group"><a href="#" class="btn btn-default">Программы</a></div>
-            <div class="btn-group"><a href="#" class="btn btn-default">Подарки</a></div>
-            <div class="btn-group"><a href="#" class="btn btn-default">Кино</a></div>
-            <div class="btn-group"><a href="#" class="btn btn-default">Музыка</a></div>
-            <div class="btn-group"><a href="#" class="btn btn-default">Книги</a></div>
-            <div class="btn-group"><a href="#" class="btn btn-default">Предзаказы</a></div>
-            <div class="btn-group"><a href="#" class="btn btn-default">Акции</a></div>
+    <div class="container" style="padding: 5px 15px 0">
+        <div class="row">
+            <div class="col-lg-12">
+                @include('catalog.catalog_items')
+            </div>
         </div>
     </div>
 </header>
