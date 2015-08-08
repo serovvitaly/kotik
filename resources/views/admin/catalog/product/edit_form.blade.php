@@ -105,7 +105,7 @@ function setCatalogId(catalogId){
         <label>Наименование</label>
         <input type="test" class="form-control" name="name" value="{{ $model->name or \Input::get('name') }}">
     </div>
-        
+
     <div class="row">
         <div class="col-xs-3">
             <div class="form-group">
@@ -162,7 +162,7 @@ function setCatalogId(catalogId){
                 <input type="test" class="form-control" name="weight" value="{{ $model->weight or \Input::get('weight') }}">
             </div>
         </div>
-        <div class="col-xs-1">
+        <div class="col-xs-2">
             <label>Ед. изм.</label>
             <select class="form-control" name="measure_unit">
                 <option></option>
@@ -170,9 +170,10 @@ function setCatalogId(catalogId){
                 <option @if($model->measure_unit == 'мл') selected @endif value="мл">мл</option>
             </select>
         </div>
-    </div>
+        <div class="col-xs-2">
 
-    <div class="row">
+        </div>
+
         <div class="col-xs-2">
             <div class="form-group">
                 <label>В наличии</label>
@@ -234,7 +235,11 @@ function setCatalogId(catalogId){
                 <div id="files" class="files row">
                     @foreach($model->images as $image)
                         <div id="product-media-{{ $image->id }}" class="col-lg-2" style="margin-bottom: 5px; text-align: center">
+                            @if(empty($image->file_name))
+                            <img src="/media/images/165x165/empty?mid={{ $image->id }}" alt="" class="img-thumbnail" style="width:100%;">
+                            @else
                             <img src="/media/images/165x165/{{ $image->file_name }}" alt="" class="img-thumbnail" style="width:100%;">
+                            @endif
                             <br><button class="btn btn-link btn-xs" onclick="return removeImage({{ $image->id }});">удалить</button>
                         </div>
                     @endforeach

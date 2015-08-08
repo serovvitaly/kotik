@@ -52,6 +52,23 @@ class MediaController extends Controller
 
     public function getImage($width_height, $file_name)
     {
+        $media_id = (int) \Input::get('mid');
+
+        if ($media_id) {
+            $media_model = \App\Models\Media::findOrFail($media_id);
+
+            if (empty($media_model->file_name) and !empty($media_model->source_url)) {
+
+                $file_extention = 'jpg';
+                $file_name = md5(microtime()) . '.' . $file_extention;
+
+                \Storage::put('media/images/' . $file_name, file_get_contents($media_model->source_url));
+
+                $media_model->file_name = $file_name;
+                $media_model->save();
+            }
+        }
+
         $width_height_arr = explode('x', $width_height);
         $width  = $width_height_arr[0];
         $height = $width_height_arr[1];

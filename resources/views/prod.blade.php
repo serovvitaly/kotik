@@ -3,13 +3,19 @@
 @section('content')
 
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-10">
             <ol class="breadcrumb">
                 <li><a href="/"><span class="glyphicon glyphicon-home"></span></a></li>
                 <li><a href="#">Косметика</a></li>
                 <li class="active">Для лица</li>
             </ol>
         </div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>
+
+    <div class="row">
 
         <div class="col-lg-4">
             <img style="width: 100%" src="http://www.citynature.ru/components/com_jshopping/files/img_products/full_aubrey-organics-139-calaguala-liposome-cream.jpg">
@@ -18,11 +24,11 @@
             <p>
                 <strong>Смягчающий и восстанав. крем "Папоротник" для грубых участков кожи</strong>
             </p>
-            <p>
-                <span class="glyphicon glyphicon-star-empty"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
+            <p style="color: #a3a5a8">
+                <span class="glyphicon glyphicon-star-empty" style="color: red"></span>
+                <span class="glyphicon glyphicon-star-empty" style="color: red"></span>
+                <span class="glyphicon glyphicon-star-empty" style="color: red"></span>
+                <span class="glyphicon glyphicon-star-empty" style="color: red"></span>
                 <span class="glyphicon glyphicon-star-empty"></span>
             </p>
             <p>

@@ -16,7 +16,7 @@ class ProductController extends AdminController
      */
     public function index(Request $request)
     {
-        $catalog_model = \App\Models\Catalog::findOrFail( $request->get('catalog_id') );
+        $catalog_model = \App\Models\Catalog::findOrFail( $request->get('catalog_id', 1) );
 
         if ($catalog_model->user->id != $this->user->id) {
             \App::abort(403, 'Access denied');
@@ -143,7 +143,7 @@ class ProductController extends AdminController
 
         $catalog_id = $product_model->catalog_id;
 
-        $product_model->delete();
+        //$product_model->delete();
 
         return redirect('/admin/product?catalog_id=' . $catalog_id);
     }

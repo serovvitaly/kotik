@@ -2,7 +2,7 @@
 
     <div class="btn-group">
         <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Косметика</button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu dropdown-danger">
             <li><a data-catalog-id="1010" href="#">Для волос</a></li>
             <li><a data-catalog-id="1020" href="#">Для лица</a></li>
             <li><a data-catalog-id="1030" href="#">Для тела</a></li>
@@ -14,7 +14,7 @@
 
     <div class="btn-group">
         <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">Парфюмерия</button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu dropdown-warning">
             <li><a data-catalog-id="2010" href="#">Для женщин</a></li>
             <li><a data-catalog-id="2020" href="#">Для мужчин</a></li>
             <li><a data-catalog-id="2030" href="#">Для детей</a></li>
@@ -28,7 +28,7 @@
 
     <div class="btn-group">
         <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">Подарки</button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu dropdown-info">
             <li><a data-catalog-id="3010" href="#">Для женщин</a></li>
             <li><a data-catalog-id="3020" href="#">Для мужчин</a></li>
             <li><a data-catalog-id="3030" href="#">Унисекс</a></li>
@@ -38,7 +38,7 @@
 
     <div class="btn-group">
         <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">Макияж</button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu dropdown-success">
             <li><a data-catalog-id="4010" href="#">Тональные средства</a></li>
             <li><a data-catalog-id="4020" href="#">Пудра</a></li>
             <li><a data-catalog-id="4030" href="#">Блеск для губ</a></li>
@@ -59,7 +59,7 @@
 
     <div class="btn-group">
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Мама и малыш</button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu dropdown-primary">
             <li><a data-catalog-id="5010" href="#">Уход за кожей</a></li>
             <li><a data-catalog-id="5020" href="#">Купание</a></li>
             <li><a data-catalog-id="5030" href="#">Подгузники оптом, салфетки, ватная продукция</a></li>
@@ -72,7 +72,7 @@
 
     <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Бытовая химия</button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu dropdown-default">
             <li><a data-catalog-id="6010" href="#">Стиральные порошки</a></li>
             <li><a data-catalog-id="6020" href="#">Средства для стирки</a></li>
             <li><a data-catalog-id="6030" href="#">Для посудомоечных машин</a></li>

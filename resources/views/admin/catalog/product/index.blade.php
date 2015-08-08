@@ -3,7 +3,7 @@
 @section('content')
 
     <?php
-    $catalog_id = \Input::get('catalog_id');
+    $catalog_id = \Input::get('catalog_id', 1);
     $catalog_model = \App\Models\Catalog::findOrFail($catalog_id);
 
     $model = new $model_name;
@@ -41,6 +41,8 @@
         <tr>
             <th>ID</th>
             <th>Наименование</th>
+            <th>Ёмкость</th>
+            <th>Брэнд/страна</th>
             <th style="width:154px;"></th>
         </tr>
         </thead>
@@ -48,7 +50,9 @@
         @foreach($model_items as $model_obj)
             <tr>
                 <td>{{ $model_obj->id }}</td>
-                <td>{{ $model_obj->name }}</td>
+                <td><a target="_blank" href="http://www.citynature.ru{{ $model_obj->source_url }}">{{ $model_obj->name }}</a></td>
+                <td>{{ $model_obj->weight }} {{ $model_obj->measure_unit }}</td>
+                <td>{{ $model_obj->brand }}, {{ $model_obj->country_name }}</td>
                 <td>
                     <form action="/admin/{{ $route_base_url }}/{{ $model_obj->id }}" method="post">
                         <input type="hidden" name="_method" value="DELETE">

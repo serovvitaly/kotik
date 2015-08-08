@@ -30,49 +30,22 @@ class CityNatureParsingCommand extends Command
         parent::__construct();
     }
 
-    public function parse($file_name)
+    public static function parse($file_name)
     {
         $file_content = file_get_contents('/var/www/kotik/storage/app/citynature.ru/'.$file_name);
 
         preg_match_all('@\<a style = "" href="([-a-z\./_0-9]+)" rel="nofollow"\>(.+)\<\/a\>@i', $file_content, $links);
-        preg_match_all('@\<span style = "color\:\#363636\;font-weight\:bolder\;"\>([^<]+)\<\/span\>@i', $file_content, $articles);
-        //preg_match_all('@Мин\. партия\: от \<span\>(\d*)\<\/span\>@i', $file_content, $parts);
 
-        if (count($links[1]) != count($links[2]) or count($links[1]) != count($articles[1])) {
+        $links_arr = [];
 
-            $count_str = '' . count($links[1]) . ':' . count($links[2]) . ':' . count($articles[1]) . '--';
+        foreach ($links[1] as $link) {
 
-            echo "count fail - ", $count_str, $file_name, "\n";
+            $links_arr[] = $link;
 
-            print_r($articles[1]);
-
-            return;
         }
 
-        $links = $links[1];
-        //$titles = $links[2];
-        $articles = $articles[1];
+        return $links_arr;
 
-        foreach ($links as $key => $link) {
-            //$title = $titles[$key];
-            $article = $articles[$key];
-
-            $products_by_article = \App\Models\Product::where('article', '=', $article);
-
-            if ($products_by_article->count() != 1) {
-                continue;
-            }
-
-            $product = $products_by_article->first();
-
-            $product->source_url = 'http://www.citynature.ru' . $link;
-
-            $product->save();
-        }
-
-        //print_r($links);
-        //print_r($articles[1]);
-        //print_r($parts[1]);
     }
 
     /**
@@ -84,18 +57,16 @@ class CityNatureParsingCommand extends Command
     {
         $files_list = scandir('/var/www/kotik/storage/app/citynature.ru/');
 
+        $links_arr = [];
+
         foreach ($files_list as $file_name) {
 
             if ( in_array($file_name, ['.', '..']) ) {
                 continue;
             }
 
-            $this->parse($file_name);
+            $links_arr = array_merge($links_arr, $this->parse($file_name));
         }
-
-
-
-        return;
 
         $curl = curl_init();
 
@@ -103,27 +74,23 @@ class CityNatureParsingCommand extends Command
             CURLOPT_RETURNTRANSFER => true
         ]);
 
-        /**
-         * cosmetic?start=7040
-         * parfyumeriya?start=280
-         * podarki?start=200
-         * mama-i-malysh?start=810
-         * catalog/mama-i-malysh?start=220
-         * bytovaya-khimiya?start=360
-         */
+        foreach ($links_arr as $link) {
 
-        $category = 'catalog/mama-i-malysh';
+            $file_name = '/var/www/kotik/storage/app/citynature_pages/' . md5($link) . '.html';
 
-        for ($start = 0; $start <= 220; $start += 10) {
-            $url = 'http://www.citynature.ru/'.$category.'?start=' . $start;
+            if (file_exists($file_name)) {
+                continue;
+            }
+
+            $url = 'http://www.citynature.ru' . $link;
 
             curl_setopt($curl, CURLOPT_URL, $url);
 
             $res = curl_exec($curl);
 
-            file_put_contents('/var/www/kotik/storage/app/citynature.ru/'.str_replace('/', '_', $category).'_'.$start.'.html', $res);
+            file_put_contents($file_name, $res);
 
-            echo $url, "\n";
+            echo ".";
             sleep(rand(1, 3));
         }
 
