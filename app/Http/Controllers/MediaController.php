@@ -54,8 +54,12 @@ class MediaController extends Controller
     {
         $media_id = (int) \Input::get('mid');
 
+        $canvas_color = 'FFFFFF';
+
         if ($media_id) {
             $media_model = \App\Models\Media::findOrFail($media_id);
+
+            $canvas_color = $media_model->canvas_color;
 
             if (empty($media_model->file_name) and !empty($media_model->source_url)) {
 
@@ -70,9 +74,12 @@ class MediaController extends Controller
         }
 
         $width_height_arr = explode('x', $width_height);
+
         $width  = $width_height_arr[0];
         $height = $width_height_arr[1];
+
         $image_path = $this->getOriginDir() . $file_name;
+
         if (!file_exists($image_path)) {
             $img = Image::canvas($width, $height);
             $img->text('Image not found ;{', 110, 110, function($font) {
@@ -81,13 +88,51 @@ class MediaController extends Controller
             });
             return $img->response('jpg');
         }
-        $img = Image::make($image_path)->fit($width, $height);
+
+        $img = Image::make($image_path);
+
+        $source_width  = $img->width();
+        $source_height = $img->height();
+
+        if ($source_width < $source_height) {
+
+            if (($width = $height) or ($width > $height)) {
+                // resize H
+                $img->heighten($height);
+            }
+
+        } elseif ($source_width > $source_height) {
+
+            if (($width = $height) or ($width < $height)) {
+                // resize V
+                $img->widen($width);
+            }
+
+        } else {
+            if ($width > $height) {
+                // resize H
+                $img->heighten($height);
+            }
+            if ($width < $height) {
+                // resize V
+                $img->widen($width);
+            }
+        }
+
+        $img->resizeCanvas($width, $height, 'center', false, $canvas_color);
+
+        //$img->fit($width, $height);
+
         $storage_dir = base_path() . '/public/media/images/' . $width_height;
+
         $storage_file = $storage_dir . '/' . $file_name;
+
         if (!file_exists($storage_dir)) {
             mkdir($storage_dir);
         }
+
         $img->save($storage_file);
+
         return $img->response('jpg');
     }
 }

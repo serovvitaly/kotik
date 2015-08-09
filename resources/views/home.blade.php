@@ -2,31 +2,63 @@
 
 @section('content')
 
+    <?php
+
+            $products = \App\Models\Product::paginate(40);
+
+    ?>
+
     <div class="row">
-        <div class="col-lg-9">
-            <div class="row">
-            @for($i=1; $i<=12; $i++)
-                <div class="col-lg-4">
+        <div class="col-lg-10">
+            <div class="row" id="catalog-list">
+            @foreach($products as $product)
+                <?php
+                    $image = $product->images()->first();
+                    ?>
+                <div class="item">
                     <div class="thumbnail">
-                        <img data-src="holder.js/100%x200" alt="100%x200" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDI0MiAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTRlZDYzOTVhZWIgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMnB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNGVkNjM5NWFlYiI+PHJlY3Qgd2lkdGg9IjI0MiIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI4OS44NTE1NjI1IiB5PSIxMDUuMSI+MjQyeDIwMDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
+
+                        @if(\Auth::user() and \Auth::user()->hasRole('moderator'))
+                            <div class="btn-group btn-group-xs" style="margin: -15px 0px 0px -17px; position: absolute;">
+                                <div class="btn-group btn-group-xs">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <span class="glyphicon glyphicon-cog"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a target="_blank" href="/admin/product/{{ $product->id }}/edit">Изменить</a></li>
+                                        <li><a target="_blank" href="#">Удалить</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
+
+                        @if(!$image)
+                            X
+                        @elseif(empty($image->file_name))
+                            <img src="/media/images/250x200/empty?mid={{ $image->id }}" alt="" style="width:100%;">
+                        @else
+                            <img src="/media/images/250x200/{{ $image->file_name }}" alt="" style="width:100%;">
+                        @endif
                         <div class="caption">
-                            <strong>Thumbnail label</strong>
-                            <p style="font-size: 15px; line-height: 18px;">
-                                Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                                Donec id elit non mi porta gravida at eget metus.
-                                Nullam id dolor id nibh ultricies vehicula ut id elit.
+                            <strong style="line-height: 18px; padding-bottom: 5px;" title="{{ $product->name }}">{{ $product->name }}</strong>
+                            <div style="height: 10px;"></div>
+                            <p style="line-height: 16px;">
+                                <small>{{ str_limit($product->description, 255) }}</small>
                             </p>
                             <p>
-                                <a href="/prod" class="btn btn-primary" role="button">Button</a>
+                                <a href="/prod-{{ $product->id }}" class="btn btn-primary" role="button">Button</a>
                                 <a href="#" class="btn btn-default" role="button">Button</a>
                             </p>
                         </div>
                     </div>
                 </div>
-            @endfor
+            @endforeach
             </div>
+
+            {!! $products->render() !!}
+
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-2">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">Panel title</h3>
@@ -37,5 +69,27 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#catalog-list").gridalicious({
+                //width: 500
+            });
+
+            $('#catalog-list').scroll( function() {
+
+                console.log('scrolling');
+
+                var fromtop = $(this).scrollTop(),
+                        height = $(this).find('.scroll-content').innerHeight() - $(this).innerHeight();
+                // In the above line we're finding the height of the scrollable content
+                // and subtracting the height of the viewable area (or parent container).
+
+                if ((height - fromtop) < 50) {
+                    alert('trigger ajax call');
+                }
+            });
+        });
+    </script>
 
 @endsection

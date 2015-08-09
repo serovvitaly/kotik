@@ -14,8 +14,17 @@
 Route::get('/', function () {
     return view('home');
 });
-Route::get('prod', function () {
-    return view('prod');
+Route::get('prod-{product_id}', function ($product_id) {
+
+    $product_model = \App\Models\Product::findOrFail($product_id);
+
+    $data = $product_model->toArray();
+
+    $data['product'] = $product_model;
+
+    $data['images'] = $product_model->images;
+
+    return view('prod', $data);
 });
 
 // Authentication routes...

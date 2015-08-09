@@ -18,11 +18,47 @@
     <div class="row">
 
         <div class="col-lg-4">
-            <img style="width: 100%" src="http://www.citynature.ru/components/com_jshopping/files/img_products/full_aubrey-organics-139-calaguala-liposome-cream.jpg">
+
+            @if(!count($images))
+                X
+            @elseif(count($images) == 1)
+                @if(empty($images[0]->file_name))
+                    <img src="/media/images/360x510/empty?mid={{ $images[0]->id }}" alt="" style="width: 360px; height: 510px;">
+                @else
+                    <img src="/media/images/360x510/{{ $images[0]->file_name }}" alt="" style="width: 360px; height: 510px;">
+                @endif
+            @else
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        @foreach($images as $key => $image)
+                            <li data-target="#carousel-example-generic" data-slide-to="{{ $key }}" @if($key == 0) class="active" @endif></li>
+                        @endforeach
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        @foreach($images as $key => $image)
+                        <div class="item @if($key == 0) active @endif">
+                            @if(empty($image->file_name))
+                                <img src="/media/images/360x510/empty?mid={{ $image->id }}" alt="" style="width: 360px; height: 510px;">
+                            @else
+                                <img src="/media/images/360x510/{{ $image->file_name }}" alt="" style="width: 360px; height: 510px;">
+                            @endif
+                        </div>
+                        @endforeach
+                    </div>
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            @endif
         </div>
         <div class="col-lg-8">
             <p>
-                <strong>Смягчающий и восстанав. крем "Папоротник" для грубых участков кожи</strong>
+                <strong>{{ $name }}</strong>
             </p>
             <p style="color: #a3a5a8">
                 <span class="glyphicon glyphicon-star-empty" style="color: red"></span>
@@ -32,20 +68,18 @@
                 <span class="glyphicon glyphicon-star-empty"></span>
             </p>
             <p>
-                <a href="#" title="Бренд"><span class="label label-default">Aubrey Organics</span></a>
-                <a href="#" title="Страна производитель"><span class="label label-default">Соединенные Штаты</span></a>
+                <a href="#" title="Бренд"><span class="label label-default">{{ $brand }}</span></a>
+                <a href="#" title="Страна производитель"><span class="label label-default">{{ $country_name }}</span></a>
                 <br>
-                <a href="#" title="Категория"><span class="label label-primary">Для тела</span></a>
-                <a href="#" title="Линейка товаров"><span class="label label-info">Средства для особого ухода за кожей</span></a>
+                <a href="#" title="Категория"><span class="label label-primary">{{ $category_name }}</span></a>
+                <a href="#" title="Линейка товаров"><span class="label label-info">{{ $product_line }}</span></a>
             </p>
+            @if($weight > 0)
             <p>
-                <span title="Объем"><span class="glyphicon glyphicon-tint"></span> 60 мл.</span>
+                <span title="Объем"><span class="glyphicon glyphicon-tint"></span> {{ $weight }} {{ $measure_unit }}.</span>
             </p>
-            <p>
-                Для максимального смягчения сухих и загрубевших участков кожи Природная сила папоротника калагуала и примулы,
-                а также новейшие технологии производства продуктов с липосомами, обеспечивают эффективную помощь в смягчении
-                и увлажнении участков чрезмерно сухой, шелушащейся кожи.
-            </p>
+            @endif
+            <p>{{ $description }}</p>
             <p>
             <form class="form-inline">
                 <input type="text" class="form-control" value="1" style="width: 70px; text-align: center">
