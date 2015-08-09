@@ -132,6 +132,7 @@ function setCatalogId(catalogId){
     <div class="form-group">
         <label>URL на сайте citynature.ru</label>
         <input type="test" class="form-control" name="source_url" value="{{ $model->source_url or \Input::get('source_url') }}">
+        <p class="help-block"><a target="_blank" href="http://www.citynature.ru{{ $model->source_url }}">http://www.citynature.ru{{ $model->source_url }}</a></p>
     </div>
 
     <div class="row">

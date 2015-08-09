@@ -65,8 +65,32 @@ class CityNatureParsingCommand extends Command
                 continue;
             }
 
-            $links_arr = array_merge($links_arr, $this->parse($file_name));
+            $file_content = file_get_contents('/var/www/kotik/storage/app/citynature.ru/'.$file_name);
+
+            preg_match('@<li class="active"><span>(.+?)</span></li>@is', $file_content, $cats);
+
+            $cat = '';
+            if (count($cats) == 2) {
+                $cat = $cats[1];
+            }
+
+            foreach ($this->parse($file_name) as $link) {
+
+                $product_model = \App\Models\Product::where('source_url', '=', $link)->first();
+
+                if (!$product_model) {
+                    continue;
+                }
+
+                $product_model->base_country_name = trim($cat);
+                $product_model->save();
+
+            }
+
+            //$links_arr = array_merge($links_arr, $this->parse($file_name));
         }
+
+        return;
 
         $curl = curl_init();
 

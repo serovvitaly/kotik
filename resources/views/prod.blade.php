@@ -6,8 +6,9 @@
         <div class="col-lg-10">
             <ol class="breadcrumb">
                 <li><a href="/"><span class="glyphicon glyphicon-home"></span></a></li>
-                <li><a href="#">Косметика</a></li>
-                <li class="active">Для лица</li>
+                <li><a href="#">{{ $base_category_name }}</a></li>
+                <li><a href="#">{{ $category_name }}</a></li>
+                <li class="active">{{ $name }}</li>
             </ol>
         </div>
         <div class="col-lg-2">
@@ -57,9 +58,7 @@
             @endif
         </div>
         <div class="col-lg-8">
-            <p>
-                <strong>{{ $name }}</strong>
-            </p>
+            <h1 style="font-size: 25px">{{ $name }}</h1>
             <p style="color: #a3a5a8">
                 <span class="glyphicon glyphicon-star-empty" style="color: red"></span>
                 <span class="glyphicon glyphicon-star-empty" style="color: red"></span>

@@ -4,8 +4,11 @@
 
     <?php
 
-            $products = \App\Models\Product::paginate(40);
+            if (!isset($products)) {
+                $products = new \App\Models\Product;
+            }
 
+            $products = $products->paginate(40);
     ?>
 
     <div class="row">
@@ -32,6 +35,7 @@
                             </div>
                         @endif
 
+                        <div style="width: 209px; height: 209px;">
                         @if(!$image)
                             X
                         @elseif(empty($image->file_name))
@@ -39,10 +43,14 @@
                         @else
                             <img src="/media/images/250x200/{{ $image->file_name }}" alt="" style="width:100%;">
                         @endif
+                        </div>
                         <div class="caption">
-                            <strong style="line-height: 18px; padding-bottom: 5px;" title="{{ $product->name }}">{{ $product->name }}</strong>
-                            <div style="height: 10px;"></div>
-                            <p style="line-height: 16px;">
+                            <p style="text-align: center"><strong style="line-height: 18px; padding-bottom: 5px;" title="{{ $product->name }}">{{ $product->name }}</strong></p>
+                            <div style="padding: 5px 0; text-align: center">
+                                <span class="label label-info" title="{{ $product->brand }}">{{ str_limit($product->brand, 28) }}</span>
+                                <span class="label label-default">{{ $product->country_name }}</span>
+                            </div>
+                            <p style="line-height: 16px; text-align: center">
                                 <small>{{ str_limit($product->description, 255) }}</small>
                             </p>
                             <p>
@@ -59,14 +67,10 @@
 
         </div>
         <div class="col-lg-2">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Panel title</h3>
-                </div>
-                <div class="panel-body">
-                    Panel content
-                </div>
-            </div>
+            <strong>Брэнд</strong>
+            <p>
+
+            </p>
         </div>
     </div>
 

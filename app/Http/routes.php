@@ -14,6 +14,14 @@
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('cat-{category_id}', function ($category_id) {
+
+    $products = \App\Models\Product::where('category_id', '=', $category_id);
+
+    return view('home', ['products' => $products]);
+});
+
 Route::get('prod-{product_id}', function ($product_id) {
 
     $product_model = \App\Models\Product::findOrFail($product_id);
