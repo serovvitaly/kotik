@@ -66,7 +66,13 @@ class MediaController extends Controller
                 $file_extention = 'jpg';
                 $file_name = md5(microtime()) . '.' . $file_extention;
 
-                \Storage::put('media/images/' . $file_name, file_get_contents($media_model->source_url));
+                $source_url = $media_model->source_url;
+
+                if ((substr($source_url, 0, 7) != 'http://') and (substr($source_url, 0, 8) != 'https://')) {
+                    $source_url = 'http://' . $source_url;
+                }
+
+                \Storage::put('media/images/' . $file_name, file_get_contents($source_url));
 
                 $media_model->file_name = $file_name;
                 $media_model->save();

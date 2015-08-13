@@ -69,7 +69,7 @@
 </header>
 
 <header class="navbar navbar-inverse navbar-static-top">
-    <div class="container" style="padding: 5px 15px 0">
+    <div class="container" style="padding: 7px 15px 0">
         <div class="row">
             <div class="col-lg-12">
                 @include('catalog.catalog_items')

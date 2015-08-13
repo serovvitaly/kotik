@@ -40,4 +40,9 @@ class Media extends Model {
         }
         parent::delete();
     }
+
+    public function product()
+    {
+        return $this->belongsTo('\App\Models\Product');
+    }
 }

@@ -8,10 +8,10 @@
                 $products = new \App\Models\Product;
             }
 
-            $products = $products->paginate(40);
+            $products = $products->where('price_1', '>', 0)->paginate(40);
     ?>
 
-    <div class="row">
+    <div class="row" xmlns="http://www.w3.org/1999/html">
         <div class="col-lg-10">
             <div class="row" id="catalog-list">
             @foreach($products as $product)
@@ -45,7 +45,9 @@
                         @endif
                         </div>
                         <div class="caption">
-                            <p style="text-align: center"><strong style="line-height: 18px; padding-bottom: 5px;" title="{{ $product->name }}">{{ $product->name }}</strong></p>
+                            <p style="text-align: center">
+                                <a href="/prod-{{ $product->id }}" style="color: black"><strong style="line-height: 18px; padding-bottom: 5px;" title="{{ $product->name }}">{{ $product->name }}</strong></a>
+                            </p>
                             <div style="padding: 5px 0; text-align: center">
                                 <span class="label label-info" title="{{ $product->brand }}">{{ str_limit($product->brand, 28) }}</span>
                                 <span class="label label-default">{{ $product->country_name }}</span>
@@ -54,8 +56,7 @@
                                 <small>{{ str_limit($product->description, 255) }}</small>
                             </p>
                             <p>
-                                <a href="/prod-{{ $product->id }}" class="btn btn-primary" role="button">Button</a>
-                                <a href="#" class="btn btn-default" role="button">Button</a>
+                                <h4 style="text-align: center"><strong>{{ $product->price_1 }}</strong> руб.</h4>
                             </p>
                         </div>
                     </div>

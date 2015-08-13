@@ -3,7 +3,7 @@
 @section('content')
 
     <?php
-    $catalog_id = \Input::get('catalog_id', 1);
+    $catalog_id = 2; // \Input::get('catalog_id', 2);
     $catalog_model = \App\Models\Catalog::findOrFail($catalog_id);
 
     $model = new $model_name;
@@ -41,8 +41,10 @@
         <tr>
             <th>ID</th>
             <th>Наименование</th>
-            <th>Ёмкость</th>
-            <th>Брэнд/страна</th>
+            <th>Брэнд</th>
+            <th>Цена 1</th>
+            <th>Цена 2</th>
+            <th>Наценка</th>
             <th style="width:154px;"></th>
         </tr>
         </thead>
@@ -50,9 +52,11 @@
         @foreach($model_items as $model_obj)
             <tr>
                 <td>{{ $model_obj->id }}</td>
-                <td><a target="_blank" href="http://www.citynature.ru{{ $model_obj->source_url }}">{{ $model_obj->name }}</a></td>
-                <td>{{ $model_obj->weight }} {{ $model_obj->measure_unit }}</td>
-                <td>{{ $model_obj->brand }}, {{ $model_obj->country_name }}</td>
+                <td><a target="_blank" href="{{ $model_obj->source_url }}">{{ $model_obj->name }}</a></td>
+                <td>{{ $model_obj->brand }}</td>
+                <td>{{ $model_obj->price_1 }}</td>
+                <td>{{ $model_obj->price_2 }}</td>
+                <td>@if($model_obj->price_1 > 0){{ ceil( ($model_obj->price_1 - $model_obj->price_2) / $model_obj->price_1 * 100 ) }} % @endif</td>
                 <td>
                     <form action="/admin/{{ $route_base_url }}/{{ $model_obj->id }}" method="post">
                         <input type="hidden" name="_method" value="DELETE">

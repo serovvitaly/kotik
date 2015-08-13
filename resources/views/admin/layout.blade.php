@@ -11,6 +11,24 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
+    <style>
+        .navbar-inverse {
+            background-color: #1a5ca0;
+            border-color: #17427b;
+            box-shadow: 0px 3px 5px rgba(0,0,0,0.2);
+        }
+        .navbar-inverse .navbar-nav>li>a {
+            color: #D4E6F9;
+        }
+        .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+            color: #fff;
+            background-color: #4178B1;
+        }
+        .navbar-inverse .navbar-brand {
+            color: #ACD4FF;
+        }
+    </style>
+
 </head>
 <body>
 

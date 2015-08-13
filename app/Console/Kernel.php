@@ -16,6 +16,8 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\Inspire::class,
         \App\Console\Commands\CityNatureProductsCommand::class,
         \App\Console\Commands\CityNatureParsingCommand::class,
+        \App\Console\Commands\CityNaturePricesCommand::class,
+        \App\Console\Commands\CoolBabyCommand::class,
     ];
 
     /**

@@ -28,7 +28,7 @@ function setCatalogId(catalogId){
 
     var input = $('input[name="category_id"]');
     var root  = input.parent('.dropdown');
-    root.find('a.dropdown-toggle .title').html( root.find('a[data-catalog-id="'+catalogId+'"]').text() );
+    root.find('a.dropdown-toggle .title').html( root.find('a[data-category-id="'+catalogId+'"]').text() );
     input.val(catalogId);
 }
 </script>
@@ -93,7 +93,7 @@ function setCatalogId(catalogId){
 
     <button type="submit" class="btn btn-success">Сохранить</button>
     <button type="submit" class="btn btn-primary" name="is_apply">Применить</button>
-    <a href="/admin/product?catalog_id=1" class="btn btn-default">Отмена</a>
+    <a href="/admin/product?catalog_id={{ $model->catalog_id }}" class="btn btn-default">Отмена</a>
 
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -132,7 +132,7 @@ function setCatalogId(catalogId){
     <div class="form-group">
         <label>URL на сайте citynature.ru</label>
         <input type="test" class="form-control" name="source_url" value="{{ $model->source_url or \Input::get('source_url') }}">
-        <p class="help-block"><a target="_blank" href="http://www.citynature.ru{{ $model->source_url }}">http://www.citynature.ru{{ $model->source_url }}</a></p>
+        <p class="help-block"><a target="_blank" href="{{ $model->source_url }}">{{ $model->source_url }}</a></p>
     </div>
 
     <div class="row">
@@ -200,6 +200,12 @@ function setCatalogId(catalogId){
             <div class="form-group">
                 <label>Цена >50 т.р.</label>
                 <input type="test" class="form-control" name="price_2" value="{{ $model->price_2 or \Input::get('price_2') }}">
+            </div>
+        </div>
+        <div class="col-xs-1">
+            <div class="form-group">
+                <label>Наценка</label>
+                <input type="test" class="form-control" name="price_3" value="{{ ceil( ($model->price_1 - $model->price_2) / $model->price_1 * 100 ) }} %" disabled>
             </div>
         </div>
         <div class="col-xs-2">
@@ -287,7 +293,7 @@ function setCatalogId(catalogId){
             root.find('.sub-menu:visible').hide();
             root.removeClass("open");
 
-            setCatalogId( $(this).data('catalog-id') );
+            setCatalogId( $(this).data('category-id') );
 
             return false;
         });

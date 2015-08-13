@@ -14,9 +14,9 @@ class ProductController extends AdminController
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index($catalog_id, Request $request)
     {
-        $catalog_model = \App\Models\Catalog::findOrFail( $request->get('catalog_id', 1) );
+        $catalog_model = \App\Models\Catalog::findOrFail( $catalog_id );
 
         if ($catalog_model->user->id != $this->user->id) {
             \App::abort(403, 'Access denied');

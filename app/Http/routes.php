@@ -12,7 +12,9 @@
 */
 
 Route::get('/', function () {
+
     return view('home');
+
 });
 
 Route::get('cat-{category_id}', function ($category_id) {
@@ -62,6 +64,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::resource('catalog', '\App\Http\Controllers\Admin\CatalogController');
     Route::resource('template-purchase', '\App\Http\Controllers\Admin\TemplatePurchaseController');
     Route::resource('pricing-column', '\App\Http\Controllers\Admin\PricingColumnController');
+
     Route::resource('product', '\App\Http\Controllers\Admin\ProductController');
+    Route::get('{catalog_id}/product', '\App\Http\Controllers\Admin\ProductController@index');
 
 });

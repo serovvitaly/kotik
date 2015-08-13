@@ -30,6 +30,11 @@ class Product extends Model
         parent::delete();
     }
 
+    public function catalog()
+    {
+        return $this->belongsTo('\App\Models\Catalog');
+    }
+
     public function setAttributeById($attribute_id, $value)
     {
         //

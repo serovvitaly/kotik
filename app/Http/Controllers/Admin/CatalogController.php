@@ -89,7 +89,11 @@ class CatalogController extends AdminController
      */
     public function update(Request $request, $id)
     {
-        //
+        $catalog_model = \App\Models\Catalog::findOrFail($id);
+
+        $catalog_model->update($request->all());
+
+        return redirect('/admin/catalog');
     }
 
     /**
