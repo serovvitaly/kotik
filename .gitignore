@@ -5,3 +5,4 @@
 .apache/access.log
 /public/media/images/
 /composer.lock
+/.sass-cache/
