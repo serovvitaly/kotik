@@ -5,17 +5,15 @@
     <title></title>
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-    <!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/css/flat-ui.min.css"-->
+    <link rel="stylesheet" href="/frontend/base-styles.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
     <style>
-        .navbar .dropdown-menu{
-            border: 2px solid #C1C1C1;
-            background-color: white;
-        }
+        /*.navbar .dropdown-menu{*/
+            /*border: 2px solid #C1C1C1;*/
+            /*background-color: white;*/
+        /*}*/
         .dropdown-danger{border-color: #e74c3c !important;}
         .dropdown-warning{border-color: #f1c40f !important;}
         .dropdown-info{border-color: #3498db !important;}
@@ -55,12 +53,7 @@
         <div class="row">
             <div class="col-lg-1"><a href="/" style="color: white; font-size: 24px; text-shadow: 1px 1px 1px rgba(0,0,0,0.3);">smag<strong>24</strong></a></div>
             <div class="col-lg-8">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="что вы ищите?">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-                    </span>
-                </div>
+
             </div>
             <div class="col-lg-1">Корзина</div>
             <div class="col-lg-2">Авторизация</div>
@@ -69,10 +62,48 @@
 </header>
 
 <header class="navbar navbar-inverse navbar-static-top">
-    <div class="container" style="padding: 7px 15px 0">
+    <div class="container" style="padding-top: 7px">
         <div class="row">
             <div class="col-lg-12">
-                @include('catalog.catalog_items')
+
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="btn-group btn-block">
+                            <button type="button" class="btn btn-danger dropdown-toggle btn-block" data-toggle="dropdown">
+                                Каталог товаров
+                                <span style="padding-left: 13px" class="glyphicon glyphicon-menu-hamburger"></span>
+                            </button>
+
+                                <div class="list-group dropdown-menu" style="padding: 0; border: 0; width: 181px">
+                                    <a href="#" class="list-group-item">Уход за волосами</a>
+                                    <a href="#" class="list-group-item">Уход за лицом</a>
+                                    <a href="#" class="list-group-item">Уход за телом</a>
+                                    <a href="#" class="list-group-item">Уход за руками</a>
+                                    <a href="#" class="list-group-item">Уход за ногами</a>
+                                </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="что вы ищите?">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <div style="color: #fff;">
+                            {{--<span style="font-size: 20px;" class="glyphicon glyphicon-shopping-cart"></span>--}}
+                            Корзина<br>
+                            <small>Корзина пуста</small>
+                        </div>
+                    </div>
+                </div>
+
+                {{--@include('catalog.catalog_items')--}}
             </div>
         </div>
     </div>
@@ -81,7 +112,7 @@
 <div class="container">
     @yield('content')
 </div>
-<script src="/public/Grid-A-Licious/jquery.grid-a-licious.min.js"></script>
+{{--<script src="/public/Grid-A-Licious/jquery.grid-a-licious.min.js"></script>--}}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>
