@@ -3,7 +3,7 @@
 @section('content')
 
     <?php
-    $catalog_id = 2; // \Input::get('catalog_id', 2);
+
     $catalog_model = \App\Models\Catalog::findOrFail($catalog_id);
 
     $model = new $model_name;
@@ -24,16 +24,16 @@
     <h4>{{ $catalog_model->description }}</h4>
 
     <ul class="nav nav-pills">
-        <li><a href="/admin/template-purchase?catalog_id={{ \Input::get('catalog_id') }}">Шаблоны закупок</a></li>
-        <li><a href="/admin/pricing-column?catalog_id={{ \Input::get('catalog_id') }}">Ценовые колонки</a></li>
-        <li class="active"><a href="/admin/product?catalog_id={{ \Input::get('catalog_id') }}">Товары</a></li>
+        <li><a href="/admin/{{ $catalog_id }}/template-purchase">Шаблоны закупок</a></li>
+        <li><a href="/admin/{{ $catalog_id }}/pricing-column">Ценовые колонки</a></li>
+        <li class="active"><a href="/admin/{{ $catalog_id }}/product">Товары</a></li>
     </ul>
 
 
     <h3>{{ $model_name }}</h3>
 
     <div class="btn-toolbar" role="toolbar" style="margin-bottom: 10px">
-        <a class="btn btn-info" href="/admin/{{ $route_base_url }}/create?catalog_id={{ \Input::get('catalog_id', 0) }}">Добавить</a>
+        <a class="btn btn-info" href="/admin/{{ $route_base_url }}/create">Добавить</a>
     </div>
 
     <table class="table table-bordered table-striped table-hover table-condensed">

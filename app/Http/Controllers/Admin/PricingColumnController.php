@@ -11,19 +11,21 @@ class PricingColumnController extends AdminController
     /**
      * Display a listing of the resource.
      *
+     * @param $catalog_id
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index($catalog_id, Request $request)
     {
-        $catalog_model = \App\Models\Catalog::findOrFail( $request->get('catalog_id') );
+        $catalog_model = \App\Models\Catalog::findOrFail( $catalog_id );
 
         if ($catalog_model->user->id != $this->user->id) {
             \App::abort(403, 'Access denied');
         }
 
         return view('admin.catalog.pricing-column.index', [
-            'route_base_url' => 'pricing-column',
+            'catalog_id' => $catalog_id,
+            'route_base_url' => $catalog_id . '/pricing-column',
             'model_name' => '\App\Models\PricingColumn',
             'model_items' => $catalog_model->pricing_columns()->paginate()
         ]);

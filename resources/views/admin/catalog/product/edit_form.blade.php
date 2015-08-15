@@ -93,11 +93,11 @@ function setCatalogId(catalogId){
 
     <button type="submit" class="btn btn-success">Сохранить</button>
     <button type="submit" class="btn btn-primary" name="is_apply">Применить</button>
-    <a href="/admin/product?catalog_id={{ $model->catalog_id }}" class="btn btn-default">Отмена</a>
+    <a href="/admin/{{ $catalog_id }}/product" class="btn btn-default">Отмена</a>
 
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-    <input type="hidden" name="catalog_id" value="{{ \Input::get('catalog_id', $model->catalog_id) }}">
+    <input type="hidden" name="catalog_id" value="{{ $model->catalog_id ? $model->catalog_id : $catalog_id }}">
 
     <br><br>
 
@@ -205,7 +205,7 @@ function setCatalogId(catalogId){
         <div class="col-xs-1">
             <div class="form-group">
                 <label>Наценка</label>
-                <input type="test" class="form-control" name="price_3" value="{{ ceil( ($model->price_1 - $model->price_2) / $model->price_1 * 100 ) }} %" disabled>
+                <input type="test" class="form-control" name="price_3" value="{{ ($model->price_1 > 0) ? ceil( ($model->price_1 - $model->price_2) / $model->price_1 * 100 ) : '' }} %" disabled>
             </div>
         </div>
         <div class="col-xs-2">

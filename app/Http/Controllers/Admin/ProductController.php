@@ -11,6 +11,7 @@ class ProductController extends AdminController
     /**
      * Display a listing of the resource.
      *
+     * @param $catalog_id
      * @param Request $request
      * @return Response
      */
@@ -23,7 +24,8 @@ class ProductController extends AdminController
         }
 
         return view('admin.catalog.product.index', [
-            'route_base_url' => 'product',
+            'catalog_id' => $catalog_id,
+            'route_base_url' => $catalog_id . '/product',
             'model_name' => '\App\Models\Product',
             'model_items' => $catalog_model->products()->paginate(30)
         ]);
@@ -32,12 +34,14 @@ class ProductController extends AdminController
     /**
      * Show the form for creating a new resource.
      *
+     * @param $catalog_id
      * @return Response
      */
-    public function create()
+    public function create($catalog_id)
     {
         return view('admin.catalog.product.edit_form', [
-            'route_base_url' => 'product',
+            'catalog_id' => $catalog_id,
+            'route_base_url' => $catalog_id . '/product',
             'model_name' => '\App\Models\Product',
         ]);
     }
@@ -45,10 +49,11 @@ class ProductController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param $catalog_id
+     * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store($catalog_id, Request $request)
     {
         $request_all = $request->all();
 
@@ -61,13 +66,14 @@ class ProductController extends AdminController
 
         if (array_key_exists('is_apply', $request_all)) {
             return view('admin.catalog.product.edit_form', [
-                'route_base_url' => 'product',
+                'catalog_id' => $catalog_id,
+                'route_base_url' => $catalog_id . '/product',
                 'model_name' => '\App\Models\Product',
                 'model_id' => $product_model->id
             ]);
         }
 
-        return redirect('/admin/product?catalog_id=' . $request->get('catalog_id'));
+        return redirect("/admin/{$catalog_id}/product");
     }
 
     /**
@@ -84,12 +90,14 @@ class ProductController extends AdminController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param $catalog_id
+     * @param  int $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($catalog_id, $id)
     {
         return view('admin.catalog.product.edit_form', [
+            'catalog_id' => $catalog_id,
             'route_base_url' => 'product',
             'model_name' => '\App\Models\Product',
             'model_id' => $id
@@ -128,7 +136,7 @@ class ProductController extends AdminController
             ]);
         }
 
-        return redirect('/admin/product?catalog_id=' . $request->get('catalog_id'));
+        return redirect("/admin/{$product_model->catalog_id}/product");
     }
 
     /**
@@ -143,8 +151,8 @@ class ProductController extends AdminController
 
         $catalog_id = $product_model->catalog_id;
 
-        //$product_model->delete();
+        $product_model->delete();
 
-        return redirect('/admin/product?catalog_id=' . $catalog_id);
+        return redirect("/admin/{$catalog_id}/product");
     }
 }

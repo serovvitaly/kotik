@@ -3,7 +3,6 @@
 @section('table_top_header')
 
     <?php
-    $catalog_id = \Input::get('catalog_id');
     $catalog_model = \App\Models\Catalog::findOrFail($catalog_id);
     ?>
 
@@ -11,9 +10,9 @@
     <h4>{{ $catalog_model->description }}</h4>
 
     <ul class="nav nav-pills">
-        <li><a href="/admin/template-purchase?catalog_id={{ \Input::get('catalog_id') }}">Шаблоны закупок</a></li>
-        <li class="active"><a href="/admin/pricing-column?catalog_id={{ \Input::get('catalog_id') }}">Ценовые колонки</a></li>
-        <li><a href="/admin/product?catalog_id={{ \Input::get('catalog_id') }}">Товары</a></li>
+        <li><a href="/admin/{{ $catalog_id }}/template-purchase">Шаблоны закупок</a></li>
+        <li class="active"><a href="/admin/{{ $catalog_id }}/pricing-column">Ценовые колонки</a></li>
+        <li><a href="/admin/{{ $catalog_id }}/product">Товары</a></li>
     </ul>
 
 @endsection
