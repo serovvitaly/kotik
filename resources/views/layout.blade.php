@@ -38,6 +38,28 @@
         }
     </style>
 
+    <script>
+        function putProductInBasket(productId, quantity){
+            if (quantity < 1) {
+                quantity = 1;
+            }
+            $.ajax({
+                url: '/order',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    product_id: productId,
+                    quantity: quantity
+                },
+                success: function(data){
+                    console.log(data);
+                    $('#basket-mini-box').html(data.basket_mini);
+                }
+            });
+        }
+    </script>
+
 </head>
 <body>
 
@@ -95,12 +117,8 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-2">
-                        <div style="color: #fff;">
-                            {{--<span style="font-size: 20px;" class="glyphicon glyphicon-shopping-cart"></span>--}}
-                            Корзина<br>
-                            <small>Корзина пуста</small>
-                        </div>
+                    <div class="col-lg-2" id="basket-mini-box" style="color: #fff;">
+                        @include('basket.mini_box')
                     </div>
                 </div>
 

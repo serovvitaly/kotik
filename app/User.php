@@ -59,4 +59,33 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasMany('App\Models\Catalog');
     }
+
+    /**
+     * Возвращает открытые заказы
+     * @return mixed
+     */
+    public function openOrders()
+    {
+        return $this->hasMany('\App\Models\Order')->where('status', '=', 0);
+    }
+
+    /**
+     * Возвращает сумму открытых заказов
+     */
+    public function getAmountOpenOrders()
+    {
+        $open_orders = $this->openOrders()->get();
+
+        if ($open_orders->count() < 1) {
+            return 0;
+        }
+
+        $amount = 0;
+
+        foreach ($open_orders as $order) {
+            $amount = $amount + $order->amount * $order->quantity;
+        }
+
+        return $amount;
+    }
 }

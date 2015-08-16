@@ -39,7 +39,7 @@
                                             <span class="glyphicon glyphicon-cog"></span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a target="_blank" href="/admin/product/{{ $product->id }}/edit">Изменить</a></li>
+                                            <li><a target="_blank" href="/admin/{{ $product->catalog->id }}/product/{{ $product->id }}/edit">Изменить</a></li>
                                             <li><a target="_blank" href="#">Удалить</a></li>
                                         </ul>
                                     </div>
@@ -67,7 +67,7 @@
                                     <small>{{ str_limit($product->description, 255) }}</small>
                                 </p>
                                 <p>
-                                    <h4 style="text-align: center"><strong>{{ $product->price_1 }}</strong> руб.</h4>
+                                    <h4 style="text-align: center"><strong>{{ $product->getPublicPrice() }}</strong> руб.</h4>
                                 </p>
                             </div>
                         </div>

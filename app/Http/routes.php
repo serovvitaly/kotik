@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 });
 
+Route::post('order', 'OrderController@store');
+
 Route::get('cat-{category_id}', function ($category_id) {
 
     $products = \App\Models\Product::where('category_id', '=', $category_id);

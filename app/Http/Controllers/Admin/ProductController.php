@@ -142,10 +142,11 @@ class ProductController extends AdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param $catalog_id
+     * @param  int $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($catalog_id, $id)
     {
         $product_model = \App\Models\Product::findOrFail($id);
 

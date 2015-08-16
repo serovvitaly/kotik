@@ -44,4 +44,9 @@ class Product extends Model
     {
         //
     }
+
+    public function getPublicPrice()
+    {
+        return $this->public_price;
+    }
 }
