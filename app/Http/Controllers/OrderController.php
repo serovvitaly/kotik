@@ -46,20 +46,23 @@ class OrderController extends Controller
          */
         $user = \Auth::user();
 
-        $sql = 'INSERT INTO orders (user_id, product_id, quantity, amount) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + ?';
+        $sql = 'INSERT INTO orders (user_id, product_id, catalog_id, public_price, quantity) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + ?';
 
-        $order = \DB::insert($sql, [
+        $public_price = $product_model->getPublicPrice();
+
+        $quantity = $request->get('quantity');
+
+        \DB::insert($sql, [
             $user->id,
             $product_id,
-            $request->get('quantity'),
-            $product_model->getPublicPrice(),
-            $request->get('quantity'),
+            $product_model->catalog_id,
+            $public_price,
+            $quantity,
+            $quantity,
         ]);
 
         return [
-            'basket_mini' => view('basket.mini_box', [
-                'user' => $user
-            ])->render()
+            'basket_mini' => view('basket.mini_box')->render()
         ];
     }
 

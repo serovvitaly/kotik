@@ -1,13 +1,10 @@
 <?php
-
 /**
  * @var $user \App\User
  */
-
 if (!isset($user)) {
-    $user = \Auth::user();
+    $user = \App\Helpers\CommonHelper::getCurrentUser();
 }
-
 ?>
 
 @if(!$user)
@@ -29,3 +26,4 @@ $open_orders = $user->openOrders()->get();
 @else
     {{ $open_orders->count() }} товаров на {{ $user->getAmountOpenOrders() }} руб.
 @endif
+<a href="/basket">Перейти в корзину</a>

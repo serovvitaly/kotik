@@ -91,14 +91,15 @@ CREATE TABLE `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL,
+  `catalog_id` int(11) DEFAULT NULL,
+  `public_price` decimal(10,2) DEFAULT NULL,
   `quantity` int(11) DEFAULT '1',
-  `amount` decimal(10,2) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `status` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_product_status` (`user_id`,`product_id`,`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -335,4 +336,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-16 21:55:59
+-- Dump completed on 2015-08-17 22:39:40

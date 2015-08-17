@@ -61,12 +61,41 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
+     * Возвращает массив ID каталогов, для которых есть открытые заказы
+     * @return array
+     */
+    public function getOpenOrdersCatalogsIdsArr()
+    {
+        $open_orders_catalogs_arr = \DB::select('select catalog_id from `orders` where `user_id` = ? and `status` = 0 group by `catalog_id`', [
+            $this->id
+        ]);
+
+        if (empty($open_orders_catalogs_arr)) {
+            return [];
+        }
+
+        $open_orders_catalogs_ids_arr = [];
+        foreach ($open_orders_catalogs_arr as $open_orders_catalog_mix) {
+            $open_orders_catalogs_ids_arr[] = $open_orders_catalog_mix->catalog_id;
+        }
+
+        return $open_orders_catalogs_ids_arr;
+    }
+
+    /**
      * Возвращает открытые заказы
+     * @param null $catalog_id
      * @return mixed
      */
-    public function openOrders()
+    public function openOrders($catalog_id = null)
     {
-        return $this->hasMany('\App\Models\Order')->where('status', '=', 0);
+        $output = $this->hasMany('\App\Models\Order')->where('status', '=', 0);
+
+        if ($catalog_id) {
+            $output->where('catalog_id', '=', $catalog_id);
+        }
+
+        return $output;
     }
 
     /**
@@ -83,7 +112,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $amount = 0;
 
         foreach ($open_orders as $order) {
-            $amount = $amount + $order->amount * $order->quantity;
+            $amount = $amount + $order->public_price * $order->quantity;
         }
 
         return $amount;

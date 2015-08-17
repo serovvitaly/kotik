@@ -1,14 +1,18 @@
 @extends('layout')
 
 @section('content')
-
-    <?php
+<?php
+/**
+ * @var $user \App\User
+ */
+if (!isset($user)) {
     $user = \App\Helpers\CommonHelper::getCurrentUser();
-    if (!$user) {
-        return '';
-    }
-    ?>
+}
 
+$open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
+
+?>
+@if($user)
     <div class="row">
         <div class="col-lg-10">
             <ol class="breadcrumb">
@@ -23,25 +27,56 @@
 
     <div class="row">
         <div class="col-lg-12">
+            @foreach($open_orders_catalogs_ids_arr as $open_orders_catalog_id)
             <div class="panel panel-default">
-              <div class="panel-heading">Закупка косметики и парфюмерных товаров</div>
+              <div class="panel-heading"><strong>Закупка косметики и парфюмерных товаров</strong> <a href="#" class="glyphicon glyphicon-link"></a></div>
               <div class="panel-body">
                 <p>Информация о закупке</p>
               </div>
 
-              <table class="table">
+              <table class="table table-striped table-hover">
+                  <caption>Товары в заказе</caption>
+                  <colgroup>
+                      <col>
+                      <col width="140">
+                      <col width="130">
+                      <col width="100">
+                      <col width="190">
+                  </colgroup>
                   <tbody>
-                      <tr>
-                          <td>Шампунь Клубок дыма</td>
-                          <td style="width: 130px">
+
+                  @foreach($user->openOrders($open_orders_catalog_id)->get() as $order)
+                      <tr id="order-item-{{ $order->id }}">
+                          <td>{{ $order->product->name }}</td>
+                          <td style="text-align: right; padding-right: 30px;">
+                              <strong style="font-size: 16px; line-height: 30px;">{{ $order->public_price }}</strong>
+                              <span style="color: #49C2FF" class="glyphicon glyphicon-ruble" title="Рубли"></span>
+                          </td>
+                          <td>
                             <div class="input-group input-group-sm">
-                                <span class="input-group-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-minus"></span></button></span>
-                                <input type="text" class="form-control" value="1" style="text-align: center">
-                                <span class="input-group-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus"></span></button></span>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" onclick="changeQuantityProductInBasket({{ $order->product->id }}, {{ $order->id }}, -1);">
+                                        <span class="glyphicon glyphicon-minus"></span>
+                                    </button>
+                                </span>
+                                <input type="text" class="form-control quantity-value" value="{{ $order->quantity }}" style="text-align: center">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" onclick="changeQuantityProductInBasket({{ $order->product->id }}, {{ $order->id }}, +1);">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                </span>
                             </div>
                           </td>
-                          <td style="width: 170px"><button class="btn btn-danger btn-sm">Удалить</button><button class="btn btn-default btn-sm">Отложить</button></td>
+                          <td style="text-align: right">
+                              <strong style="font-size: 16px; line-height: 30px;">{{ $order->public_price * $order->quantity }}</strong>
+                              <span style="color: #49C2FF" class="glyphicon glyphicon-ruble" title="Рубли"></span>
+                          </td>
+                          <td style="text-align: right">
+                              <button class="btn btn-danger btn-sm">Удалить</button>
+                              <button class="btn btn-default btn-sm">Отложить</button>
+                          </td>
                       </tr>
+                  @endforeach
                   </tbody>
               </table>
 
@@ -50,6 +85,7 @@
                   <button class="btn btn-success">Оформить заказ</button>
               </div>
             </div>
+            @endforeach
         </div>
     </div>
 
@@ -61,6 +97,16 @@
     </div>
 
     <script type="text/javascript">
+        function changeQuantityProductInBasket(productId, orderId, top){
+            var inputEl = $('#order-item-'+orderId+' input.quantity-value');
+            var oldValue = inputEl.val() * 1;
+            var newValue = oldValue + top;
+            if (newValue < 1) {
+                return;
+            }
+            inputEl.val(newValue);
+            console.log(newValue);
+        }
         $(function () {
             $('[data-toggle="popover"]').popover({
                 html: true,
@@ -68,5 +114,9 @@
             });
         })
     </script>
+
+@else
+    Корзина пользователя
+@endif
 
 @endsection
