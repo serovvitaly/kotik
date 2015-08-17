@@ -8,6 +8,18 @@ if (!isset($user)) {
     $user = \Auth::user();
 }
 
+?>
+
+@if(!$user)
+    <a href="/auth/login">Авторизация</a> | <a href="/auth/register">Регистрация</a>
+@endif
+
+<?php
+
+if (!$user) {
+    return;
+}
+
 $open_orders = $user->openOrders()->get();
 
 ?>
