@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Catalog extends Model
 {
-    protected $fillable = ['name', 'description', 'user_id', 'source_url'];
+    protected $fillable = ['name', 'purchase_title', 'description', 'user_id', 'source_url'];
 
     protected $hidden = ['user_id'];
 

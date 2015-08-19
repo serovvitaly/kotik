@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\CityNatureParsingCommand::class,
         \App\Console\Commands\CityNaturePricesCommand::class,
         \App\Console\Commands\CoolBabyCommand::class,
+        \App\Console\Commands\RinoGroupCommand::class,
     ];
 
     /**

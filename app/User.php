@@ -101,9 +101,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     /**
      * Возвращает сумму открытых заказов
      */
-    public function getAmountOpenOrders()
+    public function getAmountOpenOrders($catalog_id = null)
     {
-        $open_orders = $this->openOrders()->get();
+        $open_orders = $this->openOrders($catalog_id)->get();
 
         if ($open_orders->count() < 1) {
             return 0;

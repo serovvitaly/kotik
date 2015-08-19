@@ -8,11 +8,11 @@
 if (!isset($user)) {
     $user = \App\Helpers\CommonHelper::getCurrentUser();
 }
-
-$open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
-
 ?>
 @if($user)
+<?php
+$open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
+?>
     <div class="row">
         <div class="col-lg-10">
             <ol class="breadcrumb">
@@ -27,15 +27,59 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
 
     <div class="row">
         <div class="col-lg-12">
-            @foreach($open_orders_catalogs_ids_arr as $open_orders_catalog_id)
+
             <div class="panel panel-default">
-              <div class="panel-heading"><strong>Закупка косметики и парфюмерных товаров</strong> <a href="#" class="glyphicon glyphicon-link"></a></div>
+                <div class="panel-body">
+                    <p>Информация о закупке</p>
+
+                    <div class="row" style="text-align: right;">
+                        <div class="col-lg-6">
+                            Итого к оплате:
+                            {{ $user->getAmountOpenOrders() }}
+                            <span style="color: #49C2FF" class="glyphicon glyphicon-ruble" title="Рубли"></span>
+                        </div>
+                        <div class="col-lg-6">
+                            <button class="btn btn-default btn-lg" data-toggle="popover" data-placement="top" data-trigger="focus">
+                                Отказаться от всех заказов
+                            </button>
+                            <button class="btn btn-success btn-lg">
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                                Оформить все заказы
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @foreach($open_orders_catalogs_ids_arr as $open_orders_catalog_id)
+            <?php
+            $catalog_model = \App\Models\Catalog::find($open_orders_catalog_id);
+            ?>
+            <div class="panel panel-default">
+              <div class="panel-heading"><strong>{{ $catalog_model->purchase_title }}</strong> <a href="#" class="glyphicon glyphicon-link"></a></div>
               <div class="panel-body">
                 <p>Информация о закупке</p>
+
+                <div class="row" style="text-align: right;">
+                    <div class="col-lg-6">
+                        Итого к оплате:
+                        {{ $user->getAmountOpenOrders($open_orders_catalog_id) }}
+                        <span style="color: #49C2FF" class="glyphicon glyphicon-ruble" title="Рубли"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <button class="btn btn-default" data-toggle="popover" data-placement="top" data-trigger="focus">
+                            Отказаться от заказа
+                        </button>
+                        <button class="btn btn-success">
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                            Оформить заказ
+                        </button>
+                    </div>
+                </div>
               </div>
 
               <table class="table table-striped table-hover">
-                  <caption>Товары в заказе</caption>
+                  <!--caption>Товары в заказе</caption-->
                   <colgroup>
                       <col>
                       <col width="140">
@@ -43,6 +87,11 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
                       <col width="100">
                       <col width="190">
                   </colgroup>
+                  <thead>
+                      <tr>
+                          <th colspan="5">Товары в заказе</th>
+                      </tr>
+                  </thead>
                   <tbody>
 
                   @foreach($user->openOrders($open_orders_catalog_id)->get() as $order)
@@ -80,9 +129,16 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
                   </tbody>
               </table>
 
-              <div class="panel-footer">
-                  <button class="btn btn-default" data-toggle="popover" data-placement="top" data-trigger="focus">Отказаться от заказа</button>
-                  <button class="btn btn-success">Оформить заказ</button>
+              <div class="panel-footer" style="text-align: right;">
+                  <div class="row">
+                      <div class="col-lg-6"><hr style="border-color: red;"></div>
+                      <div class="col-lg-1"><hr style="border-color: red;"></div>
+                      <div class="col-lg-1"><hr style="border-color: red;"></div>
+                      <div class="col-lg-1"><hr style="border-color: red;"></div>
+                      <div class="col-lg-1"><hr style="border-color: red;"></div>
+                      <div class="col-lg-1"><hr style="border-color: red;"></div>
+                      <div class="col-lg-1"><hr style="border-color: red;"></div>
+                  </div>
               </div>
             </div>
             @endforeach

@@ -71,7 +71,7 @@
     </div>
 </div>
 
-<header class="navbar navbar-static-top" style="margin: 0; padding: 20px 0; background: #ff6f00">
+<header class="navbar navbar-static-top" style="margin: 0; padding: 20px 0; background: #ff6f00; display: none;">
     <div class="container">
         <div class="row">
             <div class="col-lg-1"><a href="/" style="color: white; font-size: 24px; text-shadow: 1px 1px 1px rgba(0,0,0,0.3);">smag<strong>24</strong></a></div>

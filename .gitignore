@@ -6,3 +6,4 @@
 /public/media/images/
 /composer.lock
 /.sass-cache/
+/database/kotik.sql

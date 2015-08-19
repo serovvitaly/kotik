@@ -12,7 +12,7 @@ class CoolBabyCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'coolbaby {action=list}';
+    protected $signature = 'catalog:coolbaby {action=list}';
 
     /**
      * The console command description.
@@ -118,27 +118,19 @@ class CoolBabyCommand extends Command
             $product_model = \App\Models\Product::create([
                 // ID
                 'code' => trim($fields[0]),
-
                 // Артикул
                 'article' => trim($fields[1]),
-
                 // Наименование товара
                 'name' => trim($fields[2]),
-
                 // Категория товара
                 'category_name' => trim($fields[3]),
-
                 // Производитель
                 'brand' => trim($fields[4]),
-
                 // Цена оптовая
                 'price_2' => trim($fields[5]),
-
                 // Цена розничная в интернет-магазине Coolbaby
                 'price_1' => trim($fields[6]),
-
                 'catalog_id' => 2,
-
             ]);
 
             $source_url = 'http://' . substr(trim($fields[7]), 0, -4) . '_big.jpg';
