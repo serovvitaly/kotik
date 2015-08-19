@@ -54,7 +54,12 @@ class RinoGroupCommand extends Command
          $this->info('action_list');
      }
 
-     public function action_parse()
+     public function action_mk()
+     {
+         mkdir('/media/vitaly/ADATA/kotik/public/media/images/250x200');
+     }
+
+     public function action_load()
      {
          $source_file_content = \Storage::get('rino-group.csv');
 

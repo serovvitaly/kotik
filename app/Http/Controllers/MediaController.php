@@ -64,7 +64,7 @@ class MediaController extends Controller
             if (empty($media_model->file_name) and !empty($media_model->source_url)) {
 
                 $file_extention = 'jpg';
-                $file_name = md5(microtime()) . '.' . $file_extention;
+                $file_name = md5(microtime() . rand(0, 1000)) . '.' . $file_extention;
 
                 $source_url = $media_model->source_url;
 

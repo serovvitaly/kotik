@@ -3,7 +3,7 @@
 .idea/
 .apache/error.log
 .apache/access.log
-/public/media/images/
+/public/media/images/*
 /composer.lock
 /.sass-cache/
 /database/kotik.sql

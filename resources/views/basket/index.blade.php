@@ -85,7 +85,7 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
                       <col width="140">
                       <col width="130">
                       <col width="100">
-                      <col width="190">
+                      <col width="195">
                   </colgroup>
                   <thead>
                       <tr>
@@ -131,13 +131,17 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
 
               <div class="panel-footer" style="text-align: right;">
                   <div class="row">
-                      <div class="col-lg-6"><hr style="border-color: red;"></div>
-                      <div class="col-lg-1"><hr style="border-color: red;"></div>
-                      <div class="col-lg-1"><hr style="border-color: red;"></div>
-                      <div class="col-lg-1"><hr style="border-color: red;"></div>
-                      <div class="col-lg-1"><hr style="border-color: red;"></div>
-                      <div class="col-lg-1"><hr style="border-color: red;"></div>
-                      <div class="col-lg-1"><hr style="border-color: red;"></div>
+                      <div class="col-lg-6"></div>
+                      <div class="col-lg-2" style="text-align: left">
+                          <strong style="font-size: 17px; line-height: 30px;">Итого в закупке:</strong>
+                      </div>
+                      <div class="col-lg-1" style="text-align: left">
+                          <strong style="font-size: 16px; line-height: 30px;">8шт. на</strong>
+                      </div>
+                      <div class="col-lg-1">
+                          <strong style="font-size: 16px; line-height: 30px;">9950000</strong>
+                          <span style="color: #49C2FF" class="glyphicon glyphicon-ruble" title="Рубли"></span>
+                      </div>
                   </div>
               </div>
             </div>
