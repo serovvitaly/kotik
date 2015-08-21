@@ -1,3 +1,12 @@
+angular.module('CortesApp', [])
+    .controller('BodyController', function(){
+        console.log('load BodyController');
+    })
+    .controller('BasketController', function(){
+        console.log('load BasketController');
+    })
+
+
 App = function(){
 
     this._token = null;
@@ -54,7 +63,7 @@ App.prototype.putProductInDeferred = function(productId, buttonEl){
             product_id: productId
         },
         success: function(data){
-            $('#deferred-mini-box').html(data.deferred_mini);
+            $('#basket-mini-box').html(data.basket_mini);
             if (buttonEl) {
                 btn.button('reset');
             }
@@ -109,6 +118,29 @@ App.prototype.deleteOrderFromBasket = function(orderId, buttonEl){
                 btn.button('reset');
             }
             $('#order-item-'+orderId).remove();
+        }
+    });
+}
+
+App.prototype.dropDeferredProduct = function(deferredProductId, buttonEl){
+
+    var self = this;
+
+    if (buttonEl) {
+        var btn = $(buttonEl).button('loading');
+    }
+    $.ajax({
+        url: '/deferred/' + deferredProductId,
+        type: 'delete',
+        data: {
+            _token: self.getToken()
+        },
+        success: function(data){
+            $('#basket-mini-box').html(data.basket_mini);
+            if (buttonEl) {
+                btn.button('reset');
+            }
+            $('#order-item-'+deferredProductId).remove();
         }
     });
 }

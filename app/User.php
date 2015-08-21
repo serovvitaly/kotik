@@ -62,11 +62,34 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     /**
      * Возвращает отношение к "Отложенным" продуктам
+     * @param null $catalog_id
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function deferredProducts()
+    public function deferredProducts($catalog_id = null)
     {
-        return $this->hasMany('\App\Models\Deferred');
+        $output = $this->hasMany('\App\Models\OrderedProduct')->where('is_deferred', '=', 1);
+
+        if ($catalog_id) {
+            $output->where('catalog_id', '=', $catalog_id);
+        }
+
+        return $output;
+    }
+
+    /**
+     * Возвращает отношение к "Заказанным" продуктам
+     * @param null $catalog_id
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orderedProducts($catalog_id = null)
+    {
+        $output = $this->hasMany('\App\Models\OrderedProduct')->where('is_deferred', '=', 0);
+
+        if ($catalog_id) {
+            $output->where('catalog_id', '=', $catalog_id);
+        }
+
+        return $output;
     }
 
     /**
@@ -75,7 +98,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function getOpenOrdersCatalogsIdsArr()
     {
-        $open_orders_catalogs_arr = \DB::select('select catalog_id from `orders` where `user_id` = ? and `status` = 0 group by `catalog_id`', [
+        $open_orders_catalogs_arr = \DB::select('select catalog_id from '.\App\Models\OrderedProduct::TABLE
+            .' where `user_id` = ? and `status` = 0 and is_deferred = 0 group by `catalog_id`', [
             $this->id
         ]);
 
@@ -92,27 +116,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * Возвращает открытые заказы
-     * @param null $catalog_id
-     * @return mixed
-     */
-    public function openOrders($catalog_id = null)
-    {
-        $output = $this->hasMany('\App\Models\Order')->where('status', '=', 0);
-
-        if ($catalog_id) {
-            $output->where('catalog_id', '=', $catalog_id);
-        }
-
-        return $output;
-    }
-
-    /**
      * Возвращает сумму открытых заказов
      */
     public function getAmountOpenOrders($catalog_id = null)
     {
-        $open_orders = $this->openOrders($catalog_id)->get();
+        $open_orders = $this->orderedProducts($catalog_id)->get();
 
         if ($open_orders->count() < 1) {
             return 0;
@@ -121,7 +129,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $amount = 0;
 
         foreach ($open_orders as $order) {
-            $amount = $amount + $order->public_price * $order->quantity;
+            $amount = $amount + $order->price * $order->quantity;
         }
 
         return $amount;

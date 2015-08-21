@@ -23,7 +23,7 @@ Route::get('token', function(){
 
 Route::resource('order', 'OrderController');
 
-Route::post('deferred', 'DeferredController@store');
+Route::resource('deferred', 'DeferredController');
 
 Route::controller('basket', 'BasketController');
 

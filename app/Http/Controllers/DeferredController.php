@@ -16,7 +16,7 @@ class DeferredController extends Controller
      */
     public function index()
     {
-        //
+        return view('basket.deferred');
     }
 
     /**
@@ -33,7 +33,7 @@ class DeferredController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  Request  $request
-     * @return Response
+     * @return Response|null
      */
     public function store(Request $request)
     {
@@ -43,15 +43,24 @@ class DeferredController extends Controller
         $user = \Auth::user();
 
         if (!$user) {
-            return;
+            return null;
         }
 
-        $user->deferredProducts()->create([
-            'product_id' => $request->get('product_id')
+        $product_id = $request->get('product_id');
+
+        $product_model = \App\Models\Product::findOrFail($product_id);
+
+        $sql = 'INSERT IGNORE INTO ' . \App\Models\OrderedProduct::TABLE . ' (created_at, user_id, product_id, catalog_id, is_deferred) '
+            .'VALUES (now(), ?, ?, ?, 1)';
+
+        \DB::insert($sql, [
+            $user->id,
+            $product_id,
+            $product_model->catalog_id,
         ]);
 
         return [
-            'deferred_mini' => view('basket.deferred_mini_box')->render()
+            'basket_mini' => view('basket.mini_box')->render()
         ];
     }
 
@@ -97,6 +106,20 @@ class DeferredController extends Controller
      */
     public function destroy($id)
     {
-        //
+        /**
+         * @var $user \App\User
+         */
+        $user = \Auth::user();
+
+        if (!$user) {
+            return;
+        }
+
+        $user->deferredProducts()->findOrFail($id)->delete();
+
+        return [
+            'success' => true,
+            'basket_mini' => view('basket.mini_box')->render()
+        ];
     }
 }

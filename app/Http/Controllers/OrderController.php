@@ -33,20 +33,25 @@ class OrderController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  Request  $request
-     * @return Response
+     * @return Response|null
      */
     public function store(Request $request)
     {
-        $product_id = $request->get('product_id');
-
-        $product_model = \App\Models\Product::findOrFail($product_id);
-
         /**
          * @var $user \App\User
          */
         $user = \Auth::user();
 
-        $sql = 'INSERT INTO orders (user_id, product_id, catalog_id, public_price, quantity) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + ?';
+        if (!$user) {
+            return null;
+        }
+
+        $product_id = $request->get('product_id');
+
+        $product_model = \App\Models\Product::findOrFail($product_id);
+
+        $sql = 'INSERT INTO ' . \App\Models\OrderedProduct::TABLE . ' (created_at, user_id, product_id, catalog_id, price, quantity) '
+            .'VALUES (now(), ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + ?, updated_at = now()';
 
         $public_price = $product_model->getPublicPrice();
 
@@ -102,7 +107,7 @@ class OrderController extends Controller
          */
         $user = \Auth::user();
 
-        $order_model = $user->openOrders()->findOrFail($id);
+        $order_model = $user->orderedProducts()->findOrFail($id);
 
         $order_model->quantity = $request->get('quantity');
 
@@ -130,7 +135,7 @@ class OrderController extends Controller
             return;
         }
 
-        $user->openOrders()->findOrFail($id)->delete();
+        $user->orderedProducts()->findOrFail($id)->delete();
 
         return [
             'success' => true,

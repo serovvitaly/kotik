@@ -15,23 +15,4 @@ class Order extends Model
 
     protected $fillable = ['product_id', 'quantity', 'user_id'];
 
-    public function product()
-    {
-        return $this->belongsTo('\App\Models\Product');
-    }
-
-    public function getProductPublicPrice()
-    {
-        return $this->public_price;
-    }
-
-    public function getQuantity()
-    {
-        return $this->quantity;
-    }
-
-    public function getAmount()
-    {
-        return $this->getProductPublicPrice() * $this->getQuantity();
-    }
 }

@@ -45,11 +45,34 @@ class Product extends Model
         //
     }
 
+    /**
+     * Возвращает Публичную цену
+     * @return mixed
+     */
     public function getPublicPrice()
     {
         return $this->public_price;
     }
 
+    public function isOrdered()
+    {
+        /**
+         * Воозвращает true, если продукт Заказан для данного пользователя
+         * @var $user \App\User
+         */
+        $user = \Auth::user();
+
+        if (!$user) {
+            return false;
+        }
+
+        return (bool) $user->orderedProducts()->where('product_id', '=', $this->id)->count();
+    }
+
+    /**
+     * Воозвращает true, если продукт Отложен для данного пользователя
+     * @return bool
+     */
     public function isDeferred()
     {
         /**

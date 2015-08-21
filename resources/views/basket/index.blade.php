@@ -13,6 +13,7 @@ if (!isset($user)) {
 <?php
 $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
 ?>
+<div ng-controller="BasketController">
     <div class="row">
         <div class="col-lg-10">
             <ol class="breadcrumb">
@@ -59,7 +60,10 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
 
             @foreach($open_orders_catalogs_ids_arr as $open_orders_catalog_id)
             <?php
+
             $catalog_model = \App\Models\Catalog::find($open_orders_catalog_id);
+
+            $deferred_products = $user->deferredProducts()->get();
             ?>
             <div class="panel panel-default">
               <div class="panel-heading">
@@ -69,7 +73,9 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
                           <a href="#" class="glyphicon glyphicon-link"></a>
                       </div>
                       <div class="col-lg-3 text-right">
-                          <a href="#"><span class="glyphicon glyphicon-eye-close" style="padding-right: 5px"></span> <strong>5 отложенных товаров</strong></a>
+                          @if( count($deferred_products) > 0 )
+                          <a href="#"><span class="glyphicon glyphicon-eye-close" style="padding-right: 5px"></span> <strong>{{ count($deferred_products) }} отложенных товаров</strong></a>
+                          @endif
                       </div>
                   </div>
               </div>
@@ -110,13 +116,13 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
                   </thead>
                   <tbody>
 
-                  @foreach($user->openOrders($open_orders_catalog_id)->get() as $order)
+                  @foreach($user->orderedProducts($open_orders_catalog_id)->get() as $ordered_product)
                       <?php
-                      $image = $order->product->images()->first();
+                      $image = $ordered_product->product->images()->first();
                       ?>
-                      <tr id="order-item-{{ $order->id }}">
+                      <tr id="order-item-{{ $ordered_product->id }}">
                           <td>
-                              <a href="/prod-{{ $order->product->id }}"><strong>{{ $order->product->name }}</strong></a>
+                              <a href="/prod-{{ $ordered_product->product->id }}"><strong>{{ $ordered_product->product->name }}</strong></a>
                               <p>
                                   <button class="btn btn-xs btn-link">
                                       <span class="glyphicon glyphicon-menu-hamburger"></span> Информация о товаре
@@ -135,37 +141,37 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
                                                 @endif
                                           </div>
                                           <div class="media-body">
-                                              {{ str_limit($order->product->description, 140) }}
+                                              {{ str_limit($ordered_product->product->description, 140) }}
                                           </div>
                                       </div>
                                   </div>
                               </div>
                           </td>
                           <td style="text-align: right; padding-right: 30px;">
-                              <strong style="font-size: 16px; line-height: 30px;">{{ $order->getProductPublicPrice() }}</strong>
+                              <strong style="font-size: 16px; line-height: 30px;">{{ $ordered_product->getProductPublicPrice() }}</strong>
                               <span style="color: #49C2FF" class="glyphicon glyphicon-ruble" title="Рубли"></span>
                           </td>
                           <td>
                             <div class="input-group input-group-sm">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button" onclick="App.changeOrderQuantity({{ $order->id }}, -1, this);">
+                                    <button class="btn btn-default" type="button" onclick="App.changeOrderQuantity({{ $ordered_product->id }}, -1, this);">
                                         <span class="glyphicon glyphicon-minus"></span>
                                     </button>
                                 </span>
-                                <input type="text" class="form-control quantity-value" value="{{ $order->quantity }}" style="text-align: center">
+                                <input type="text" class="form-control quantity-value" value="{{ $ordered_product->quantity }}" style="text-align: center">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button" onclick="App.changeOrderQuantity({{ $order->id }}, +1, this);">
+                                    <button class="btn btn-default" type="button" onclick="App.changeOrderQuantity({{ $ordered_product->id }}, +1, this);">
                                         <span class="glyphicon glyphicon-plus"></span>
                                     </button>
                                 </span>
                             </div>
                           </td>
                           <td style="text-align: right">
-                              <strong style="font-size: 16px; line-height: 30px;">{{ $order->getAmount() }}</strong>
+                              <strong style="font-size: 16px; line-height: 30px;">{{ $ordered_product->getAmount() }}</strong>
                               <span style="color: #49C2FF" class="glyphicon glyphicon-ruble" title="Рубли"></span>
                           </td>
                           <td style="text-align: right">
-                              <button class="btn btn-danger btn-sm" onclick="App.deleteOrderFromBasket('{{ $order->id }}', this);">Удалить</button>
+                              <button class="btn btn-danger btn-sm" onclick="App.deleteOrderFromBasket('{{ $ordered_product->id }}', this);">Удалить</button>
                               <button class="btn btn-default btn-sm">Отложить</button>
                           </td>
                       </tr>
@@ -208,7 +214,7 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
             });
         })
     </script>
-
+</div>
 @else
     Корзина пользователя
 @endif
