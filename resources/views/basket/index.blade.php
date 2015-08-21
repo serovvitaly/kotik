@@ -62,7 +62,17 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
             $catalog_model = \App\Models\Catalog::find($open_orders_catalog_id);
             ?>
             <div class="panel panel-default">
-              <div class="panel-heading"><strong>{{ $catalog_model->purchase_title }}</strong> <a href="#" class="glyphicon glyphicon-link"></a></div>
+              <div class="panel-heading">
+                  <div class="row">
+                      <div class="col-lg-9">
+                          <strong>{{ $catalog_model->purchase_title }}</strong>
+                          <a href="#" class="glyphicon glyphicon-link"></a>
+                      </div>
+                      <div class="col-lg-3 text-right">
+                          <a href="#"><span class="glyphicon glyphicon-eye-close" style="padding-right: 5px"></span> <strong>5 отложенных товаров</strong></a>
+                      </div>
+                  </div>
+              </div>
               <div class="panel-body">
                 <p>Информация о закупке</p>
 
@@ -138,13 +148,13 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
                           <td>
                             <div class="input-group input-group-sm">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button" onclick="changeQuantityProductInBasket({{ $order->product->id }}, {{ $order->id }}, -1);">
+                                    <button class="btn btn-default" type="button" onclick="App.changeOrderQuantity({{ $order->id }}, -1, this);">
                                         <span class="glyphicon glyphicon-minus"></span>
                                     </button>
                                 </span>
                                 <input type="text" class="form-control quantity-value" value="{{ $order->quantity }}" style="text-align: center">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button" onclick="changeQuantityProductInBasket({{ $order->product->id }}, {{ $order->id }}, +1);">
+                                    <button class="btn btn-default" type="button" onclick="App.changeOrderQuantity({{ $order->id }}, +1, this);">
                                         <span class="glyphicon glyphicon-plus"></span>
                                     </button>
                                 </span>
@@ -155,7 +165,7 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
                               <span style="color: #49C2FF" class="glyphicon glyphicon-ruble" title="Рубли"></span>
                           </td>
                           <td style="text-align: right">
-                              <button class="btn btn-danger btn-sm" onclick="deleteOrderFromBasket('{{ $order->id }}', this);">Удалить</button>
+                              <button class="btn btn-danger btn-sm" onclick="App.deleteOrderFromBasket('{{ $order->id }}', this);">Удалить</button>
                               <button class="btn btn-default btn-sm">Отложить</button>
                           </td>
                       </tr>
@@ -191,16 +201,6 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
     </div>
 
     <script type="text/javascript">
-        function changeQuantityProductInBasket(productId, orderId, top){
-            var inputEl = $('#order-item-'+orderId+' input.quantity-value');
-            var oldValue = inputEl.val() * 1;
-            var newValue = oldValue + top;
-            if (newValue < 1) {
-                return;
-            }
-            inputEl.val(newValue);
-            console.log(newValue);
-        }
         $(function () {
             $('[data-toggle="popover"]').popover({
                 html: true,

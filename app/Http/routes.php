@@ -17,6 +17,10 @@ Route::get('/', function () {
 
 });
 
+Route::get('token', function(){
+    return csrf_token();
+});
+
 Route::resource('order', 'OrderController');
 
 Route::post('deferred', 'DeferredController@store');

@@ -77,14 +77,14 @@
                                             Отложить
                                         </button>
                                         @else
-                                        <button class="btn btn-default" onclick="putProductInDeferred('{{ $product->id }}', this)">
+                                        <button class="btn btn-default" onclick="App.putProductInDeferred('{{ $product->id }}', this)">
                                             <span class="glyphicon glyphicon-tag"></span>
                                             Отложить
                                         </button>
                                         @endif
                                     </div>
                                     <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-success" onclick="putProductInBasket('{{ $product->id }}', 1, this)">
+                                        <button class="btn btn-success" onclick="App.putProductInBasket('{{ $product->id }}', 1, this)">
                                             <span class="glyphicon glyphicon-shopping-cart"></span>
                                             В корзину
                                         </button>

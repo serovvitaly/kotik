@@ -93,7 +93,7 @@
             <h4 style="text-align: center"><strong>{{ $product->getPublicPrice() }}</strong> руб.</h4>
             <div class="form-inline">
                 <input type="text" id="product-quantity-input-{{ $id }}" class="form-control" value="1" style="width: 70px; text-align: center">
-                <button type="button" class="btn btn-danger" onclick="putProductInBasket('{{ $id }}', $('#product-quantity-input-{{ $id }}').val())">
+                <button type="button" class="btn btn-danger" onclick="App.putProductInBasket('{{ $id }}', $('#product-quantity-input-{{ $id }}').val())">
                     <span class="glyphicon glyphicon-shopping-cart"></span> В корзину
                 </button>
             </div>

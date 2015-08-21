@@ -97,7 +97,20 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        /**
+         * @var $user \App\User
+         */
+        $user = \Auth::user();
+
+        $order_model = $user->openOrders()->findOrFail($id);
+
+        $order_model->quantity = $request->get('quantity');
+
+        $order_model->save();
+
+        return [
+            'basket_mini' => view('basket.mini_box')->render()
+        ];
     }
 
     /**
