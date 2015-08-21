@@ -12,7 +12,17 @@
             </ol>
         </div>
         <div class="col-lg-2">
-
+            @if(\Auth::user() and \Auth::user()->hasRole('moderator'))
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a target="_blank" href="/admin/{{ $product->catalog->id }}/product/{{ $product->id }}/edit">Изменить</a></li>
+                        <li><a target="_blank" href="#">Удалить</a></li>
+                    </ul>
+                </div>
+            @endif
         </div>
     </div>
 

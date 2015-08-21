@@ -98,7 +98,7 @@ class ProductController extends AdminController
     {
         return view('admin.catalog.product.edit_form', [
             'catalog_id' => $catalog_id,
-            'route_base_url' => 'product',
+            'route_base_url' => $catalog_id . '/product',
             'model_name' => '\App\Models\Product',
             'model_id' => $id
         ]);
@@ -111,7 +111,7 @@ class ProductController extends AdminController
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update($catalog_id, Request $request, $id)
     {
         /*if (!$this->user->can('product-edit')) {
             \App::abort(403, 'Access denied');
@@ -130,7 +130,8 @@ class ProductController extends AdminController
 
         if (array_key_exists('is_apply', $request_all)) {
             return view('admin.catalog.product.edit_form', [
-                'route_base_url' => 'product',
+                'catalog_id' => $catalog_id,
+                'route_base_url' => $catalog_id . '/product',
                 'model_name' => '\App\Models\Product',
                 'model_id' => $product_model->id
             ]);

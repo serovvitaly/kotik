@@ -49,4 +49,18 @@ class Product extends Model
     {
         return $this->public_price;
     }
+
+    public function isDeferred()
+    {
+        /**
+         * @var $user \App\User
+         */
+        $user = \Auth::user();
+
+        if (!$user) {
+            return false;
+        }
+
+        return (bool) $user->deferredProducts()->where('product_id', '=', $this->id)->count();
+    }
 }

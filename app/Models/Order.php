@@ -20,4 +20,18 @@ class Order extends Model
         return $this->belongsTo('\App\Models\Product');
     }
 
+    public function getProductPublicPrice()
+    {
+        return $this->public_price;
+    }
+
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    public function getAmount()
+    {
+        return $this->getProductPublicPrice() * $this->getQuantity();
+    }
 }

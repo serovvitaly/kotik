@@ -17,7 +17,9 @@ Route::get('/', function () {
 
 });
 
-Route::post('order', 'OrderController@store');
+Route::resource('order', 'OrderController');
+
+Route::post('deferred', 'DeferredController@store');
 
 Route::controller('basket', 'BasketController');
 

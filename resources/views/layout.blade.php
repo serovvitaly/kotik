@@ -36,12 +36,38 @@
             border-color: transparent #cecece #adadac;
             box-shadow: 0px 1px 2px rgba(1, 1, 0, 0.1);
         }
+        .dropdown-hover:hover .dropdown-menu{
+            display: block;
+        }
     </style>
 
     <script>
-        function putProductInBasket(productId, quantity){
+        function putProductInDeferred(productId, buttonEl){
+            if (buttonEl) {
+                var btn = $(buttonEl).button('loading');
+            }
+            $.ajax({
+                url: '/deferred',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    product_id: productId
+                },
+                success: function(data){
+                    $('#deferred-mini-box').html(data.deferred_mini);
+                    if (buttonEl) {
+                        btn.button('reset');
+                    }
+                }
+            });
+        }
+        function putProductInBasket(productId, quantity, buttonEl){
             if (quantity < 1) {
                 quantity = 1;
+            }
+            if (buttonEl) {
+                var btn = $(buttonEl).button('loading');
             }
             $.ajax({
                 url: '/order',
@@ -53,8 +79,26 @@
                     quantity: quantity
                 },
                 success: function(data){
-                    console.log(data);
                     $('#basket-mini-box').html(data.basket_mini);
+                    if (buttonEl) {
+                        btn.button('reset');
+                    }
+                }
+            });
+        }
+        function deleteOrderFromBasket(orderId, buttonEl){
+            if (buttonEl) {
+                var btn = $(buttonEl).button('loading');
+            }
+            $.ajax({
+                url: '/order/' + orderId + '?_token={{ csrf_token() }}',
+                type: 'DELETE',
+                success: function(data){
+                    $('#basket-mini-box').html(data.basket_mini);
+                    if (buttonEl) {
+                        btn.button('reset');
+                    }
+                    $('#order-item-'+orderId).remove();
                 }
             });
         }
@@ -91,7 +135,7 @@
 
                 <div class="row">
                     <div class="col-lg-2">
-                        <div class="btn-group btn-block">
+                        <div class="btn-group btn-block dropdown-hover">
                             <button type="button" class="btn btn-danger dropdown-toggle btn-block" data-toggle="dropdown">
                                 Каталог товаров
                                 <span style="padding-left: 13px" class="glyphicon glyphicon-menu-hamburger"></span>

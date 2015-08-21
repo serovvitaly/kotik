@@ -61,6 +61,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
+     * Возвращает отношение к "Отложенным" продуктам
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function deferredProducts()
+    {
+        return $this->hasMany('\App\Models\Deferred');
+    }
+
+    /**
      * Возвращает массив ID каталогов, для которых есть открытые заказы
      * @return array
      */
@@ -117,4 +126,5 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
         return $amount;
     }
+
 }

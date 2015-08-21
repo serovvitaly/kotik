@@ -14,7 +14,7 @@
 
     ?>
 
-    <div class="row" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
         <div class="col-lg-2">
             <strong>Брэнд</strong>
             <p>
@@ -23,13 +23,13 @@
         </div>
         <div class="col-lg-10">
             <div class="row" id="catalog-list">
-                @foreach($products_by_columns as $column)
+                @foreach($products_by_columns as $column_products)
                 <div class="col-lg-3">
-                @foreach($column as $product)
+                @foreach($column_products as $product)
                     <?php
                         $image = $product->images()->first();
-                        ?>
-                    <div>
+                    ?>
+                    <div class="ct-product-item">
                         <div class="thumbnail">
 
                             @if(\Auth::user() and \Auth::user()->hasRole('moderator'))
@@ -69,6 +69,27 @@
                                 <p>
                                     <h4 style="text-align: center"><strong>{{ $product->getPublicPrice() }}</strong> руб.</h4>
                                 </p>
+                                <div class="btn-group btn-group-justified">
+                                    <div class="btn-group btn-group-sm">
+                                        @if($product->isDeferred())
+                                        <button class="btn btn-default disabled" title="Этот товар уже есть в отложенных">
+                                            <span class="glyphicon glyphicon-tag"></span>
+                                            Отложить
+                                        </button>
+                                        @else
+                                        <button class="btn btn-default" onclick="putProductInDeferred('{{ $product->id }}', this)">
+                                            <span class="glyphicon glyphicon-tag"></span>
+                                            Отложить
+                                        </button>
+                                        @endif
+                                    </div>
+                                    <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-success" onclick="putProductInBasket('{{ $product->id }}', 1, this)">
+                                            <span class="glyphicon glyphicon-shopping-cart"></span>
+                                            В корзину
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

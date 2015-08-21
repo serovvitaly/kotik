@@ -7,3 +7,5 @@
 /composer.lock
 /.sass-cache/
 /database/kotik.sql
+/database/mysqldump.sh
+/database/mysqlload.sh

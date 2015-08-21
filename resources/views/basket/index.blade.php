@@ -51,6 +51,12 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
                 </div>
             </div>
 
+            <p>
+                <button class="btn btn-link">
+                    <span class="glyphicon glyphicon-menu-hamburger"></span> Отобразить информацию о всех товарах
+                </button>
+            </p>
+
             @foreach($open_orders_catalogs_ids_arr as $open_orders_catalog_id)
             <?php
             $catalog_model = \App\Models\Catalog::find($open_orders_catalog_id);
@@ -95,10 +101,38 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
                   <tbody>
 
                   @foreach($user->openOrders($open_orders_catalog_id)->get() as $order)
+                      <?php
+                      $image = $order->product->images()->first();
+                      ?>
                       <tr id="order-item-{{ $order->id }}">
-                          <td>{{ $order->product->name }}</td>
+                          <td>
+                              <a href="/prod-{{ $order->product->id }}"><strong>{{ $order->product->name }}</strong></a>
+                              <p>
+                                  <button class="btn btn-xs btn-link">
+                                      <span class="glyphicon glyphicon-menu-hamburger"></span> Информация о товаре
+                                  </button>
+                              </p>
+                              <div class="panel panel-default" style="margin: 0; display: none;">
+                                  <div class="panel-body">
+                                      <div class="media">
+                                          <div class="media-left">
+                                                @if(!$image)
+                                                    X
+                                                @elseif(empty($image->file_name))
+                                                    <img src="/media/images/64x64/empty?mid={{ $image->id }}" alt="" style="width: 64px; height: 64px;">
+                                                @else
+                                                    <img src="/media/images/64x64/{{ $image->file_name }}" alt="" style="width: 64px; height: 64px;">
+                                                @endif
+                                          </div>
+                                          <div class="media-body">
+                                              {{ str_limit($order->product->description, 140) }}
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </td>
                           <td style="text-align: right; padding-right: 30px;">
-                              <strong style="font-size: 16px; line-height: 30px;">{{ $order->public_price }}</strong>
+                              <strong style="font-size: 16px; line-height: 30px;">{{ $order->getProductPublicPrice() }}</strong>
                               <span style="color: #49C2FF" class="glyphicon glyphicon-ruble" title="Рубли"></span>
                           </td>
                           <td>
@@ -117,11 +151,11 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
                             </div>
                           </td>
                           <td style="text-align: right">
-                              <strong style="font-size: 16px; line-height: 30px;">{{ $order->public_price * $order->quantity }}</strong>
+                              <strong style="font-size: 16px; line-height: 30px;">{{ $order->getAmount() }}</strong>
                               <span style="color: #49C2FF" class="glyphicon glyphicon-ruble" title="Рубли"></span>
                           </td>
                           <td style="text-align: right">
-                              <button class="btn btn-danger btn-sm">Удалить</button>
+                              <button class="btn btn-danger btn-sm" onclick="deleteOrderFromBasket('{{ $order->id }}', this);">Удалить</button>
                               <button class="btn btn-default btn-sm">Отложить</button>
                           </td>
                       </tr>

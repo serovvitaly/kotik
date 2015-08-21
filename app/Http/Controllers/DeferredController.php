@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class OrderController extends Controller
+class DeferredController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,32 +37,21 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $product_id = $request->get('product_id');
-
-        $product_model = \App\Models\Product::findOrFail($product_id);
-
         /**
          * @var $user \App\User
          */
         $user = \Auth::user();
 
-        $sql = 'INSERT INTO orders (user_id, product_id, catalog_id, public_price, quantity) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + ?';
+        if (!$user) {
+            return;
+        }
 
-        $public_price = $product_model->getPublicPrice();
-
-        $quantity = $request->get('quantity');
-
-        \DB::insert($sql, [
-            $user->id,
-            $product_id,
-            $product_model->catalog_id,
-            $public_price,
-            $quantity,
-            $quantity,
+        $user->deferredProducts()->create([
+            'product_id' => $request->get('product_id')
         ]);
 
         return [
-            'basket_mini' => view('basket.mini_box')->render()
+            'deferred_mini' => view('basket.deferred_mini_box')->render()
         ];
     }
 
@@ -108,20 +97,6 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        /**
-         * @var $user \App\User
-         */
-        $user = \Auth::user();
-
-        if (!$user) {
-            return;
-        }
-
-        $user->openOrders()->findOrFail($id)->delete();
-
-        return [
-            'success' => true,
-            'basket_mini' => view('basket.mini_box')->render()
-        ];
+        //
     }
 }
