@@ -67,7 +67,29 @@ class OrderController extends Controller
         ]);
 
         return [
-            'basket_mini' => view('basket.mini_box')->render()
+            'calls' => [
+                [
+                    'call' => 'updateHtmlContext',
+                    'params' => [
+                        '#product-mini-item-'.$product_id,
+                        view('catalog.product_mini_item', ['product' => $product_model])->render()
+                    ]
+                ],
+                [
+                    'call' => 'updateHtmlContext',
+                    'params' => [
+                        '#basket-mini-box',
+                        view('basket.mini_box')->render()
+                    ]
+                ],
+                [
+                    'call' => 'updateHtmlContext',
+                    'params' => [
+                        '#basket-orders-container',
+                        view('basket.orders_items')->render()
+                    ],
+                ]
+            ]
         ];
     }
 
@@ -114,7 +136,29 @@ class OrderController extends Controller
         $order_model->save();
 
         return [
-            'basket_mini' => view('basket.mini_box')->render()
+            'calls' => [
+                [
+                    'call' => 'updateHtmlContext',
+                    'params' => [
+                        '#product-mini-item-'.$order_model->product_id,
+                        view('catalog.product_mini_item', ['product' => $order_model->product])->render()
+                    ]
+                ],
+                [
+                    'call' => 'updateHtmlContext',
+                    'params' => [
+                        '#basket-mini-box',
+                        view('basket.mini_box')->render()
+                    ]
+                ],
+                [
+                    'call' => 'updateHtmlContext',
+                    'params' => [
+                        '#basket-orders-container',
+                        view('basket.orders_items')->render()
+                    ],
+                ]
+            ]
         ];
     }
 
@@ -138,8 +182,22 @@ class OrderController extends Controller
         $user->orderedProducts()->findOrFail($id)->delete();
 
         return [
-            'success' => true,
-            'basket_mini' => view('basket.mini_box')->render()
+            'calls' => [
+                [
+                    'call' => 'updateHtmlContext',
+                    'params' => [
+                        '#basket-mini-box',
+                        view('basket.mini_box')->render()
+                    ]
+                ],
+                [
+                    'call' => 'updateHtmlContext',
+                    'params' => [
+                        '#basket-orders-container',
+                        view('basket.orders_items')->render()
+                    ],
+                ]
+            ]
         ];
     }
 }

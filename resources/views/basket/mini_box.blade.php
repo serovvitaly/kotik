@@ -32,11 +32,14 @@ $deferred_products = $user->deferredProducts()->get();
     </div>
     <div class="btn-group dropdown-hover">
         <button type="button" class="btn btn-info dropdown-toggle btn-block" data-toggle="dropdown" title="{{ $open_orders_count_str }}" style="width: 142px;">
-            <span class="glyphicon glyphicon-shopping-cart"></span>
             @if($open_orders->count() < 1)
+                <span class="glyphicon glyphicon-shopping-cart"></span>
                 Корзина пуста
             @else
-                {{ str_limit($open_orders_count_str, 13) }}
+                {{ $open_orders->count() }}
+                <span class="glyphicon glyphicon-shopping-cart"></span>
+                {{ $user->getAmountOpenOrders() }}
+                <span class="glyphicon glyphicon-ruble" title="Рубли"></span>
             @endif
         </button>
         <div class="list-group dropdown-menu dropdown-menu-right" style="padding: 0; border: 0; width: 181px">
@@ -49,11 +52,14 @@ $deferred_products = $user->deferredProducts()->get();
 @else
 <div class="btn-group btn-block dropdown-hover">
     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" title="{{ $open_orders_count_str }}">
-        <span class="glyphicon glyphicon-shopping-cart"></span>
         @if($open_orders->count() < 1)
+            <span class="glyphicon glyphicon-shopping-cart"></span>
             Корзина пуста
         @else
-            {{ str_limit($open_orders_count_str, 18) }}
+            {{ $open_orders->count() }}
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+            {{ $user->getAmountOpenOrders() }}
+            <span class="glyphicon glyphicon-ruble" title="Рубли"></span>
         @endif
     </button>
     <div class="list-group dropdown-menu" style="padding: 0; border: 0; width: 181px">

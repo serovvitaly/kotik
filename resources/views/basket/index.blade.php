@@ -10,9 +10,6 @@ if (!isset($user)) {
 }
 ?>
 @if($user)
-<?php
-$open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
-?>
     <div class="row">
         <div class="col-lg-10">
             <ol class="breadcrumb">
@@ -51,7 +48,7 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
                 </div>
             </div>
 
-            <div>
+            <div id="basket-orders-container">
                 @include('basket.orders_items')
             </div>
         </div>

@@ -1,12 +1,10 @@
-App = function(){
-
+Ajax = function(){
     this._token = null;
     this._token_updated_at = null;
-    this._token_expiration_msec = 1000 * 10;
-
+    this._token_expiration_msec = 1000 * 30;
+    this.CallsFns = Calls;
 }
-
-App.prototype.requestToken = function(){
+Ajax.prototype.requestToken = function(){
 
     var self = this;
 
@@ -22,8 +20,7 @@ App.prototype.requestToken = function(){
 
     return self._token;
 }
-
-App.prototype.getToken = function(){
+Ajax.prototype.getToken = function(){
 
     var self = this;
 
@@ -37,7 +34,62 @@ App.prototype.getToken = function(){
 
     return self._token;
 }
+Ajax.prototype.request = function(config){
 
+    var self = this;
+
+    config = $.extend({
+        dataType: 'json',
+        data: {},
+        beforeSuccess: function(data, textStatus, jqXHR){},
+        afterSuccess: function(data, textStatus, jqXHR){}
+    }, config);
+
+    config.data = $.extend(config.data, {
+        _token: self.getToken()
+    });
+
+    config.success = function(data, textStatus, jqXHR){
+
+        config.beforeSuccess(data, textStatus, jqXHR);
+
+        if (data.calls) {
+            self.calls(data.calls);
+        }
+
+        config.afterSuccess(data, textStatus, jqXHR);
+    }
+
+    $.ajax(config);
+}
+Ajax.prototype.calls = function(callsArr){
+
+    var self = this;
+
+    if (typeof callsArr != 'object') {
+        return;
+    }
+    if (callsArr.length < 1) {
+        return;
+    }
+
+    $.each(callsArr, function(index, item){
+        var func = (new Function('return ' + self.CallsFns[item.call]))();
+        func.apply(null, item.params);
+    });
+}
+
+var Calls = {
+    updateHtmlContext: function (selector, context) {
+        $(selector).html(context);
+    }
+};
+
+App = function(){
+
+    this.ajax = new Ajax();
+
+}
 App.prototype.putProductInDeferred = function(productId, buttonEl){
 
     var self = this;
@@ -45,23 +97,19 @@ App.prototype.putProductInDeferred = function(productId, buttonEl){
     if (buttonEl) {
         var btn = $(buttonEl).button('loading');
     }
-    $.ajax({
+    self.ajax.request({
         url: '/deferred',
         type: 'post',
-        dataType: 'json',
         data: {
-            _token: self.getToken(),
             product_id: productId
         },
-        success: function(data){
-            $('#basket-mini-box').html(data.basket_mini);
+        afterSuccess: function(data){
             if (buttonEl) {
                 btn.button('reset');
             }
         }
     });
 }
-
 App.prototype.putProductInBasket = function(productId, quantity, buttonEl){
 
     var self = this;
@@ -72,24 +120,20 @@ App.prototype.putProductInBasket = function(productId, quantity, buttonEl){
     if (buttonEl) {
         var btn = $(buttonEl).button('loading');
     }
-    $.ajax({
+    self.ajax.request({
         url: '/order',
         type: 'post',
-        dataType: 'json',
         data: {
-            _token: self.getToken(),
             product_id: productId,
             quantity: quantity
         },
-        success: function(data){
-            $('#basket-mini-box').html(data.basket_mini);
+        afterSuccess: function(data){
             if (buttonEl) {
                 btn.button('reset');
             }
         }
     });
 }
-
 App.prototype.deleteOrderFromBasket = function(orderId, buttonEl){
 
     var self = this;
@@ -97,22 +141,16 @@ App.prototype.deleteOrderFromBasket = function(orderId, buttonEl){
     if (buttonEl) {
         var btn = $(buttonEl).button('loading');
     }
-    $.ajax({
+    self.ajax.request({
         url: '/order/' + orderId,
         type: 'delete',
-        data: {
-            _token: self.getToken()
-        },
-        success: function(data){
-            $('#basket-mini-box').html(data.basket_mini);
+        afterSuccess: function(data){
             if (buttonEl) {
                 btn.button('reset');
             }
-            $('#order-item-'+orderId).remove();
         }
     });
 }
-
 App.prototype.dropDeferredProduct = function(deferredProductId, buttonEl){
 
     var self = this;
@@ -120,22 +158,16 @@ App.prototype.dropDeferredProduct = function(deferredProductId, buttonEl){
     if (buttonEl) {
         var btn = $(buttonEl).button('loading');
     }
-    $.ajax({
+    self.ajax.request({
         url: '/deferred/' + deferredProductId,
         type: 'delete',
-        data: {
-            _token: self.getToken()
-        },
-        success: function(data){
-            $('#basket-mini-box').html(data.basket_mini);
+        afterSuccess: function(data){
             if (buttonEl) {
                 btn.button('reset');
             }
-            $('#order-item-'+deferredProductId).remove();
         }
     });
 }
-
 App.prototype.changeOrderQuantity = function(orderId, shift, buttonEl){
 
     var self = this;
@@ -150,16 +182,13 @@ App.prototype.changeOrderQuantity = function(orderId, shift, buttonEl){
     if (buttonEl) {
         var btn = $(buttonEl).button('loading');
     }
-    $.ajax({
+    self.ajax.request({
         url: '/order/' + orderId,
         type: 'put',
-        dataType: 'json',
         data: {
-            _token: self.getToken(),
             quantity: newValue
         },
-        success: function(data){
-            $('#basket-mini-box').html(data.basket_mini);
+        afterSuccess: function(data){
             if (buttonEl) {
                 btn.button('reset');
             }
@@ -167,4 +196,4 @@ App.prototype.changeOrderQuantity = function(orderId, shift, buttonEl){
     });
 }
 
-var App = new App;
+var App = new App();

@@ -132,7 +132,49 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             $amount = $amount + $order->price * $order->quantity;
         }
 
-        return $amount;
+        return number_format($amount, 2, ',', '`');
+    }
+
+    /**
+     * Возвращает сумму открытых заказов
+     */
+    public function getAmountOpenOrdersAsString($catalog_id = null)
+    {
+        $open_orders = $this->orderedProducts($catalog_id)->get();
+
+        if ($open_orders->count() < 1) {
+            return 0;
+        }
+
+        $amount = 0;
+
+        foreach ($open_orders as $order) {
+            $amount = $amount + $order->price * $order->quantity;
+        }
+
+        $amount_as_string = \App\Helpers\CommonHelper::NumberToString($amount);
+
+        return $amount_as_string;
+    }
+
+    /**
+     * Возвращает общее количество всех продуктов в открытых заказах
+     */
+    public function getQuantityOpenOrders($catalog_id = null)
+    {
+        $open_orders = $this->orderedProducts($catalog_id)->get();
+
+        if ($open_orders->count() < 1) {
+            return 0;
+        }
+
+        $quantity = 0;
+
+        foreach ($open_orders as $order) {
+            $quantity += $order->quantity;
+        }
+
+        return $quantity;
     }
 
 }

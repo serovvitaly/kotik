@@ -21,6 +21,8 @@ Route::get('token', function(){
     return csrf_token();
 });
 
+Route::get('payment', 'PaymentController@getIndex');
+
 Route::resource('order', 'OrderController');
 
 Route::resource('deferred', 'DeferredController');

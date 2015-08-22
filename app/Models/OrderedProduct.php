@@ -19,7 +19,7 @@ class OrderedProduct extends Model
 
     public function getProductPublicPrice()
     {
-        return $this->price;
+        return number_format($this->price, 2, ',', '`');
     }
 
     public function getQuantity()
@@ -29,6 +29,8 @@ class OrderedProduct extends Model
 
     public function getAmount()
     {
-        return $this->getProductPublicPrice() * $this->getQuantity();
+        $amount = $this->price * $this->quantity;
+
+        return number_format($amount, 2, ',', '`');
     }
 }

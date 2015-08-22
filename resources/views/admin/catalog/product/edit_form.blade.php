@@ -201,6 +201,12 @@ function setCatalogId(catalogId){
     <div class="row">
         <div class="col-xs-2">
             <div class="form-group">
+                <label>Публичная цена</label>
+                <input type="test" class="form-control" name="public_price" value="{{ $model->public_price or \Input::get('public_price') }}">
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="form-group">
                 <label>Цена >15 т.р.</label>
                 <input type="test" class="form-control" name="price_1" value="{{ $model->price_1 or \Input::get('price_1') }}">
             </div>

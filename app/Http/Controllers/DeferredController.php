@@ -60,7 +60,29 @@ class DeferredController extends Controller
         ]);
 
         return [
-            'basket_mini' => view('basket.mini_box')->render()
+            'calls' => [
+                [
+                    'call' => 'updateHtmlContext',
+                    'params' => [
+                        '#product-mini-item-'.$product_id,
+                        view('catalog.product_mini_item', ['product' => $product_model])->render()
+                    ]
+                ],
+                [
+                    'call' => 'updateHtmlContext',
+                    'params' => [
+                        '#basket-mini-box',
+                        view('basket.mini_box')->render()
+                    ]
+                ],
+                [
+                    'call' => 'updateHtmlContext',
+                    'params' => [
+                        '#basket-orders-container',
+                        view('basket.orders_items')->render()
+                    ],
+                ]
+            ]
         ];
     }
 
@@ -118,8 +140,22 @@ class DeferredController extends Controller
         $user->deferredProducts()->findOrFail($id)->delete();
 
         return [
-            'success' => true,
-            'basket_mini' => view('basket.mini_box')->render()
+            'calls' => [
+                [
+                    'call' => 'updateHtmlContext',
+                    'params' => [
+                        '#basket-mini-box',
+                        view('basket.mini_box')->render()
+                    ]
+                ],
+                [
+                    'call' => 'updateHtmlContext',
+                    'params' => [
+                        '#deferred-products-container',
+                        view('basket.deferred_items')->render()
+                    ],
+                ]
+            ]
         ];
     }
 }

@@ -42,6 +42,16 @@
         .dropdown-hover:hover .dropdown-menu{
             display: block;
         }
+        .borders{
+            border-top: 1px solid;
+            margin-top: 16px;
+            text-align: center;
+            font-size: 74%;
+        }
+        .table-borderless td,
+        .table-borderless th{
+            border: 0 !important
+        }
     </style>
 
 </head>

@@ -1,9 +1,18 @@
+<?php
+/**
+ * @var $user \App\User
+ */
+if (!isset($user)) {
+    $user = \App\Helpers\CommonHelper::getCurrentUser();
+}
+$open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
+?>
+
 <p>
     <button class="btn btn-link">
         <span class="glyphicon glyphicon-menu-hamburger"></span> Отобразить информацию о всех товарах
     </button>
-    <button class="btn btn-default">Отложенные товары</button>
-    <button class="btn btn-default">История</button>
+    <a href="/deferred" class="btn btn-default">Отложенные товары</a>
 </p>
 
 @foreach($open_orders_catalogs_ids_arr as $open_orders_catalog_id)
@@ -38,7 +47,7 @@
                 </div>
                 <div class="col-lg-6">
                     <button class="btn btn-default" data-toggle="popover" data-placement="top" data-trigger="focus">
-                        Отказаться от заказа
+                        Отказаться от всех товаров в закупке
                     </button>
                     <button class="btn btn-success">
                         <span class="glyphicon glyphicon-thumbs-up"></span>
@@ -134,10 +143,10 @@
                     <strong style="font-size: 17px; line-height: 30px;">Итого в закупке:</strong>
                 </div>
                 <div class="col-lg-1" style="text-align: left">
-                    <strong style="font-size: 16px; line-height: 30px;">8шт. на</strong>
+                    <strong style="font-size: 16px; line-height: 30px;">{{ $user->getQuantityOpenOrders($open_orders_catalog_id) }}шт. на</strong>
                 </div>
                 <div class="col-lg-1">
-                    <strong style="font-size: 16px; line-height: 30px;">9950000</strong>
+                    <strong style="font-size: 16px; line-height: 30px;">{{ $user->getAmountOpenOrders($open_orders_catalog_id) }}</strong>
                     <span style="color: #49C2FF" class="glyphicon glyphicon-ruble" title="Рубли"></span>
                 </div>
             </div>
