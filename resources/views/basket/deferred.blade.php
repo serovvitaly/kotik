@@ -88,12 +88,24 @@
                                                 <strong style="font-size: 16px; line-height: 30px;">{{ $ordered_product->getProductPublicPrice() }}</strong>
                                                 <span style="color: #49C2FF" class="glyphicon glyphicon-ruble" title="Рубли"></span>
                                             </td>
-                                            <td style="text-align: right">
-                                                <button class="btn btn-danger btn-sm" onclick="App.dropDeferredProduct('{{ $ordered_product->id }}', this);">Удалить</button>
-                                                <button class="btn btn-success btn-sm">
-                                                    <span class="glyphicon glyphicon-shopping-cart"></span>
-                                                    В корзину
-                                                </button>
+                                            <td>
+                                                <div class="btn-group btn-group-justified">
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-danger btn-sm" onclick="App.dropDeferredProduct('{{ $ordered_product->id }}', this);">Удалить</button>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        @if( $ordered_product->product->isOrdered() )
+                                                            <a href="/basket" class="btn btn-default btn-sm" title="Товар уже в корзине">
+                                                                В корзине
+                                                            </a>
+                                                        @else
+                                                            <button class="btn btn-success btn-sm" onclick="App.putProductInBasket('{{ $ordered_product->product_id }}', 1, this)">
+                                                                <span class="glyphicon glyphicon-shopping-cart"></span>
+                                                                В корзину
+                                                            </button>
+                                                        @endif
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

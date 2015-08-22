@@ -63,7 +63,7 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
 
             $catalog_model = \App\Models\Catalog::find($open_orders_catalog_id);
 
-            $deferred_products = $user->deferredProducts()->get();
+            $deferred_products = $user->deferredProducts($open_orders_catalog_id)->get();
             ?>
             <div class="panel panel-default">
               <div class="panel-heading">

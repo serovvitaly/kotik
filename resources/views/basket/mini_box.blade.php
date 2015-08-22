@@ -26,6 +26,7 @@ $deferred_products = $user->deferredProducts()->get();
 <div class="btn-group">
     <div class="btn-group">
         <a href="/deferred" class="btn btn-warning">
+            <span class="badge" style="position: absolute; margin: -4px 0px 0px -21px;">{{ count($deferred_products) }}</span>
             <span class="glyphicon glyphicon-star"></span>
         </a>
     </div>
@@ -38,7 +39,7 @@ $deferred_products = $user->deferredProducts()->get();
                 {{ str_limit($open_orders_count_str, 13) }}
             @endif
         </button>
-        <div class="list-group dropdown-menu" style="padding: 0; border: 0; width: 181px">
+        <div class="list-group dropdown-menu dropdown-menu-right" style="padding: 0; border: 0; width: 181px">
             <h5 style="color: black">{{ $open_orders_count_str }}</h5>
             <a href="/basket" class="list-group-item">Перейти в корзину</a>
         </div>

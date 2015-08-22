@@ -41,6 +41,7 @@
         <tr>
             <th>ID</th>
             <th>Наименование</th>
+            <th>Статус</th>
             <th>Брэнд</th>
             <th>Цена 1</th>
             <th>Цена 2</th>
@@ -53,6 +54,7 @@
             <tr>
                 <td>{{ $model_obj->id }}</td>
                 <td><a target="_blank" href="{{ $model_obj->source_url }}">{{ $model_obj->name }}</a></td>
+                <td>{!! $model_obj->status ? '<span class="label label-success">Активен</span>' : '<span class="label label-danger">Скрыт</span>' !!}</td>
                 <td>{{ $model_obj->brand }}</td>
                 <td>{{ $model_obj->price_1 }}</td>
                 <td>{{ $model_obj->price_2 }}</td>

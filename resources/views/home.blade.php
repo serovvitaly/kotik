@@ -8,7 +8,7 @@
                 $products = new \App\Models\Product;
             }
 
-            $products = $products->where('price_1', '>', 0)->paginate(20);
+            $products = $products->where('status', '>', 0)->where('price_1', '>', 0)->paginate(20);
 
             $products_by_columns = \App\Helpers\CatalogViewerHelper::breakOnColumns($products);
 
@@ -64,7 +64,7 @@
                                     <span class="label label-default">{{ $product->country_name }}</span>
                                 </div>
                                 <p style="line-height: 16px; text-align: center">
-                                    <small>{{ str_limit($product->description, 255) }}</small>
+                                    <small>{{ str_limit($product->description, 120) }}</small>
                                 </p>
                                 <p>
                                     <h4 style="text-align: center"><strong>{{ $product->getPublicPrice() }}</strong> руб.</h4>

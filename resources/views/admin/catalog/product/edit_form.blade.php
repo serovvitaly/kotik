@@ -122,6 +122,15 @@ function setCatalogId(catalogId){
                 </script>
             </div>
         </div>
+        <div class="col-xs-3">
+            <div class="form-group">
+                <label>Статус</label><br>
+                <select class="form-control" name="status">
+                    <option value="1" @if( $model->status == 1 ) selected @endif>Активен</option>
+                    <option value="0" @if( $model->status == 0 ) selected @endif>Скрыт</option>
+                </select>
+            </div>
+        </div>
     </div>
 
     <div class="form-group">
