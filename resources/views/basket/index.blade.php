@@ -13,7 +13,6 @@ if (!isset($user)) {
 <?php
 $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
 ?>
-<div ng-controller="BasketController">
     <div class="row">
         <div class="col-lg-10">
             <ol class="breadcrumb">
@@ -43,7 +42,7 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
                             <button class="btn btn-default btn-lg" data-toggle="popover" data-placement="top" data-trigger="focus">
                                 Отказаться от всех заказов
                             </button>
-                            <button class="btn btn-success btn-lg" ng-click="executeAllOrders()">
+                            <button class="btn btn-success btn-lg">
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                                 Оформить все заказы
                             </button>
@@ -52,7 +51,7 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
                 </div>
             </div>
 
-            <div ng-controller="OrdersItemsController">
+            <div>
                 @include('basket.orders_items')
             </div>
         </div>
@@ -73,7 +72,7 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
             });
         })
     </script>
-</div>
+
 @else
     Корзина пользователя
 @endif

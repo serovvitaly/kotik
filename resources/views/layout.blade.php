@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/frontend/base-styles.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+    {{--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>--}}
 
     <style>
         /*.navbar .dropdown-menu{*/
@@ -45,7 +45,7 @@
     </style>
 
 </head>
-<body ng-app="CortesApp" ng-controller="BodyController">
+<body>
 
 <div class="container">
     <div class="row">
@@ -115,7 +115,6 @@
 <div class="container">
     @yield('content')
 </div>
-
 {{--<script src="/public/Grid-A-Licious/jquery.grid-a-licious.min.js"></script>--}}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="/app.js"></script>

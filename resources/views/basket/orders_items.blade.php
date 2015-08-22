@@ -1,5 +1,5 @@
 <p>
-    <button class="btn btn-link" ng-click="toggleInfoForAllProducts()">
+    <button class="btn btn-link">
         <span class="glyphicon glyphicon-menu-hamburger"></span> Отобразить информацию о всех товарах
     </button>
     <button class="btn btn-default">Отложенные товары</button>
@@ -102,13 +102,13 @@
                     <td>
                         <div class="input-group input-group-sm">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button" ng-click="changeOrderQuantity({{ $ordered_product->id }}, -1, this);">
+                                    <button class="btn btn-default" type="button" onclick="App.changeOrderQuantity({{ $ordered_product->id }}, -1, this);">
                                         <span class="glyphicon glyphicon-minus"></span>
                                     </button>
                                 </span>
                             <input type="text" class="form-control quantity-value" value="{{ $ordered_product->quantity }}" style="text-align: center">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button" ng-click="changeOrderQuantity({{ $ordered_product->id }}, +1, this);">
+                                    <button class="btn btn-default" type="button" onclick="App.changeOrderQuantity({{ $ordered_product->id }}, +1, this);">
                                         <span class="glyphicon glyphicon-plus"></span>
                                     </button>
                                 </span>

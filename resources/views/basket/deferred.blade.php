@@ -13,7 +13,7 @@
         <?php
         $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
         ?>
-        <div ng-controller="BasketController">
+        <div>
             <div class="row">
                 <div class="col-lg-10">
                     <ol class="breadcrumb">
