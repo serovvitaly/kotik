@@ -30,7 +30,7 @@
         .dropdown-default a:hover{background: #bdc3c7 !important; color: white !important;}
 
         body{
-            background: #dfdfdf;
+            background: #F1F1F1;
         }
         .item .thumbnail{
             border-color: transparent #cecece #adadac;
@@ -128,5 +128,10 @@
 {{--<script src="/public/Grid-A-Licious/jquery.grid-a-licious.min.js"></script>--}}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="/app.js"></script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+</script>
 </body>
 </html>

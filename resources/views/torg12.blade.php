@@ -101,7 +101,7 @@ if (!isset($user)) {
 
             </div>
             <div class="col-lg-3 text-right">
-                <button class="btn btn-success btn-lg">Оплатить заказ</button>
+                <button class="btn btn-primary btn-lg">Оплатить заказ</button>
             </div>
         </div>
     </div>

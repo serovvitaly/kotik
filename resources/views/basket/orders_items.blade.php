@@ -13,6 +13,8 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
         <span class="glyphicon glyphicon-menu-hamburger"></span> Отобразить информацию о всех товарах
     </button>
     <a href="/deferred" class="btn btn-default">Отложенные товары</a>
+    <a href="/history" class="btn btn-default">История заказов</a>
+    <a href="/history" class="btn btn-primary" title="Список оплаченных заказов, ожидающих доставки" data-toggle="tooltip" data-placement="right">Оплаченные заказы</a>
 </p>
 
 @foreach($open_orders_catalogs_ids_arr as $open_orders_catalog_id)
