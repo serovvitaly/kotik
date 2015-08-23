@@ -32,6 +32,58 @@ class ProductController extends AdminController
     }
 
     /**
+     * @param Request $request
+     * @return array
+     */
+    public function search(Request $request)
+    {
+        $query = trim($request->get('query', ''));
+
+        $model_items = new \App\Models\Product;
+
+        if (!empty($query)) {
+            $model_items = $model_items->where('name', 'like', $query);
+        }
+
+        $html = view('admin.catalog.product.table', [
+            'route_base_url' => '/product',
+            'model_items' => $model_items->paginate(30)
+        ]);
+
+        return [
+            'html' => $html->render()
+        ];
+    }
+
+    /**
+     * Добавляет "Ссылку окнкурента" и возвращает таблицу ссылок конкурентов для продукта
+     * @param Request $request
+     * @return array
+     */
+    public function competitorLinkAdd(Request $request)
+    {
+        $product_id = $request->get('product_id');
+
+        $product_model = \App\Models\Product::findOrFail($product_id);
+
+        $competitor_link = \App\Helpers\CompetitorLinkHelper::do_url($request->get('url'));
+
+        $product_model->competitorsLinks()->create([
+            'url'   => $competitor_link->url,
+            'price' => $competitor_link->price,
+            'image' => $competitor_link->image
+        ]);
+
+        $html = view('admin.catalog.product.competitors_links_table', [
+            'product_id' => $product_id
+        ]);
+
+        return [
+            'html' => $html->render()
+        ];
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @param $catalog_id

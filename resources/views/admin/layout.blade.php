@@ -29,6 +29,26 @@
         }
     </style>
 
+    <script>
+        function searchProductByLike(inputEl, targetContainerEl){
+            $.ajax({
+                url: '/admin/product/search',
+                type: 'get',
+                dataType: 'json',
+                data: {
+                    query: $(inputEl).val()
+                },
+                success: function(data){
+                    if (!data.html) return;
+                    $(targetContainerEl).html(data.html);
+                }
+            });
+        }
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
 </head>
 <body>
 

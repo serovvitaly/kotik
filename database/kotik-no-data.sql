@@ -60,6 +60,25 @@ CREATE TABLE `categories` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `competitors_links`
+--
+
+DROP TABLE IF EXISTS `competitors_links`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `competitors_links` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(300) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `image` varchar(300) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `deferred_products`
 --
 
@@ -122,7 +141,7 @@ CREATE TABLE `media` (
   `source_url` varchar(255) DEFAULT NULL,
   `canvas_color` varchar(20) DEFAULT 'FFFFFF',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29766 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29774 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -162,7 +181,7 @@ CREATE TABLE `ordered_products` (
   `updated_at` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_user_product_deferred_status` (`user_id`,`product_id`,`is_deferred`,`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -280,7 +299,7 @@ CREATE TABLE `products` (
   `source_url` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `brand` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `country_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `weight` int(11) NOT NULL,
+  `weight` int(11) DEFAULT NULL,
   `measure_unit` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `in_stock` int(11) NOT NULL,
   `min_party` int(11) NOT NULL,
@@ -453,4 +472,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-23 15:06:07
+-- Dump completed on 2015-08-24  0:12:43

@@ -29,7 +29,7 @@ $image = $product->images()->first();
         </div>
         <div class="caption">
             <p style="text-align: center">
-                <a href="/prod-{{ $product->id }}" style="color: black"><strong style="line-height: 18px; padding-bottom: 5px;" title="{{ $product->name }}">{{ $product->name }}</strong></a>
+                <a href="/prod-{{ $product->id }}" style="color: black" class="text-mod" title="{{ $product->name }}">{{ $product->name }}</a>
             </p>
             <div style="padding: 5px 0; text-align: center">
                 <span class="label label-info" title="{{ $product->brand }}">{{ str_limit($product->brand, 28) }}</span>

@@ -36,6 +36,11 @@ class Product extends Model
         return $this->belongsTo('\App\Models\Catalog');
     }
 
+    public function competitorsLinks()
+    {
+        return $this->hasMany('\App\Models\CompetitorLink');
+    }
+
     public function setAttributeById($attribute_id, $value)
     {
         //

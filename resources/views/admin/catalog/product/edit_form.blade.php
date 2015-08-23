@@ -103,14 +103,14 @@ function setCatalogId(catalogId){
 
     <div class="form-group">
         <label>Наименование</label>
-        <input type="test" class="form-control" name="name" value="{{ $model->name or \Input::get('name') }}">
+        <input type="text" class="form-control" name="name" value="{{ $model->name or \Input::get('name') }}">
     </div>
 
     <div class="row">
         <div class="col-xs-3">
             <div class="form-group">
                 <label>Артикул</label>
-                <input type="test" class="form-control" name="article" value="{{ $model->article or \Input::get('article') }}">
+                <input type="text" class="form-control" name="article" value="{{ $model->article or \Input::get('article') }}">
             </div>
         </div>
         <div class="col-xs-3">
@@ -140,7 +140,7 @@ function setCatalogId(catalogId){
 
     <div class="form-group">
         <label>URL на сайте citynature.ru</label>
-        <input type="test" class="form-control" name="source_url" value="{{ $model->source_url or \Input::get('source_url') }}">
+        <input type="text" class="form-control" name="source_url" value="{{ $model->source_url or \Input::get('source_url') }}">
         <p class="help-block"><a target="_blank" href="{{ $model->source_url }}">{{ $model->source_url }}</a></p>
     </div>
 
@@ -148,19 +148,19 @@ function setCatalogId(catalogId){
         <div class="col-xs-4">
             <div class="form-group">
                 <label>Бренд</label>
-                <input type="test" class="form-control" name="brand" value="{{ $model->brand or \Input::get('brand') }}">
+                <input type="text" class="form-control" name="brand" value="{{ $model->brand or \Input::get('brand') }}">
             </div>
         </div>
         <div class="col-xs-4">
             <div class="form-group">
                 <label>Страна</label>
-                <input type="test" class="form-control" name="country_name" value="{{ $model->country_name or \Input::get('country_name') }}">
+                <input type="text" class="form-control" name="country_name" value="{{ $model->country_name or \Input::get('country_name') }}">
             </div>
         </div>
         <div class="col-xs-4">
             <div class="form-group">
                 <label>Линейка товаров</label>
-                <input type="test" class="form-control" name="product_line" value="{{ $model->product_line or \Input::get('product_line') }}">
+                <input type="text" class="form-control" name="product_line" value="{{ $model->product_line or \Input::get('product_line') }}">
             </div>
         </div>
     </div>
@@ -169,7 +169,7 @@ function setCatalogId(catalogId){
         <div class="col-xs-2">
             <div class="form-group">
                 <label>Объем/вес</label>
-                <input type="test" class="form-control" name="weight" value="{{ $model->weight or \Input::get('weight') }}">
+                <input type="text" class="form-control" name="weight" value="{{ $model->weight or \Input::get('weight') }}">
             </div>
         </div>
         <div class="col-xs-2">
@@ -187,13 +187,13 @@ function setCatalogId(catalogId){
         <div class="col-xs-2">
             <div class="form-group">
                 <label>В наличии</label>
-                <input type="test" class="form-control" name="in_stock" value="{{ $model->in_stock or \Input::get('in_stock') }}">
+                <input type="text" class="form-control" name="in_stock" value="{{ $model->in_stock or \Input::get('in_stock') }}">
             </div>
         </div>
         <div class="col-xs-2">
             <div class="form-group">
                 <label>Мин. партия</label>
-                <input type="test" class="form-control" name="min_party" value="{{ $model->min_party or \Input::get('min_party') }}">
+                <input type="text" class="form-control" name="min_party" value="{{ $model->min_party or \Input::get('min_party') }}">
             </div>
         </div>
     </div>
@@ -202,38 +202,51 @@ function setCatalogId(catalogId){
         <div class="col-xs-2">
             <div class="form-group">
                 <label>Публичная цена</label>
-                <input type="test" class="form-control" name="public_price" value="{{ $model->public_price or \Input::get('public_price') }}">
+                <input type="text" class="form-control" name="public_price" value="{{ $model->public_price or \Input::get('public_price') }}">
             </div>
         </div>
         <div class="col-xs-2">
             <div class="form-group">
                 <label>Цена >15 т.р.</label>
-                <input type="test" class="form-control" name="price_1" value="{{ $model->price_1 or \Input::get('price_1') }}">
+                <input type="text" class="form-control" name="price_1" value="{{ $model->price_1 or \Input::get('price_1') }}">
             </div>
         </div>
         <div class="col-xs-2">
             <div class="form-group">
                 <label>Цена >50 т.р.</label>
-                <input type="test" class="form-control" name="price_2" value="{{ $model->price_2 or \Input::get('price_2') }}">
+                <input type="text" class="form-control" name="price_2" value="{{ $model->price_2 or \Input::get('price_2') }}">
             </div>
         </div>
         <div class="col-xs-1">
             <div class="form-group">
                 <label>Наценка</label>
-                <input type="test" class="form-control" name="price_3" value="{{ ($model->price_1 > 0) ? ceil( ($model->price_1 - $model->price_2) / $model->price_1 * 100 ) : '' }} %" disabled>
+                <input type="text" class="form-control" name="price_3" value="{{ ($model->price_1 > 0) ? ceil( ($model->price_1 - $model->price_2) / $model->price_1 * 100 ) : '' }} %" disabled>
             </div>
         </div>
         <div class="col-xs-2">
             <div class="form-group">
                 <label>Цена >100 т.р.</label>
-                <input type="test" class="form-control" name="price_3" value="{{ $model->price_3 or \Input::get('price_3') }}">
+                <input type="text" class="form-control" name="price_3" value="{{ $model->price_3 or \Input::get('price_3') }}">
             </div>
         </div>
         <div class="col-xs-2">
             <div class="form-group">
                 <label>Цена >300 т.р.</label>
-                <input type="test" class="form-control" name="price_4" value="{{ $model->price_4 or \Input::get('price_4') }}">
+                <input type="text" class="form-control" name="price_4" value="{{ $model->price_4 or \Input::get('price_4') }}">
             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <label style="color: #0000C2">Ссылки конкурентов</label>
+
+            <input type="text" class="form-control" id="input-competitors-links" autocomplete="off">
+            <div id="competitors-links-container">
+                @include('admin.catalog.product.competitors_links_table', ['product_id' => $model_id])
+            </div>
+
         </div>
     </div>
 
@@ -290,6 +303,32 @@ function setCatalogId(catalogId){
     }
 
     $(function(){
+
+        $('#input-competitors-links').on('keypress', function(e){
+
+            if (e.keyCode != 13) return;
+
+            var url = $(this).val();
+
+            $(this).val('');
+
+            $.ajax({
+                url: '/admin/product/competitor-link-add',
+                type: 'get',
+                dataType: 'json',
+                data: {
+                    product_id: '{{ $model_id }}',
+                    url: url
+                },
+                success: function(data){
+                    if (!data.html) return;
+                    $('#competitors-links-container').html(data.html);
+                }
+            });
+
+            return false;
+        });
+
         $(".dropdown-menu > li > a.trigger").on("click",function(e){
             var current=$(this).next();
             var grandparent=$(this).parent().parent();

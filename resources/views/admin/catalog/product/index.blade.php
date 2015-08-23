@@ -32,47 +32,24 @@
 
     <h3>{{ $model_name }}</h3>
 
-    <div class="btn-toolbar" role="toolbar" style="margin-bottom: 10px">
-        <a class="btn btn-info" href="/admin/{{ $route_base_url }}/create">Добавить</a>
+    <div class="row">
+        <div class="col-lg-1">
+            <div class="btn-toolbar" role="toolbar" style="margin-bottom: 10px">
+                <a class="btn btn-info" href="/admin/{{ $route_base_url }}/create">Добавить</a>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="маска наименования товара" id="input-search-like">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" onclick="searchProductByLike('#input-search-like', '#products-target-container')">Go!</button>
+          </span>
+            </div><!-- /input-group -->
+        </div>
     </div>
 
-    <table class="table table-bordered table-striped table-hover table-condensed">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Наименование</th>
-            <th>Статус</th>
-            <th>Брэнд</th>
-            <th>Цена 1</th>
-            <th>Цена 2</th>
-            <th>Наценка</th>
-            <th style="width:154px;"></th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($model_items as $model_obj)
-            <tr>
-                <td>{{ $model_obj->id }}</td>
-                <td><a target="_blank" href="{{ $model_obj->source_url }}">{{ $model_obj->name }}</a></td>
-                <td>{!! $model_obj->status ? '<span class="label label-success">Активен</span>' : '<span class="label label-danger">Скрыт</span>' !!}</td>
-                <td>{{ $model_obj->brand }}</td>
-                <td>{{ $model_obj->price_1 }}</td>
-                <td>{{ $model_obj->price_2 }}</td>
-                <td>@if($model_obj->price_1 > 0){{ ceil( ($model_obj->price_1 - $model_obj->price_2) / $model_obj->price_1 * 100 ) }} % @endif</td>
-                <td>
-                    <form action="/admin/{{ $route_base_url }}/{{ $model_obj->id }}" method="post">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <a class="btn btn-primary btn-xs" href="/admin/{{ $route_base_url }}/{{ $model_obj->id }}/edit">Изменить</a>
-                        <button class="btn btn-danger btn-xs">Удалить</button>
-                    </form>
-
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-
-    {!! $model_items->render() !!}
+    <div id="products-target-container">
+        @include('admin.catalog.product.table')
+    </div>
 
 @endsection

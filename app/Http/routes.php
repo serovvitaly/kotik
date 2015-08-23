@@ -81,4 +81,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
     Route::resource('{catalog_id}/product', '\App\Http\Controllers\Admin\ProductController');
 
+    Route::resource('product/search', 'Admin\ProductController@search');
+    Route::resource('product/competitor-link-add', 'Admin\ProductController@competitorLinkAdd');
+
 });
