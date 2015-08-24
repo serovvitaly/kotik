@@ -85,5 +85,4 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
     Route::resource('product/search', 'Admin\ProductController@search');
     Route::resource('product/competitor-link-add', 'Admin\ProductController@competitorLinkAdd');
-
 });
