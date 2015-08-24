@@ -9,3 +9,6 @@
 /database/kotik.sql
 /database/mysqldump.sh
 /database/mysqlload.sh
+/node_modules
+Homestead.yaml
+Homestead.json
