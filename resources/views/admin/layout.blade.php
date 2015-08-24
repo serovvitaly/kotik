@@ -72,6 +72,8 @@
                     </ul>
                 </li>
                 <li><a href="/admin/catalog">Катиалоги</a></li>
+                <li><a href="/admin/brand">Брэнды</a></li>
+                <li><a href="/admin/product">Продукты</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

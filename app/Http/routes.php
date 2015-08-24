@@ -74,6 +74,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::resource('permission', '\App\Http\Controllers\Admin\PermissionController');
 
     Route::resource('catalog', '\App\Http\Controllers\Admin\CatalogController');
+    Route::resource('brand',  '\App\Http\Controllers\Admin\BrandController');
+    Route::resource('product',  '\App\Http\Controllers\Admin\NewProductController');
 
     Route::resource('{catalog_id}/template-purchase', '\App\Http\Controllers\Admin\TemplatePurchaseController');
 
