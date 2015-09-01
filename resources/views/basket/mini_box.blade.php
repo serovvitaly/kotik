@@ -5,7 +5,14 @@
 if (!isset($user)) {
     $user = \App\Helpers\CommonHelper::getCurrentUser();
 }
+
+$virtual_user = \App\Helpers\VirtualUserHelper::user();
+
 ?>
+
+@if($virtual_user)
+    <button class="btn btn-default">{{ $virtual_user->name }}</button>
+@endif
 
 @if(!$user)
     <a href="/auth/login">Авторизация</a> | <a href="/auth/register">Регистрация</a>

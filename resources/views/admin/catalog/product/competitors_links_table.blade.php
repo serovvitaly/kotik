@@ -2,8 +2,9 @@
 /**
  * @var $product_model \App\Models\Product
  */
-$product_model = \App\Models\Product::findOrFail($product_id);
+$product_model = \App\Models\Product::find($product_id);
 ?>
+@if($product_model)
 <table class="table">
     <tbody>
     @foreach($product_model->competitorsLinks()->get() as $competitor_link)
@@ -15,3 +16,4 @@ $product_model = \App\Models\Product::findOrFail($product_id);
     @endforeach
     </tbody>
 </table>
+@endif

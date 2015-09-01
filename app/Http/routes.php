@@ -1,21 +1,28 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+Route::group(['middleware' => 'virtual_session'], function(){
 
-Route::get('/', function () {
+    Route::get('/', function () {
 
-    return view('home');
+        return view('home');
 
+    });
+
+    Route::get('prod-{product_id}', function ($product_id) {
+
+        $product_model = \App\Models\Product::findOrFail($product_id);
+
+        $data = $product_model->toArray();
+
+        $data['product'] = $product_model;
+
+        $data['images'] = $product_model->images;
+
+        return view('prod', $data);
+    });
 });
+
+
 
 Route::get('token', function(){
     return csrf_token();
@@ -36,18 +43,7 @@ Route::get('cat-{category_id}', function ($category_id) {
     return view('home', ['products' => $products]);
 });
 
-Route::get('prod-{product_id}', function ($product_id) {
 
-    $product_model = \App\Models\Product::findOrFail($product_id);
-
-    $data = $product_model->toArray();
-
-    $data['product'] = $product_model;
-
-    $data['images'] = $product_model->images;
-
-    return view('prod', $data);
-});
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');

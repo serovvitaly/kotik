@@ -16,7 +16,7 @@ class NewProductController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.product.index');
     }
 
     /**
@@ -26,7 +26,7 @@ class NewProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.product.edit_form');
     }
 
     /**
