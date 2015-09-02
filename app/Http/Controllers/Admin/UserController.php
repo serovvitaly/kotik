@@ -15,7 +15,7 @@ class UserController extends AdminController
      */
     public function index()
     {
-        if (!$this->user->can('user-view')) {
+        if (!$this->user->userCan('user-view')) {
             \App::abort(403, 'Access denied');
         }
 
@@ -32,7 +32,7 @@ class UserController extends AdminController
      */
     public function create()
     {
-        if (!$this->user->can('user-create')) {
+        if (!$this->user->userCan('user-create')) {
             \App::abort(403, 'Access denied');
         }
 
@@ -50,7 +50,7 @@ class UserController extends AdminController
      */
     public function store(Request $request)
     {
-        if (!$this->user->can('user-create')) {
+        if (!$this->user->userCan('user-create')) {
             \App::abort(403, 'Access denied');
         }
 
@@ -82,7 +82,7 @@ class UserController extends AdminController
      */
     public function edit($id)
     {
-        if (!$this->user->can('user-edit')) {
+        if (!$this->user->userCan('user-edit')) {
             \App::abort(403, 'Access denied');
         }
 
@@ -103,7 +103,7 @@ class UserController extends AdminController
      */
     public function update(Request $request, $id)
     {
-        if (!$this->user->can('user-edit')) {
+        if (!$this->user->userCan('user-edit')) {
             \App::abort(403, 'Access denied');
         }
 
@@ -124,7 +124,7 @@ class UserController extends AdminController
      */
     public function destroy($id)
     {
-        if (!$this->user->can('user-delete')) {
+        if (!$this->user->userCan('user-delete')) {
             \App::abort(403, 'Access denied');
         }
 

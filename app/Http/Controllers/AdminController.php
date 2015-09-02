@@ -15,7 +15,7 @@ abstract class AdminController extends Controller
     {
         $this->user = \Auth::user();
 
-        if (!$this->user->can('adminka-access')) {
+        if (!$this->user->userCan('adminka-access')) {
             \App::abort(403, 'Access denied');
         }
 

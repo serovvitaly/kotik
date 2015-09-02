@@ -15,7 +15,7 @@ class PermissionController extends AdminController
      */
     public function index()
     {
-        if (!$this->user->can('permission-view')) {
+        if (!$this->user->userCan('permission-view')) {
             \App::abort(403, 'Access denied');
         }
 
@@ -32,7 +32,7 @@ class PermissionController extends AdminController
      */
     public function create()
     {
-        if (!$this->user->can('permission-create')) {
+        if (!$this->user->userCan('permission-create')) {
             \App::abort(403, 'Access denied');
         }
 
@@ -50,7 +50,7 @@ class PermissionController extends AdminController
      */
     public function store(Request $request)
     {
-        if (!$this->user->can('permission-create')) {
+        if (!$this->user->userCan('permission-create')) {
             \App::abort(403, 'Access denied');
         }
 
@@ -78,7 +78,7 @@ class PermissionController extends AdminController
      */
     public function edit($id)
     {
-        if (!$this->user->can('permission-edit')) {
+        if (!$this->user->userCan('permission-edit')) {
             \App::abort(403, 'Access denied');
         }
 
@@ -98,7 +98,7 @@ class PermissionController extends AdminController
      */
     public function update(Request $request, $id)
     {
-        if (!$this->user->can('permission-edit')) {
+        if (!$this->user->userCan('permission-edit')) {
             \App::abort(403, 'Access denied');
         }
 
@@ -117,7 +117,7 @@ class PermissionController extends AdminController
      */
     public function destroy($id)
     {
-        if (!$this->user->can('permission-delete')) {
+        if (!$this->user->userCan('permission-delete')) {
             \App::abort(403, 'Access denied');
         }
 

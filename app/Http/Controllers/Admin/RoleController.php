@@ -15,7 +15,7 @@ class RoleController extends AdminController
      */
     public function index()
     {
-        if (!$this->user->can('role-view')) {
+        if (!$this->user->userCan('role-view')) {
             \App::abort(403, 'Access denied');
         }
 
@@ -32,7 +32,7 @@ class RoleController extends AdminController
      */
     public function create()
     {
-        if (!$this->user->can('role-create')) {
+        if (!$this->user->userCan('role-create')) {
             \App::abort(403, 'Access denied');
         }
 
@@ -50,7 +50,7 @@ class RoleController extends AdminController
      */
     public function store(Request $request)
     {
-        if (!$this->user->can('role-create')) {
+        if (!$this->user->userCan('role-create')) {
             \App::abort(403, 'Access denied');
         }
 
@@ -80,7 +80,7 @@ class RoleController extends AdminController
      */
     public function edit($id)
     {
-        if (!$this->user->can('role-edit')) {
+        if (!$this->user->userCan('role-edit')) {
             \App::abort(403, 'Access denied');
         }
 
@@ -101,7 +101,7 @@ class RoleController extends AdminController
      */
     public function update(Request $request, $id)
     {
-        if (!$this->user->can('role-edit')) {
+        if (!$this->user->userCan('role-edit')) {
             \App::abort(403, 'Access denied');
         }
 
@@ -122,7 +122,7 @@ class RoleController extends AdminController
      */
     public function destroy($id)
     {
-        if (!$this->user->can('role-delete')) {
+        if (!$this->user->userCan('role-delete')) {
             \App::abort(403, 'Access denied');
         }
 

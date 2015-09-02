@@ -165,7 +165,7 @@ class ProductController extends AdminController
      */
     public function update($catalog_id, Request $request, $id)
     {
-        /*if (!$this->user->can('product-edit')) {
+        /*if (!$this->user->userCan('product-edit')) {
             \App::abort(403, 'Access denied');
         }*/
 
