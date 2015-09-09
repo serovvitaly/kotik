@@ -42,12 +42,23 @@ class ProductController extends AdminController
         $model_items = new \App\Models\Product;
 
         if (!empty($query)) {
-            $model_items = $model_items->where('name', 'like', $query);
+
+            $model_items = $model_items->where('name', 'like', '%' . $query . '%');
+        }
+
+        $model_items = $model_items->paginate(30);
+
+        foreach($model_items as $product_model){
+
+            $name = str_limit($product_model->name, 60);
+
+            $product_model->display_name = preg_replace('/('.$query.')/', '<strong>$1</strong>', $name);
+
         }
 
         $html = view('admin.catalog.product.table', [
             'route_base_url' => '/product',
-            'model_items' => $model_items->paginate(30)
+            'model_items' => $model_items
         ]);
 
         return [

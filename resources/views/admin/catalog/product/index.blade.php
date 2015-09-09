@@ -46,10 +46,25 @@
           </span>
             </div><!-- /input-group -->
         </div>
+        <div class="col-lg-1">
+
+        </div>
+        <div class="col-lg-1">
+            Записей: 
+        </div>
     </div>
 
     <div id="products-target-container">
         @include('admin.catalog.product.table')
     </div>
+
+    <script>
+        $(function () {
+
+            $('#input-search-like').on('keyup', function(){
+                searchProductByLike('#input-search-like', '#products-target-container');
+            });
+        })
+    </script>
 
 @endsection
