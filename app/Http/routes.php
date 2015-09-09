@@ -64,6 +64,8 @@ Route::group(['prefix' => 'media'], function() {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
+    Route::resource('product/search', 'Admin\ProductController@search');
+    
     Route::resource('/', '\App\Http\Controllers\Admin\IndexController');
     Route::resource('user', '\App\Http\Controllers\Admin\UserController');
     Route::resource('role', '\App\Http\Controllers\Admin\RoleController');
@@ -79,6 +81,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
     Route::resource('{catalog_id}/product', '\App\Http\Controllers\Admin\ProductController');
 
-    Route::resource('product/search', 'Admin\ProductController@search');
     Route::resource('product/competitor-link-add', 'Admin\ProductController@competitorLinkAdd');
 });
