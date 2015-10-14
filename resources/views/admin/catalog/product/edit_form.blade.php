@@ -58,7 +58,7 @@ function setCatalogId(catalogId){
     {	content:"";
         border-bottom: 4px solid transparent;
         border-top: 4px solid transparent;
-        border-left: 4px solid orange;
+        border-left: 4px solid #2e6da4;
         display: inline-block;
         height: 0;
         opacity: 0.8;
@@ -70,7 +70,7 @@ function setCatalogId(catalogId){
     {	content:"";
         border-bottom: 4px solid transparent;
         border-top: 4px solid transparent;
-        border-right: 4px solid orange;
+        border-right: 4px solid #2e6da4;
         display: inline-block;
         height: 0;
         opacity: 0.8;

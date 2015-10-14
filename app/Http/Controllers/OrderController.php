@@ -135,6 +135,8 @@ class OrderController extends Controller
 
         $order_model->save();
 
+        $user = \App\Helpers\CommonHelper::getCurrentUser();
+
         return [
             'calls' => [
                 [
@@ -156,6 +158,13 @@ class OrderController extends Controller
                     'params' => [
                         '#basket-orders-container',
                         view('basket.orders_items')->render()
+                    ],
+                ],
+                [
+                    'call' => 'updateHtmlContext',
+                    'params' => [
+                        '#basket-total-sum',
+                        $user->getAmountOpenOrders()
                     ],
                 ]
             ]

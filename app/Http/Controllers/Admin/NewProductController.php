@@ -37,7 +37,25 @@ class NewProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request_all = $request->all();
+
+        var_dump($request_all); exit;
+
+        /*$request_all['price_1'] = str_replace(',', '.', $request_all['price_1']);
+        $request_all['price_2'] = str_replace(',', '.', $request_all['price_2']);
+        $request_all['price_3'] = str_replace(',', '.', $request_all['price_3']);
+        $request_all['price_4'] = str_replace(',', '.', $request_all['price_4']);*/
+
+        $product_model = \App\Models\Product::create($request_all);
+
+        if (array_key_exists('is_apply', $request_all)) {
+            return view('admin.product.edit_form', [
+                'model_name' => '\App\Models\ProductModel',
+                'model_id' => $product_model->id
+            ]);
+        }
+
+        return redirect("/admin/product");
     }
 
     /**
@@ -48,7 +66,7 @@ class NewProductController extends Controller
      */
     public function show($id)
     {
-        //
+        return 'show';
     }
 
     /**
@@ -59,7 +77,7 @@ class NewProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        return 'edit';
     }
 
     /**
@@ -71,7 +89,7 @@ class NewProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return 'update';
     }
 
     /**
@@ -82,6 +100,6 @@ class NewProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return 'destroy';
     }
 }

@@ -15,7 +15,7 @@
     @foreach($model_items as $model_obj)
         <tr>
             <td>{{ $model_obj->id }}</td>
-            <td><a target="_blank" href="{{ $model_obj->source_url }}" title="{{ $model_obj->name }}" data-toggle="tooltip">{{{ $model_obj->display_name }}}</a></td>
+            <td><a target="_blank" href="{{ $model_obj->source_url }}" title="{{ $model_obj->name }}" data-toggle="tooltip">{!! $model_obj->display_name !!}</a></td>
             <td>{!! $model_obj->status ? '<span class="label label-success">Активен</span>' : '<span class="label label-danger">Скрыт</span>' !!}</td>
             <td>{{ $model_obj->brand }}</td>
             <td>{{ $model_obj->getPublicPrice() }}</td>

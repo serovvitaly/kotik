@@ -23,11 +23,25 @@ class ProductController extends AdminController
             \App::abort(403, 'Access denied');
         }
 
+        $model_items = $catalog_model->products()->paginate(30);
+
+        foreach($model_items as $product_model){
+
+            if (empty($product_model->name)) {
+
+                continue;
+            }
+
+            $name = str_limit($product_model->name, 60);
+
+            $product_model->display_name = $name;
+        }
+
         return view('admin.catalog.product.index', [
             'catalog_id' => $catalog_id,
             'route_base_url' => $catalog_id . '/product',
             'model_name' => '\App\Models\Product',
-            'model_items' => $catalog_model->products()->paginate(30)
+            'model_items' => $model_items
         ]);
     }
 
@@ -50,11 +64,24 @@ class ProductController extends AdminController
 
         foreach($model_items as $product_model){
 
+            if (empty($product_model->name)) {
+
+                continue;
+            }
+
             $name = str_limit($product_model->name, 60);
 
-            $product_model->display_name = preg_replace('/('.$query.')/', '<strong>$1</strong>', $name);
+            if (empty($query)) {
 
+                $product_model->display_name = $name;
+
+            } else {
+
+                $product_model->display_name = preg_replace('/('.$query.')/iu', '<strong>$1</strong>', $name);
+
+            }
         }
+
 
         $html = view('admin.catalog.product.table', [
             'route_base_url' => '/product',
@@ -67,7 +94,7 @@ class ProductController extends AdminController
     }
 
     /**
-     * Добавляет "Ссылку окнкурента" и возвращает таблицу ссылок конкурентов для продукта
+     * Добавляет "Ссылку конкурента" и возвращает таблицу ссылок конкурентов для продукта
      * @param Request $request
      * @return array
      */
