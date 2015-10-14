@@ -205,6 +205,13 @@ class OrderController extends Controller
                         '#basket-orders-container',
                         view('basket.orders_items')->render()
                     ],
+                ],
+                [
+                    'call' => 'updateHtmlContext',
+                    'params' => [
+                        '#basket-total-sum',
+                        $user->getAmountOpenOrders()
+                    ],
                 ]
             ]
         ];
