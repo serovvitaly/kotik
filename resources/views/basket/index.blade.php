@@ -32,7 +32,7 @@ if (!isset($user)) {
                     <div class="row" style="text-align: right;">
                         <div class="col-lg-6">
                             Итого к оплате:
-                            {{ $user->getAmountOpenOrders() }}
+                            <span id="basket-total-sum">{{ $user->getAmountOpenOrders() }}</span>
                             <span style="color: #49C2FF" class="glyphicon glyphicon-ruble" title="Рубли"></span>
                         </div>
                         <div class="col-lg-6">

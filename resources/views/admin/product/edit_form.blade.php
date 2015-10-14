@@ -43,7 +43,7 @@ if ($model_id) {
     {	content:"";
         border-bottom: 4px solid transparent;
         border-top: 4px solid transparent;
-        border-left: 4px solid orange;
+        border-left: 4px solid #2e6da4;
         display: inline-block;
         height: 0;
         opacity: 0.8;
@@ -55,7 +55,7 @@ if ($model_id) {
     {	content:"";
         border-bottom: 4px solid transparent;
         border-top: 4px solid transparent;
-        border-right: 4px solid orange;
+        border-right: 4px solid #2e6da4;
         display: inline-block;
         height: 0;
         opacity: 0.8;
@@ -68,11 +68,11 @@ if ($model_id) {
     }
 </style>
 
-<h3>{{ ($model ?  $model->name : 'NEW \App\Models\ProductModel') }}</h3>
+<h3>{{ ($model->id ?  $model->name : 'NEW \App\Models\ProductModel') }}</h3>
 
-<form method="post" action="/admin/product/{{ ($model ? ('/' . $model->id) : '') }}">
+<form method="post" action="/admin/product/{{ ($model->id ? ('/' . $model->id) : '') }}">
 
-    @if($model)
+    @if($model->id)
         <input type="hidden" name="_method" value="PUT">
     @endif
 
