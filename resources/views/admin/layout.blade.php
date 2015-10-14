@@ -71,7 +71,7 @@
                         @if(\Auth::user()->hasRole('permissions_manager'))<li><a href="/admin/permission">Привилегии</a></li>@endif
                     </ul>
                 </li>
-                <li><a href="/admin/catalog">Катиалоги</a></li>
+                <li><a href="/admin/catalog">Каталоги</a></li>
                 <li><a href="/admin/brand">Брэнды</a></li>
                 <li><a href="/admin/product">Товары</a></li>
             </ul>
