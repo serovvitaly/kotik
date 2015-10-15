@@ -36,6 +36,8 @@ Route::resource('deferred', 'DeferredController');
 
 Route::controller('basket', 'BasketController');
 
+Route::controller('oauth', 'OAuthController');
+
 Route::get('cat-{category_id}', function ($category_id) {
 
     $products = \App\Models\Product::where('category_id', '=', $category_id);
