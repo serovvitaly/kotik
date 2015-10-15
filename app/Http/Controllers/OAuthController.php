@@ -11,8 +11,58 @@ namespace App\Http\Controllers;
 
 class OAuthController extends Controller
 {
+    public static function getOkUrl()
+    {
+        $oauth_params = [
 
-    public function getRegist()
+            /**
+             * Идентификатор Вашего приложения.
+             */
+            'client_id' => '5107050',
+
+            /**
+             * URI, на который будет передан code. URI должен посимвольно совпадать с одним из URI,
+             * зарегистрированных в настройках приложения. Часть после символа '?' (query) не учитывается при проверке.
+             * Тем не менее для передачи динамически изменяющихся данных рекомендуется использовать параметр state.
+             */
+            'redirect_uri' => 'http://dev.smag24.ru/oauth/redirect',
+
+            /**
+             * Внешний вид окна авторизации:
+             * w – (по умолчанию) стандартное окно для полной версии сайта;
+             * m – окно для мобильной авторизации;
+             * a – упрощённое окно для мобильной авторизации без шапки.
+             */
+            'layout' => 'w',
+
+            /**
+             * Запрашиваемые права приложения, разделённые символом «;».
+             * Для большинства приложений требуется по меньшей мере право VALUABLE_ACCESS,
+             * без которого доступ возможен только к методам users.getLoggedInUser и users.getCurrentUser.
+             * Право VALUABLE_ACCESS и многие другие необходимо запрашивать у администрации Одноклассников.
+             * Подробнее см. на странице Права приложения.
+             */
+            'scope' => '',
+
+            /**
+             * Тип ответа от сервера. Для серверной авторизации укажите: code.
+             */
+            'response_type' => 'code',
+
+            /**
+             * Параметр состояния. В неизменном виде пробрасывается в redirect_uri,
+             * позволяя передавать произвольные данные между разными фазами OAuth и защищаться от xsrf.
+             */
+            //'state'=> '',
+        ];
+
+        $oauth_url = "https://connect.ok.ru/oauth/authorize?" . http_build_query($oauth_params);
+
+        return $oauth_url;
+    }
+
+
+    public static function getVkUrl()
     {
         $oauth_params = [
 
@@ -59,11 +109,14 @@ class OAuthController extends Controller
             //'state'=> '',
         ];
 
-
-
         $oauth_url = 'https://oauth.vk.com/authorize?' . http_build_query($oauth_params);
 
-        return redirect($oauth_url);
+        return $oauth_url;
+    }
+
+    public function getRegist()
+    {
+        return redirect(self::getVkUrl());
     }
 
     public function getRedirect()
