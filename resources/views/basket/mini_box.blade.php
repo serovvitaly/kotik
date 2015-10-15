@@ -11,7 +11,7 @@ $virtual_user = \App\Helpers\VirtualUserHelper::user();
 ?>
 
 @if($virtual_user)
-    <button class="btn btn-default">{{ $virtual_user->name }}</button>
+    <!--button class="btn btn-default">{{ $virtual_user->name }}</button-->
 @endif
 
 @if(!$user)
