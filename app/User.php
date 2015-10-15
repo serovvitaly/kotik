@@ -64,6 +64,11 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany('App\Models\Catalog');
     }
 
+    public function offers()
+    {
+        return $this->hasMany('App\Models\Offer');
+    }
+
     /**
      * Возвращает отношение к "Отложенным" продуктам
      * @param null $catalog_id
