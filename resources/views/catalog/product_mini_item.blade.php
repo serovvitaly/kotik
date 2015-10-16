@@ -11,7 +11,7 @@ $image = $product->images()->first();
                         <span class="glyphicon glyphicon-cog"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a target="_blank" href="/admin/{{ $product->catalog->id }}/product/{{ $product->id }}/edit">Изменить</a></li>
+
                         <li><a target="_blank" href="#">Удалить</a></li>
                     </ul>
                 </div>
@@ -29,7 +29,7 @@ $image = $product->images()->first();
         </div>
         <div class="caption">
             <p style="text-align: center">
-                <a href="/prod-{{ $product->id }}" style="color: black" class="text-mod" title="{{ $product->name }}">{{ $product->name }}</a>
+                <a href="/prod-{{ $product->id }}" style="color: black" class="text-mod" title="{{ $product->title }}">{{ $product->title }}</a>
             </p>
             <div style="padding: 5px 0; text-align: center">
                 <span class="label label-info" title="{{ $product->brand }}">{{ str_limit($product->brand, 28) }}</span>

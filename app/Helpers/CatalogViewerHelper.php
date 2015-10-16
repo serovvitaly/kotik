@@ -12,6 +12,35 @@ namespace App\Helpers;
 class CatalogViewerHelper
 {
 
+    public static function getActualOffersProducts()
+    {
+        $sql = "select ps.product_id
+            from catalogs ct
+            join products_suggestions ps on ct.id = ps.catalog_id
+            where ct.status = 1 and ps.status = 1 limit 20";
+        $products_ids_obj_arr = \DB::select($sql);
+
+        if ( empty($products_ids_obj_arr) ) {
+
+            return [];
+        }
+
+        $products = [];
+
+        foreach ($products_ids_obj_arr as $product_obj) {
+
+            $products[] = \App\Models\Product::findOrFail($product_obj->product_id);
+        }
+
+        //print_r($products); exit;
+
+        return $products;
+
+        $products = \App\Models\Product::where('status', '>', 0)->where('price_1', '>', 0)->paginate(20);
+
+        return $products;
+    }
+
     public static function breakOnColumns($model_records, $num_columns = 4)
     {
         if (! count($model_records) ) {

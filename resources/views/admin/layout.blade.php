@@ -72,7 +72,7 @@
                     </ul>
                 </li>
                 <li><a href="/admin/catalog">Каталоги</a></li>
-                <li><a href="/admin/offer">Предложения</a></li>
+                <li><a href="/admin/offer">Торговые акции</a></li>
                 <li><a href="/admin/brand">Брэнды</a></li>
                 <li><a href="/admin/product">Товары</a></li>
             </ul>

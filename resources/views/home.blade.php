@@ -4,11 +4,7 @@
 
     <?php
 
-            if (!isset($products)) {
-                $products = new \App\Models\Product;
-            }
-
-            $products = $products->where('status', '>', 0)->where('price_1', '>', 0)->paginate(20);
+            $products = \App\Helpers\CatalogViewerHelper::getActualOffersProducts();
 
             $products_by_columns = \App\Helpers\CatalogViewerHelper::breakOnColumns($products);
 
@@ -31,8 +27,6 @@
                 </div>
                 @endforeach
             </div>
-
-            {!! $products->render() !!}
 
         </div>
     </div>

@@ -3,7 +3,7 @@
 @section('content')
 
     <?php
-    $model_items = \App\Models\ProductModel::paginate(30);
+    $model_items = \App\Models\Product::paginate(30);
     ?>
 
     <h3>Товары</h3>
@@ -25,7 +25,7 @@
     </div>
 
     <div id="products-target-container">
-        @include('admin.catalog.product.table')
+        @include('admin.product.table')
     </div>
 
 @endsection
