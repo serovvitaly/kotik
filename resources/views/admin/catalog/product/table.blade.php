@@ -5,9 +5,6 @@
         <th>Наименование</th>
         <th>Статус</th>
         <th>Брэнд</th>
-        <th>Цена</th>
-        <th>Цена опт</th>
-        <th>Наценка</th>
         <th style="width:154px;"></th>
     </tr>
     </thead>
@@ -15,16 +12,9 @@
     @foreach($model_items as $model_obj)
         <tr>
             <td>{{ $model_obj->id }}</td>
-            <td><a target="_blank" href="{{ $model_obj->source_url }}" title="{{ $model_obj->name }}" data-toggle="tooltip">{!! $model_obj->display_name !!}</a></td>
+            <td><a target="_blank" href="{{ $model_obj->source_url }}" title="{{ $model_obj->title }}" data-toggle="tooltip">{!! $model_obj->display_title !!}</a></td>
             <td>{!! $model_obj->status ? '<span class="label label-success">Активен</span>' : '<span class="label label-danger">Скрыт</span>' !!}</td>
             <td>{{ $model_obj->brand }}</td>
-            <td>{{ $model_obj->getPublicPrice() }}</td>
-            <td>{{ $model_obj->price_1 }}</td>
-            <td>
-                @if($model_obj->price_1 > 0)
-                    {{ ($model_obj->getPublicPrice() > 0) ? ceil( ($model_obj->getPublicPrice() - $model_obj->price_1) / $model_obj->getPublicPrice() * 100 ) . ' %' : '' }}
-                @endif
-            </td>
             <td>
                 <form action="/admin/{{ $route_base_url }}/{{ $model_obj->id }}" method="post">
                     <input type="hidden" name="_method" value="DELETE">

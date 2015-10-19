@@ -60,7 +60,7 @@ $deferred_products = $user->deferredProducts()->get();
 </div>
 @else
 <div class="btn-group btn-block dropdown-hover">
-    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" title="{{ $open_orders_count_str }}">
+    <button type="button" class="btn btn-info dropdown-toggle btn-block" data-toggle="dropdown" title="{{ $open_orders_count_str }}">
         @if($open_orders->count() < 1)
             <span class="glyphicon glyphicon-shopping-cart"></span>
             Корзина пуста
@@ -72,7 +72,7 @@ $deferred_products = $user->deferredProducts()->get();
         @endif
     </button>
     <div class="list-group dropdown-menu" style="padding: 0; border: 0; width: 181px">
-        <h5 style="color: black">{{ $open_orders_count_str }}</h5>
+        <h5 style="color: black; padding: 5px 15px;">{{ $open_orders_count_str }}</h5>
         <a href="/basket" class="list-group-item">Перейти в корзину</a>
         <a href="/deferred" class="list-group-item">Отложенные товары</a>
         <a href="/history" class="list-group-item">История заказов</a>

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    const TABLE_NAME = 'new_products';
+
     protected $table = 'new_products';
 
     protected $fillable = [
@@ -59,7 +61,7 @@ class Product extends Model
      */
     public function getPublicPrice()
     {
-        return $this->public_price;
+        return $this->current_price;
     }
 
     public function isOrdered()
@@ -93,5 +95,56 @@ class Product extends Model
         }
 
         return (bool) $user->deferredProducts()->where('product_id', '=', $this->id)->count();
+    }
+
+    /**
+     * Возвращает актуальные товарные предложения
+     */
+    public function getActualProductOffers()
+    {
+        $sql = "select co.offer_id, po.id as product_offer_id
+                from offers ofr
+                join catalog_offer co on co.offer_id = ofr.id
+                join catalogs ct on co.catalog_id = ct.id
+                join products_offers po on po.catalog_id = ct.id
+                join ".self::TABLE_NAME." p on po.product_id = p.id
+                where ofr.status = 1 and ct.status = 1 and po.status = 1 and po.product_id = :product_id";
+        $result = \DB::select($sql, ['product_id' => $this->id]);
+
+        if ( ! $result ) {
+
+            return [];
+        }
+
+        $output_arr = [];
+
+        foreach ($result as $row) {
+
+            $obj = new \stdClass();
+
+            /**
+             * @var \App\Models\Offer $offer_model
+             * @var \App\Models\ProductOffer $product_offer_model
+             */
+            $offer_model = \App\Models\Offer::findOrFail($row->offer_id);
+            $product_offer_model = \App\Models\ProductOffer::findOrFail($row->product_offer_id);
+
+            $obj->offer = $offer_model;
+            $obj->product_offer = $product_offer_model;
+
+            $obj->price = $product_offer_model->getPrice();
+
+            if ($offer_model->margin_percent > 0) {
+
+                $obj->price += $obj->price * $offer_model->margin_percent / 100;
+            }
+
+            $obj->price = round($obj->price, 2);
+
+            $output_arr[] = $obj;
+
+        }
+
+        return $output_arr;
     }
 }

@@ -27,14 +27,14 @@ class ProductController extends AdminController
 
         foreach($model_items as $product_model){
 
-            if (empty($product_model->name)) {
+            if (empty($product_model->title)) {
 
                 continue;
             }
 
-            $name = str_limit($product_model->name, 60);
+            $title = str_limit($product_model->title, 60);
 
-            $product_model->display_name = $name;
+            $product_model->display_title = $title;
         }
 
         return view('admin.catalog.product.index', [
@@ -53,31 +53,31 @@ class ProductController extends AdminController
     {
         $query = trim($request->get('query', ''));
 
-        $model_items = new \App\Models\Product;
+        $model_items = new \App\Models\ProductOffer;
 
         if (!empty($query)) {
 
-            $model_items = $model_items->where('name', 'like', '%' . $query . '%');
+            $model_items = $model_items->where('title', 'like', '%' . $query . '%');
         }
 
         $model_items = $model_items->paginate(30);
 
         foreach($model_items as $product_model){
 
-            if (empty($product_model->name)) {
+            if (empty($product_model->title)) {
 
                 continue;
             }
 
-            $name = str_limit($product_model->name, 60);
+            $title = str_limit($product_model->title, 60);
 
             if (empty($query)) {
 
-                $product_model->display_name = $name;
+                $product_model->display_title = $title;
 
             } else {
 
-                $product_model->display_name = preg_replace('/('.$query.')/iu', '<strong>$1</strong>', $name);
+                $product_model->display_title = preg_replace('/('.$query.')/iu', '<strong>$1</strong>', $title);
 
             }
         }

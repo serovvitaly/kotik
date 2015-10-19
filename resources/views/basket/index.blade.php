@@ -37,11 +37,11 @@ if (!isset($user)) {
                         </div>
                         <div class="col-lg-6">
                             <button class="btn btn-default btn-lg" data-toggle="popover" data-placement="top" data-trigger="focus">
-                                Отказаться от всех заказов
+                                Отказаться от всех закупок
                             </button>
                             <button class="btn btn-success btn-lg">
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
-                                Оформить все заказы
+                                Оформить все закупки
                             </button>
                         </div>
                     </div>

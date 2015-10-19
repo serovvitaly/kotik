@@ -14,7 +14,9 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
     </button>
     <a href="/deferred" class="btn btn-default">Отложенные товары</a>
     <a href="/history" class="btn btn-default">История заказов</a>
-    <a href="/history" class="btn btn-primary" title="Список оплаченных заказов, ожидающих доставки" data-toggle="tooltip" data-placement="right">Оплаченные заказы</a>
+    <a href="/history" class="btn btn-primary" title="Список оплаченных заказов, ожидающих доставки" data-toggle="tooltip" data-placement="right">
+        Мои заказы, ожидающие доставки
+    </a>
 </p>
 
 @foreach($open_orders_catalogs_ids_arr as $open_orders_catalog_id)
@@ -28,7 +30,7 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
         <div class="panel-heading">
             <div class="row">
                 <div class="col-lg-9">
-                    <strong>{{ $catalog_model->purchase_title }}</strong>
+                    <strong>Название закупки</strong>
                     <a href="#" class="glyphicon glyphicon-link"></a>
                 </div>
                 <div class="col-lg-3 text-right">
@@ -49,11 +51,11 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
                 </div>
                 <div class="col-lg-6">
                     <button class="btn btn-default" data-toggle="popover" data-placement="top" data-trigger="focus">
-                        Отказаться от всех товаров в закупке
+                        Отказаться от всех товаров в этой закупке
                     </button>
                     <button class="btn btn-success">
                         <span class="glyphicon glyphicon-thumbs-up"></span>
-                        Оформить заказ
+                        Оформить эту закупку
                     </button>
                 </div>
             </div>
@@ -76,12 +78,9 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
             <tbody>
 
             @foreach($user->orderedProducts($open_orders_catalog_id)->get() as $ordered_product)
-                <?php
-                $image = $ordered_product->product->images()->first();
-                ?>
                 <tr id="order-item-{{ $ordered_product->id }}">
                     <td>
-                        <a href="/prod-{{ $ordered_product->product->id }}"><strong>{{ $ordered_product->product->name }}</strong></a>
+                        <a href="/prod-#"><strong>Наименование товара</strong></a>
                         <p>
                             <button class="btn btn-xs btn-link">
                                 <span class="glyphicon glyphicon-menu-hamburger"></span> Информация о товаре
@@ -91,16 +90,10 @@ $open_orders_catalogs_ids_arr = $user->getOpenOrdersCatalogsIdsArr();
                             <div class="panel-body">
                                 <div class="media">
                                     <div class="media-left">
-                                        @if(!$image)
-                                            X
-                                        @elseif(empty($image->file_name))
-                                            <img src="/media/images/64x64/empty?mid={{ $image->id }}" alt="" style="width: 64px; height: 64px;">
-                                        @else
-                                            <img src="/media/images/64x64/{{ $image->file_name }}" alt="" style="width: 64px; height: 64px;">
-                                        @endif
+
                                     </div>
                                     <div class="media-body">
-                                        {{ str_limit($ordered_product->product->description, 140) }}
+                                        Описание продукта
                                     </div>
                                 </div>
                             </div>

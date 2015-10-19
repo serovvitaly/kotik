@@ -6,9 +6,7 @@
     <div class="col-lg-10">
         <ol class="breadcrumb small">
             <li><a href="/"><span class="glyphicon glyphicon-home"></span></a></li>
-            <li><a href="#">{{ $base_category_name }}</a></li>
-            <li><a href="#">{{ $category_name }}</a></li>
-            <li class="active">{{ $name }}</li>
+            <li class="active">{{ $title }}</li>
         </ol>
     </div>
     <div class="col-lg-2">
@@ -18,7 +16,7 @@
                     <span class="glyphicon glyphicon-cog"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a target="_blank" href="/admin/{{ $product->catalog->id }}/product/{{ $product->id }}/edit">Изменить</a></li>
+                    <li><a target="_blank" href="/admin/product/{{ $product->id }}/edit">Изменить</a></li>
                     <li><a target="_blank" href="#">Удалить</a></li>
                 </ul>
             </div>
@@ -28,7 +26,7 @@
 
 
     <div class="page-header">
-        <h1 class="font-etelka-medium" style="font-size: 32px;">{{ $name }}</h1>
+        <h1 class="font-etelka-medium" style="font-size: 32px;">{{ $title }}</h1>
     </div>
 
     <div class="row">
@@ -81,28 +79,12 @@
                 <span class="glyphicon glyphicon-star-empty" style="color: red"></span>
                 <span class="glyphicon glyphicon-star-empty"></span>
             </p>
-            <p>
-                <a href="#" title="Бренд"><span class="label label-default">{{ $brand }}</span></a>
-                <a href="#" title="Страна производитель"><span class="label label-default">{{ $country_name }}</span></a>
-                <br>
-                <a href="#" title="Категория"><span class="label label-primary">{{ $category_name }}</span></a>
-                <a href="#" title="Линейка товаров"><span class="label label-info">{{ $product_line }}</span></a>
-            </p>
-            @if($weight > 0)
-            <p>
-                <span title="Объем"><span class="glyphicon glyphicon-tint"></span> {{ $weight }} {{ $measure_unit }}.</span>
-            </p>
-            @endif
             <p>{{ $description }}</p>
-            <p>
-            <h4 style="text-align: center"><strong>{{ $product->getPublicPrice() }}</strong> руб.</h4>
-            <div class="form-inline">
-                <input type="text" id="product-quantity-input-{{ $id }}" class="form-control" value="1" style="width: 70px; text-align: center">
-                <button type="button" class="btn btn-danger" onclick="App.putProductInBasket('{{ $id }}', $('#product-quantity-input-{{ $id }}').val())">
-                    <span class="glyphicon glyphicon-shopping-cart"></span> В корзину
-                </button>
+
+            <div id="product-price-table" data-timestamp="{{ time() }}">
+                @include('product-price-table', ['product_id' => $product->id])
             </div>
-            </p>
+
         </div>
 
     </div>

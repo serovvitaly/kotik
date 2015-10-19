@@ -11,7 +11,7 @@ $image = $product->images()->first();
                         <span class="glyphicon glyphicon-cog"></span>
                     </button>
                     <ul class="dropdown-menu">
-
+                        <li><a target="_blank" href="/admin/product/{{ $product->id }}/edit">Изменить</a></li>
                         <li><a target="_blank" href="#">Удалить</a></li>
                     </ul>
                 </div>

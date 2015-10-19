@@ -14,9 +14,11 @@ class CatalogViewerHelper
 
     public static function getActualOffersProducts()
     {
+        return \App\Models\Product::where('status', '=', 1)->paginate(20);
+
         $sql = "select ps.product_id
             from catalogs ct
-            join products_suggestions ps on ct.id = ps.catalog_id
+            join products_offers ps on ct.id = ps.catalog_id
             where ct.status = 1 and ps.status = 1 limit 20";
         $products_ids_obj_arr = \DB::select($sql);
 

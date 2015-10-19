@@ -78,8 +78,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::resource('brand',  '\App\Http\Controllers\Admin\BrandController');
     Route::resource('product',  '\App\Http\Controllers\Admin\NewProductController');
 
-    Route::resource('{catalog_id}/template-purchase', '\App\Http\Controllers\Admin\TemplatePurchaseController');
-
     Route::resource('{catalog_id}/pricing-column', '\App\Http\Controllers\Admin\PricingColumnController');
 
     Route::resource('{catalog_id}/product', '\App\Http\Controllers\Admin\ProductController');
