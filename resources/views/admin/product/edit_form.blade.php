@@ -4,9 +4,9 @@
 
 $model_id = isset($model_id) ? intval($model_id) : null;
 if ($model_id) {
-    $model = \App\Models\ProductModel::findOrFail($model_id);
+    $model = \App\Models\Product::findOrFail($model_id);
 } else {
-    $model = new \App\Models\ProductModel;
+    $model = new \App\Models\Product;
 }
 
 ?>
@@ -68,7 +68,7 @@ if ($model_id) {
     }
 </style>
 
-<h3>{{ ($model->id ?  $model->name : 'NEW \App\Models\ProductModel') }}</h3>
+<h3>{{ ($model->id ?  $model->name : 'NEW \App\Models\Product') }}</h3>
 
 <form method="post" action="/admin/product/{{ ($model->id ? ('/' . $model->id) : '') }}">
 
