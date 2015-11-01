@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var \App\Models\Product $product
+ */
 $image = $product->images()->first();
 ?>
 <div class="ct-product-item" id="product-mini-item-{{ $product->id }}">
@@ -57,7 +60,7 @@ $image = $product->images()->first();
                 </div>
                 <div class="btn-group btn-group-sm">
                     @if($product->isOrdered())
-                        <button class="btn btn-info" onclick="App.putProductInBasket('{{ $product->id }}', 1, this)">
+                        <button class="btn btn-info" onclick="App.putProductInBasket('{{ $product->id }}-{{ $product }}', 1, this)">
                             <span class="glyphicon glyphicon-plus"></span>
                             Пополнить
                         </button>

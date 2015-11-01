@@ -56,6 +56,11 @@ class Product extends Command
         $this->info('update-count - обновление колличества предложений для товаров');
     }
 
+    public function action_update()
+    {
+        \App\Helpers\ProductHelper::makeProductsInPurchasesCollection();
+    }
+
     public function action_update_all()
     {
         \App\Helpers\ProductHelper::massUpdateProductsPrices();

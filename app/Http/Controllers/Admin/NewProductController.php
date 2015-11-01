@@ -50,7 +50,7 @@ class NewProductController extends Controller
 
         if (array_key_exists('is_apply', $request_all)) {
             return view('admin.product.edit_form', [
-                'model_name' => '\App\Models\ProductModel',
+                'model_name' => '\App\Models\Product',
                 'model_id' => $product_model->id
             ]);
         }

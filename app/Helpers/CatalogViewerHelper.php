@@ -14,6 +14,8 @@ class CatalogViewerHelper
 
     public static function getActualOffersProducts()
     {
+        return \App\Models\ProductInPurchase::paginate(20);
+
         return \App\Models\Product::where('status', '=', 1)->paginate(20);
 
         $sql = "select ps.product_id
